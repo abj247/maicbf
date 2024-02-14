@@ -332,9 +332,9 @@ def main():
     pickle.dump(traj_dict, open('trajectory/traj_eval.pkl', 'wb'))
     scene.write_trajectory('trajectory/env_traj_eval.pkl', traj_dict['ours'])
 
-    # control_input_1 = [u_step[0, 0] for u_step in u_values]  # First control input
-    # control_input_2 = [u_step[0, 1] for u_step in u_values]  # Second control input
-    # control_input_3 = [u_step[0, 2] for u_step in u_values]  # Third control input
+    # control_input_1 = [u_step[0, 0] for u_step in u_values]  
+    # control_input_2 = [u_step[0, 1] for u_step in u_values]  
+    # control_input_3 = [u_step[0, 2] for u_step in u_values]  
    
     
     
@@ -345,9 +345,9 @@ def main():
 
     # Assuming u_values is structured with each element as [angular_velocity_x, angular_velocity_y, linear_acceleration]
     # Calculate squared values for each control input
-    control_input_1_squared = [u_max_squared- (u_step[0, 0]**2) for u_step in u_values]  # Squared value for angular velocity in x
-    control_input_2_squared = [u_max_squared-(u_step[0, 1]**2) for u_step in u_values]  # Squared value for angular velocity in y
-    control_input_3_squared = [u_max_squared-(u_step[0, 2]**2) for u_step in u_values]  # Squared value for linear acceleration
+    control_input_1_squared = [u_max_squared- (u_step[0, 0]**2) for u_step in u_values]  
+    control_input_2_squared = [u_max_squared-(u_step[0, 1]**2) for u_step in u_values]  
+    control_input_3_squared = [u_max_squared-(u_step[0, 2]**2) for u_step in u_values] n
     
     modified_control_inputs = [u_max_squared - (u_step[0, 0]**2 + u_step[0, 1]**2 + u_step[0, 2]**2) for u_step in u_values]
     modified_control_inputs_array = np.array(modified_control_inputs)
