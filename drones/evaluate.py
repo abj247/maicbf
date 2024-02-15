@@ -9,7 +9,7 @@ import tensorflow as tf
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 import pickle
-
+import pandas as pd
 import core
 import config
 
@@ -347,7 +347,7 @@ def main():
     # Calculate squared values for each control input
     control_input_1_squared = [u_max_squared- (u_step[0, 0]**2) for u_step in u_values]  
     control_input_2_squared = [u_max_squared-(u_step[0, 1]**2) for u_step in u_values]  
-    control_input_3_squared = [u_max_squared-(u_step[0, 2]**2) for u_step in u_values] n
+    control_input_3_squared = [u_max_squared-(u_step[0, 2]**2) for u_step in u_values] 
     
     modified_control_inputs = [u_max_squared - (u_step[0, 0]**2 + u_step[0, 1]**2 + u_step[0, 2]**2) for u_step in u_values]
     modified_control_inputs_array = np.array(modified_control_inputs)
@@ -356,12 +356,26 @@ def main():
 
     time_steps = list(range(len(u_values)))
 
+    # Creating a DataFrame
+    df = pd.DataFrame({
+        'Time Steps': time_steps,
+        'h': modified_control_inputs
+    })
+
+    # Specify your desired path to save the CSV file
+    csv_file_path = 'csv_data/h_drone_function_agent_0.csv'
+
+    # Save the DataFrame to a CSV file
+    df.to_csv(csv_file_path, index=False)
+
+    print(f"CSV file has been saved to {csv_file_path}")
+
     # Plotting
     plt.figure(figsize=(10, 6))
     plt.plot(time_steps, log_modified_control_inputs, label='h_u for agent 0')
     plt.xlabel('Time Steps')
     plt.ylabel('Modified Control Input Value')
-    plt.title('h)u for agent 0')
+    plt.title('h(u) for agent 0')
     plt.legend()
     plt.savefig('modified_control_input_agent_0.png', dpi=300)
     plt.show()
