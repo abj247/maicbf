@@ -1,6 +1,0 @@
-model_checkpoint_path: "model_default_iter_2400_02"
-all_model_checkpoint_paths: "model_default_iter_1600_02"
-all_model_checkpoint_paths: "model_default_iter_1800_02"
-all_model_checkpoint_paths: "model_default_iter_2000_02"
-all_model_checkpoint_paths: "model_default_iter_2200_02"
-all_model_checkpoint_paths: "model_default_iter_2400_02"
