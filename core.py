@@ -398,7 +398,7 @@ def loss_barrier(h, s, indices=None, eps=[5e-2, 1e-3]):
 
     return loss_dang, loss_safe, acc_dang, acc_safe
 
-def loss_barrier_ic(u, u_max = 0.1, indices=None, eps=[5e-2, 1e-3]):
+def loss_barrier_ic(u, u_max = 0.8, indices=None, eps=[5e-2, 1e-3]):
     """ Build the loss function for the control barrier functions.
     Args:
         u_max: maximum value of control action

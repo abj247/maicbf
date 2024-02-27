@@ -17,7 +17,7 @@ import config
 def parse_args():
     parser = argparse.ArgumentParser()
     parser.add_argument('--num_agents', type=int, default=64)
-    parser.add_argument('--max_steps', type=int, default=12)
+    parser.add_argument('--max_steps', type=int, default=20)
     parser.add_argument('--model_path', type=str, default=None)
     parser.add_argument('--vis', type=int, default=0)
     parser.add_argument('--gpu', type=str, default='0')
@@ -208,11 +208,13 @@ def main():
         safety_info = np.zeros(args.num_agents, dtype=np.float32)
         # a scene has a sequence of goal states for each agent. in each scene.step,
         # we move to a new goal state
+        print(scene.steps)
         for t in range(scene.steps):
             # the goal states
             s_ref_np = np.concatenate(
                 [scene.waypoints[t], np.zeros((args.num_agents, 5))], axis=1)
             # run INNER_LOOPS_EVAL steps to reach the goal state
+            
             for i in range(config.INNER_LOOPS_EVAL):
                 u_np, acc_list_np = sess.run(
                     [u, acc_list], feed_dict={s:s_np, s_ref: s_ref_np})
@@ -234,10 +236,11 @@ def main():
                     np.linalg.norm(s_np[:, :3] - s_ref_np[:, :3], axis=1)
                     ) < config.DIST_TOLERATE:
                     break
-                u_values.append(u_np.copy())
+            
                 #print(u_values)
 
                 s_traj.append(np.expand_dims(s_np[:, [0, 1, 2, 6, 7]], axis=0))
+            u_values.append(u_np.copy())
         safety_reward.append(np.mean(safety_info))
         dist_reward.append(np.mean((np.linalg.norm(
             s_np[:, :3] - s_ref_np[:, :3], axis=1) < 1.5).astype(np.float32) * 10))
@@ -340,7 +343,7 @@ def main():
     
     # time_steps = list(range(len(u_values)))
 
-    u_max = 0.2
+    u_max = 0.6
     u_max_squared = u_max**2
 
     # Assuming u_values is structured with each element as [angular_velocity_x, angular_velocity_y, linear_acceleration]
@@ -349,21 +352,31 @@ def main():
     control_input_2_squared = [u_max_squared-(u_step[0, 1]**2) for u_step in u_values]  # Squared value for angular velocity in y
     control_input_3_squared = [u_max_squared-(u_step[0, 2]**2) for u_step in u_values]  # Squared value for linear acceleration
     
-    modified_control_inputs = [u_max_squared - (u_step[0, 0]**2 + u_step[0, 1]**2 + u_step[0, 2]**2) for u_step in u_values]
+    #modified_control_inputs = [u_max_squared - (u_step[0, 0]**2 + u_step[0, 1]**2 + u_step[0, 2]**2) for u_step in u_values]
+    modified_control_inputs = [u_max_squared - (u_step[:, 0]**2 + u_step[:, 1]**2 + u_step[:, 2]**2) for u_step in u_values]
+    #modified_control_inputs = [u_max_squared - (u_step[0]**2) for u_step in u_values]
     modified_control_inputs_array = np.array(modified_control_inputs)
     log_modified_control_inputs = np.log(1 + modified_control_inputs_array )
 
+    # To avoid invalid values for log, ensure all values are positive
+    #safe_modified_control_inputs_array = np.maximum(0, modified_control_inputs_array) + 1e-6
+    #log_modified_control_inputs = np.log(1 + safe_modified_control_inputs_array)
+
 
     time_steps = list(range(len(u_values)))
+    u_values_array = np.array(u_values)
+    #print(u_values.shape)
 
     # Plotting
     plt.figure(figsize=(10, 6))
-    plt.plot(time_steps, log_modified_control_inputs, label='h_u for agent 0')
+    plt.plot(time_steps, modified_control_inputs_array, label='agents')
+    # plt.plot(time_steps, u_values_array[:,0,1], label='h_u for agent 0')
+    # plt.plot(time_steps, u_values_array[:,0,2], label='h_u for agent 0')
     plt.xlabel('Time Steps')
-    plt.ylabel('Modified Control Input Value')
-    plt.title('h)u for agent 0')
+    plt.ylabel('h(u)')
+    plt.title('h(u) for all agents (ours(0.6_1.0)_4 agents)')
     plt.legend()
-    plt.savefig('modified_control_input_agent_0.png', dpi=300)
+    plt.savefig('h(u)_baseline_all_agents_4.png', dpi=300)
     plt.show()
 
     #time_steps = list(range(len(u_values)))

@@ -106,6 +106,11 @@ def build_training_graph(num_agents):
                  loss_safe_deriv, 2 * loss_medium_deriv, 0.5 * loss_action, loss_dang_ic, loss_safe_ic]
     acc_list = [acc_dang, acc_safe, acc_dang_deriv,
                 acc_safe_deriv, acc_medium_deriv, acc_dang_ic, acc_safe_ic]
+    
+    # loss_list = [loss_dang, loss_safe, 3 * loss_dang_deriv,
+    #              loss_safe_deriv, 2 * loss_medium_deriv, 0.5 * loss_action]
+    # acc_list = [acc_dang, acc_safe, acc_dang_deriv,
+    #             acc_safe_deriv, acc_medium_deriv]
 
     weight_loss = [
         config.WEIGHT_DECAY * tf.nn.l2_loss(v) for v in tf.trainable_variables()]
@@ -214,7 +219,7 @@ def main():
 
             if np.mod(istep, config.SAVE_STEPS) == 0 or istep + 1 == config.TRAIN_STEPS:
                 saver.save(
-                    sess, 'models/model_{}_iter_{}_02'.format(args.tag, istep))
+                    sess, 'models/model_ours(1.0)_4_0.8_{}_iter_{}'.format(args.tag, istep))
 
 
 if __name__ == '__main__':
