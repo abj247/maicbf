@@ -9,7 +9,7 @@ import tensorflow as tf
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 import pickle
-
+import pandas as pd
 import core
 import config
 
@@ -335,9 +335,9 @@ def main():
     pickle.dump(traj_dict, open('trajectory/traj_eval.pkl', 'wb'))
     scene.write_trajectory('trajectory/env_traj_eval.pkl', traj_dict['ours'])
 
-    # control_input_1 = [u_step[0, 0] for u_step in u_values]  # First control input
-    # control_input_2 = [u_step[0, 1] for u_step in u_values]  # Second control input
-    # control_input_3 = [u_step[0, 2] for u_step in u_values]  # Third control input
+    # control_input_1 = [u_step[0, 0] for u_step in u_values]  
+    # control_input_2 = [u_step[0, 1] for u_step in u_values]  
+    # control_input_3 = [u_step[0, 2] for u_step in u_values]  
    
     
     
@@ -348,9 +348,9 @@ def main():
 
     # Assuming u_values is structured with each element as [angular_velocity_x, angular_velocity_y, linear_acceleration]
     # Calculate squared values for each control input
-    control_input_1_squared = [u_max_squared- (u_step[0, 0]**2) for u_step in u_values]  # Squared value for angular velocity in x
-    control_input_2_squared = [u_max_squared-(u_step[0, 1]**2) for u_step in u_values]  # Squared value for angular velocity in y
-    control_input_3_squared = [u_max_squared-(u_step[0, 2]**2) for u_step in u_values]  # Squared value for linear acceleration
+    control_input_1_squared = [u_max_squared- (u_step[0, 0]**2) for u_step in u_values]  
+    control_input_2_squared = [u_max_squared-(u_step[0, 1]**2) for u_step in u_values]  
+    control_input_3_squared = [u_max_squared-(u_step[0, 2]**2) for u_step in u_values] 
     
     #modified_control_inputs = [u_max_squared - (u_step[0, 0]**2 + u_step[0, 1]**2 + u_step[0, 2]**2) for u_step in u_values]
     modified_control_inputs = [u_max_squared - (u_step[:, 0]**2 + u_step[:, 1]**2 + u_step[:, 2]**2) for u_step in u_values]
@@ -367,14 +367,33 @@ def main():
     u_values_array = np.array(u_values)
     #print(u_values.shape)
 
+    # Creating a DataFrame
+    df = pd.DataFrame({
+        'Time Steps': time_steps,
+        'h': modified_control_inputs
+    })
+
+    # Specify your desired path to save the CSV file
+    csv_file_path = 'csv_data/h_drone_function_agent_0.csv'
+
+    # Save the DataFrame to a CSV file
+    df.to_csv(csv_file_path, index=False)
+
+    print(f"CSV file has been saved to {csv_file_path}")
+
     # Plotting
     plt.figure(figsize=(10, 6))
     plt.plot(time_steps, modified_control_inputs_array, label='agents')
     # plt.plot(time_steps, u_values_array[:,0,1], label='h_u for agent 0')
     # plt.plot(time_steps, u_values_array[:,0,2], label='h_u for agent 0')
     plt.xlabel('Time Steps')
+<<<<<<< HEAD:evaluate.py
     plt.ylabel('h(u)')
     plt.title('h(u) for all agents (ours(0.6_1.0)_4 agents)')
+=======
+    plt.ylabel('Modified Control Input Value')
+    plt.title('h(u) for agent 0')
+>>>>>>> origin/master:drones/evaluate.py
     plt.legend()
     plt.savefig('h(u)_baseline_all_agents_4.png', dpi=300)
     plt.show()

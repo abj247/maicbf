@@ -411,8 +411,8 @@ def loss_barrier_ic(u, u_max = 0.8, indices=None, eps=[5e-2, 1e-3]):
         acc_dang_ic (float): The accuracy of h(dangerous states) <= 0 with input constraints.
         acc_safe_ic (float): The accuracy of h(safe states) >= 0 with input constraints.
     """
-    u_transposed = tf.transpose(u)  # Transposing u
-    result = tf.matmul(u, u_transposed)  # Matrix multiplication
+    u_transposed = tf.transpose(u)  
+    result = tf.matmul(u, u_transposed)
     h_u = (u_max)**2 - result
     num = tf.cast(tf.shape(h_u)[0], tf.float32)
     
