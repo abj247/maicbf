@@ -1,98 +1,108 @@
-# Off-Policy Multi-Agent Reinforcement Learning (MARL) Algorithms
+# GCBF-PyTorch
 
-This repository contains implementations of various off-policy multi-agent reinforcement learning (MARL) algorithms.
+[![Conference](https://img.shields.io/badge/CoRL-Accepted-success)](https://mit-realm.github.io/gcbf-website/)
 
-Authors: Akash Velu and Chao Yu
+PyTorch Official Implementation of CoRL 2023 Paper: [S Zhang](https://syzhang092218-source.github.io), [K Garg](https://kunalgarg.mit.edu/), [C Fan](https://chuchu.mit.edu): "[Neural Graph Control Barrier Functions Guided Distributed Collision-avoidance Multi-agent Control](https://mit-realm.github.io/gcbf-website/)"
 
-## Algorithms supported:
-- MADDPG (MLP and RNN)
-- MATD3 (MLP and RNN)
-- QMIX (MLP and RNN)
-- VDN (MLP and RNN)
+!!!!!!!!!!
+**We have improved GCBF to [GCBF+](https://mit-realm.github.io/gcbfplus-website/)!! Check out the new code [here](https://github.com/MIT-REALM/gcbfplus).**
+!!!!!!!!!!
 
-## Environments supported:
+## Dependencies
 
-- [StarCraftII (SMAC)](https://github.com/oxwhirl/smac)
-- [Multiagent Particle-World Environments (MPEs)](https://github.com/openai/multiagent-particle-envs)
+We recommend to use [CONDA](https://www.anaconda.com/) to install the requirements:
 
-## 1. Usage
-**WARNING #1: by default all experiments assume a shared policy by all agents i.e. there is one neural network shared by all agents**
-
-**WARNING #2: only QMIX and MADDPG are thoroughly tested; however,our VDN and MATD3 implementations make small modifications to QMIX and MADDPG, respectively. We display results using our implementation [here](https://docs.google.com/document/d/1s0Kb76b7v4WGyhiCNLrt9St-WvhGnl2AUQCe1FS-ADM/edit?usp=sharing).**
-
-All core code is located within the offpolicy folder. The algorithms/ subfolder contains algorithm-specific code
-for all methods. RMADDPG and RMATD3 refer to RNN implementationso of MADDPG and MATD3, and mQMIX and mVDN refer to MLP implementations of QMIX and VDN. We additionally support prioritized experience replay (PER).
-
-* The envs/ subfolder contains environment wrapper implementations for the MPEs and SMAC. 
-
-* Code to perform training rollouts and policy updates are contained within the runner/ folder - there is a runner for 
-each environment. 
-
-* Executable scripts for training with default hyperparameters can be found in the scripts/ folder. The files are named
-in the following manner: train_algo_environment.sh. Within each file, the map name (in the case of SMAC and the MPEs) can be altered. 
-* Python training scripts for each environment can be found in the scripts/train/ folder. 
-
-* The config.py file contains relevant hyperparameter and env settings. Most hyperparameters are defaulted to the ones
-used in the paper; however, please refer to the appendix for a full list of hyperparameters used. 
-
-
-## 2. Installation
-
- Here we give an example installation on CUDA == 10.1. For non-GPU & other CUDA version installation, please refer to the [PyTorch website](https://pytorch.org/get-started/locally/).
-
-``` Bash
-# create conda environment
-conda create -n marl python==3.6.1
-conda activate marl
-pip install torch==1.5.1+cu101 torchvision==0.6.1+cu101 -f https://download.pytorch.org/whl/torch_stable.html
+```bash
+conda create -n gcbf python=3.9
+conda activate gcbf
+pip install -r requirements.txt
 ```
 
-```
-# install on-policy package
-cd on-policy
+Then you need to install additional packages for `torch_geometric` including `pyg_lib`, `torch_scatter`, `torch_sparse`, `torch_cluster`, `torch_spline_conv` following the [official website](https://pytorch-geometric.readthedocs.io/en/latest/).
+
+## Installation
+
+Install GCBF: 
+
+```bash
 pip install -e .
 ```
 
-Even though we provide requirement.txt, it may have redundancy. We recommend that the user try to install other required packages by running the code and finding which required package hasn't installed yet.
+## Run
 
-### 2.1 Install StarCraftII [4.10](http://blzdistsc2-a.akamaihd.net/Linux/SC2.4.10.zip)
+### Environments
 
-   
+We provide 3 environments including `SimpleCar`, `SimpleDrone`, and `DubinsCar`. 
 
-``` Bash
-unzip SC2.4.10.zip
-# password is iagreetotheeula
-echo "export SC2PATH=~/StarCraftII/" > ~/.bashrc
+### Hyper-parameters
+
+To reproduce the results shown in our paper, one can refer to [`hyperparams.yaml`](gcbf/trainer/hyperparams.yaml).
+
+### Train
+
+To train the model, use:
+
+```bash
+python train.py --algo gcbf --env DubinsCar -n 16 --steps 500000
 ```
 
-* download SMAC Maps, and move it to `~/StarCraftII/Maps/`.
+In our paper, we use 16 agents with 500000 training steps. The training logs will be saved in folder `./logs/<env>/<algo>/seed<seed>_<training-start-time>`. We also provide the following flags:
 
-* To use a stableid, copy `stableid.json` from https://github.com/Blizzard/s2client-proto.git to `~/StarCraftII/`.
+- `--env`: environment, including `SimpleCar`, `SimpleDrone`, `DubinsCar`
+- `--algo`: algorithm, including `gcbf`, `macbf`
+- `-n`: number of agents
+- `--steps`: number of training steps
+- `--batch-size`: batch size
+- `--area-size`: side length of the environment
+- `--obs`: number of obstacles
+- `--seed`: random seed
+- `--gpu`: GPU ID
+- `--cpu`: use CPU
+- `--log-path`: path to save the training logs
 
+By default, the training uses the hyperparameters in [`hyperparams.yaml`](gcbf/trainer/hyperparams.yaml). To use different hyperparameters, one can use the flag `--cus` and then use the flags `--h-dot-coef` and `--action-coef` to specify the new hyper-parameters. 
 
-### 2.2 Install MPE
+### Test
 
-``` Bash
-# install this package first
-pip install seaborn
+To test the learned model, use:
+
+```bash
+python test.py --path <path-to-log> --epi <number-of-episodes>
 ```
 
-There are 3 Cooperative scenarios in MPE:
+This should report the safety rate, goal reaching rate, and success rate of the learned model, and generate videos of the learned model in `<path-to-log>/videos`. Use the following flags to customize the test:
 
-* simple_spread
-* simple_speaker_listener, which is 'Comm' scenario in paper
-* simple_reference
+- `-n`: number of agents
+- `--obs`: number of obstacles
+- `--area-size`: side length of the environment
+- `--sense-radius`: sensing radius of the agents
+- `--iter`: number of training iterations of the model
+- `--epi`: number of episodes to test
+- `--seed`: random seed
+- `--gpu`: GPU ID
+- `--cpu`: use CPU
+- `--no-video`: do not generate videos
 
-## 3.Train
-Here we use train_mpe_maddpg.sh as an example:
+There is also a nominal controller implemented for each environment for goal reaching. They can be tested using:
+
+```bash
+python test.py --env <env> -n <number-of-agents> --nominal --epi <number-of-episodes>
 ```
-cd offpolicy/scripts
-chmod +x ./train_mpe_maddpg.sh
-./train_mpe_maddpg.sh
+
+### Pre-trained models
+We provide the pre-trained models in the folder [`./pretrained`](pretrained).
+
+## Citation
+
 ```
-Local results are stored in subfold scripts/results. Note that we use Weights & Bias as the default visualization platform; to use Weights & Bias, please register and login to the platform first. More instructions for using Weights&Bias can be found in the official [documentation](https://docs.wandb.ai/). Adding the `--use_wandb` in command line or in the .sh file will use Tensorboard instead of Weights & Biases. 
+@inproceedings{zhang2023gcbf,
+      title={Neural Graph Control Barrier Functions Guided Distributed Collision-avoidance Multi-agent Control},
+      author={Zhang, Songyuan and Garg, Kunal and Fan, Chuchu},
+      booktitle={7th Annual Conference on Robot Learning},
+      year={2023}
+}
+```
 
-## 4. Results
-Results for the performance of RMADDPG and QMIX on the Particle Envs and QMIX in SMAC are depicted [here](https://docs.google.com/document/d/1s0Kb76b7v4WGyhiCNLrt9St-WvhGnl2AUQCe1FS-ADM/edit?usp=sharing). These results are obtained using a normal (not prioitized) replay buffer.
+## Acknowledgement
 
-
+The developers were partially supported by MITRE during the project.
