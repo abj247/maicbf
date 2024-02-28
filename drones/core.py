@@ -531,7 +531,7 @@ def loss_agile(s, s_ref, u, u_max=0.2, sigma_tight=0.05):
         sigma_tight (float): The threshold for the tightness condition.
 
     Returns:
-        r_giggle (float): The giggle loss function.
+        r_agile (float): The giggle loss function.
     """
     v_x = u[:, 2]
     v_ratio = tf.nn.relu(v_x / v_max)
