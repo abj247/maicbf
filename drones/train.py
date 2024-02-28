@@ -150,10 +150,18 @@ def main():
         sess.run(tf.global_variables_initializer())
         saver = tf.train.Saver()
 
+        csv_dir = './csv_data'
+        if not os.path.exists(csv_dir):
+            os.makedirs(csv_dir)
+
+        # Paths for the text and CSV files
+        csv_file_path = os.path.join(csv_dir, 'train_log.csv')
+
+
         # Open a text file for logging training progress
-        with open('training_log.txt', 'w') as log_file, open('losses.csv', 'w', newline='') as csvfile:
+        with open('training_log.txt', 'w') as log_file, open('train_log.csv', 'w', newline='') as csvfile:
             loss_writer = csv.writer(csvfile)
-            loss_writer.writerow(['Step', 'Loss', 'Accuracy', 'Dist Error', 'Safety Ratio'])  # CSV Header
+            loss_writer.writerow(['Step', 'Loss', 'Accuracy', 'Dist Error', 'Safety Ratio'])  
 
 
         if args.model_path:
