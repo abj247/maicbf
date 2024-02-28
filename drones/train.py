@@ -132,7 +132,7 @@ def count_accuracy(accuracy_lists):
 
 def main():
     args = parse_args()
-    wandb.init(project="your_project_name", config=args)
+    wandb.init(project="maicbf", config=args)
     wandb.config.update(args)
 
     os.environ["CUDA_VISIBLE_DEVICES"] = args.gpu
