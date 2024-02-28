@@ -6,6 +6,8 @@ import argparse
 import time
 import os
 import sys
+import wandb
+import csv
 sys.dont_write_bytecode = True
 
 
@@ -91,6 +93,7 @@ def build_training_graph(num_agents):
         h=h, s=s, indices=indices)
     loss_dang_ic, loss_safe_ic, acc_dang_ic, acc_safe_ic = core.loss_barrier_ic(
         u=u, indices=indices)
+    loss_agile = core.loss_agile(s=s, s_ref=s_ref, u=u, u_max=0.2, sigma_tight=0.05)
     # loss_dang_deriv is for doth(s) + alpha h(s) >=0 for s in dangerous set
     # loss_safe_deriv is for doth(s) + alpha h(s) >=0 for s in safe set
     # loss_medium_deriv is for doth(s) + alpha h(s) >=0 for s not in the dangerous
@@ -103,7 +106,7 @@ def build_training_graph(num_agents):
 
     # the weight of each loss item requires careful tuning
     loss_list = [loss_dang, loss_safe, 3 * loss_dang_deriv,
-                 loss_safe_deriv, 2 * loss_medium_deriv, 0.5 * loss_action, loss_dang_ic, loss_safe_ic]
+                 loss_safe_deriv, 2 * loss_medium_deriv, 0.5 * loss_action, loss_dang_ic, loss_safe_ic, loss_agile]
     acc_list = [acc_dang, acc_safe, acc_dang_deriv,
                 acc_safe_deriv, acc_medium_deriv, acc_dang_ic, acc_safe_ic]
     
@@ -129,6 +132,8 @@ def count_accuracy(accuracy_lists):
 
 def main():
     args = parse_args()
+    wandb.init(project="your_project_name", config=args)
+    wandb.config.update(args)
 
     os.environ["CUDA_VISIBLE_DEVICES"] = args.gpu
 
@@ -144,6 +149,12 @@ def main():
     with tf.Session() as sess:
         sess.run(tf.global_variables_initializer())
         saver = tf.train.Saver()
+
+        # Open a text file for logging training progress
+        with open('training_log.txt', 'w') as log_file, open('losses.csv', 'w', newline='') as csvfile:
+            loss_writer = csv.writer(csvfile)
+            loss_writer.writerow(['Step', 'Loss', 'Accuracy', 'Dist Error', 'Safety Ratio'])  # CSV Header
+
 
         if args.model_path:
             saver.restore(sess, args.model_path)
@@ -216,6 +227,18 @@ def main():
                 start_time = time.time()
                 (loss_lists_np, acc_lists_np, dist_errors_np, dist_errors_baseline_np, safety_ratios_epoch,
                  safety_ratios_epoch_baseline) = [], [], [], [], [], []
+
+            # Log training metrics to wandb
+                wandb.log({"Loss": np.mean(loss_lists_np, axis=0),
+                           "Accuracy": np.mean(acc_lists_np),
+                           "Dist Error": np.mean(dist_errors_np),
+                           "Safety Ratio": np.mean(safety_ratios_epoch),
+                           "Step": istep})
+
+            # Write training progress to text file and save losses to CSV
+            log_message = f'Step: {istep}, Time: {time.time() - start_time:.1f}, Loss: {np.mean(loss_lists_np, axis=0)}, Dist: {np.mean(dist_errors_np):.3f}, Safety Rate: {np.mean(safety_ratios_epoch):.3f}\n'
+            log_file.write(log_message)
+            loss_writer.writerow([istep, np.mean(loss_lists_np, axis=0), np.mean(acc_lists_np), np.mean(dist_errors_np), np.mean(safety_ratios_epoch)])
 
             if np.mod(istep, config.SAVE_STEPS) == 0 or istep + 1 == config.TRAIN_STEPS:
                 saver.save(

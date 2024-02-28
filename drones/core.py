@@ -521,6 +521,28 @@ def loss_actions(s, u, s_ref, indices):
     return loss
 
 
+def loss_agile(s, s_ref, u, u_max=0.2, sigma_tight=0.05):
+    """
+    Args:
+        s (N, 8): The current state of N agents.
+        s_ref (N, 8): The goal state of N agents.
+        u (N, 2): The control action, where u[2] is v_x.
+        u_max (float): The maximum value of v_x.
+        sigma_tight (float): The threshold for the tightness condition.
+
+    Returns:
+        r_giggle (float): The giggle loss function.
+    """
+    v_x = u[:, 2]
+    v_ratio = tf.nn.relu(v_x / v_max)
+    correct_direction = tf.constant(1.0)  
+    d_goal = tf.norm(s - s_ref, axis=1)
+    goal_condition = tf.cast(tf.less(d_goal, sigma_tight), tf.float32)
+    loss_agile = 1- (tf.reduce_max(v_ratio * correct_direction, goal_condition))
+
+    return loss_agile
+
+
 def compute_dangerous_mask(s, r, indices=None):
     """ Identify the agents within the dangerous radius.
     Args:
