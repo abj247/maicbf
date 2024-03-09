@@ -1,0 +1,98 @@
+2024-03-07 10:53:00,087 INFO    StreamThr :6804 [internal.py:wandb_internal():89] W&B internal server running at pid: 6804, started at: 2024-03-07 10:53:00.087423
+2024-03-07 10:53:00,089 DEBUG   HandlerThread:6804 [handler.py:handle_request():144] handle_request: status
+2024-03-07 10:53:00,094 INFO    WriterThread:6804 [datastore.py:open_for_write():85] open: C:\Users\aplus\macbf\drones\drones\wandb\run-20240307_105300-5b9iajkn\run-5b9iajkn.wandb
+2024-03-07 10:53:00,095 DEBUG   SenderThread:6804 [sender.py:send():380] send: header
+2024-03-07 10:53:00,165 DEBUG   SenderThread:6804 [sender.py:send():380] send: run
+2024-03-07 10:53:01,255 INFO    SenderThread:6804 [dir_watcher.py:__init__():211] watching files in: C:\Users\aplus\macbf\drones\drones\wandb\run-20240307_105300-5b9iajkn\files
+2024-03-07 10:53:01,256 INFO    SenderThread:6804 [sender.py:_start_run_threads():1125] run started: 5b9iajkn with start time 1709788980.089418
+2024-03-07 10:53:01,262 DEBUG   HandlerThread:6804 [handler.py:handle_request():144] handle_request: check_version
+2024-03-07 10:53:01,262 DEBUG   SenderThread:6804 [sender.py:send_request():407] send_request: check_version
+2024-03-07 10:53:01,374 DEBUG   HandlerThread:6804 [handler.py:handle_request():144] handle_request: run_start
+2024-03-07 10:53:01,406 DEBUG   HandlerThread:6804 [system_info.py:__init__():32] System info init
+2024-03-07 10:53:01,406 DEBUG   HandlerThread:6804 [system_info.py:__init__():47] System info init done
+2024-03-07 10:53:01,406 INFO    HandlerThread:6804 [system_monitor.py:start():181] Starting system monitor
+2024-03-07 10:53:01,406 INFO    SystemMonitor:6804 [system_monitor.py:_start():145] Starting system asset monitoring threads
+2024-03-07 10:53:01,407 INFO    HandlerThread:6804 [system_monitor.py:probe():201] Collecting system info
+2024-03-07 10:53:01,416 INFO    SystemMonitor:6804 [interfaces.py:start():190] Started cpu monitoring
+2024-03-07 10:53:01,417 INFO    SystemMonitor:6804 [interfaces.py:start():190] Started disk monitoring
+2024-03-07 10:53:01,418 INFO    SystemMonitor:6804 [interfaces.py:start():190] Started gpu monitoring
+2024-03-07 10:53:01,435 INFO    SystemMonitor:6804 [interfaces.py:start():190] Started memory monitoring
+2024-03-07 10:53:01,455 DEBUG   HandlerThread:6804 [system_info.py:probe():196] Probing system
+2024-03-07 10:53:01,455 INFO    SystemMonitor:6804 [interfaces.py:start():190] Started network monitoring
+2024-03-07 10:53:01,475 DEBUG   HandlerThread:6804 [system_info.py:_probe_git():181] Probing git
+2024-03-07 10:53:01,586 DEBUG   HandlerThread:6804 [system_info.py:_probe_git():189] Probing git done
+2024-03-07 10:53:01,586 DEBUG   HandlerThread:6804 [system_info.py:probe():244] Probing system done
+2024-03-07 10:53:01,586 DEBUG   HandlerThread:6804 [system_monitor.py:probe():210] {'os': 'Windows-10-10.0.22621-SP0', 'python': '3.6.13', 'heartbeatAt': '2024-03-07T05:23:01.456814', 'startedAt': '2024-03-07T05:23:00.076406', 'docker': None, 'cuda': None, 'args': ('--num_agents', '4'), 'state': 'running', 'program': 'train.py', 'codePathLocal': 'train.py', 'codePath': 'train.py', 'git': {'remote': 'https://github.com/abj247/MA-ICBF.git', 'commit': '0b0e29bcc0ae338a01cc3645c4a4307537a5a53f'}, 'email': 'abcdxyzw14@gmail.com', 'root': 'C:/Users/aplus/macbf/drones/drones', 'host': 'AJAXXX', 'username': 'aplus', 'executable': 'D:\\Anaconda\\envs\\macbf\\python.exe', 'cpu_count': 8, 'cpu_count_logical': 16, 'cpu_freq': {'current': 2901.0, 'min': 0.0, 'max': 2901.0}, 'cpu_freq_per_core': [{'current': 2901.0, 'min': 0.0, 'max': 2901.0}], 'disk': {'/': {'total': 253.39874649047852, 'used': 231.18096160888672}}, 'gpu': 'NVIDIA GeForce GTX 1650', 'gpu_count': 1, 'gpu_devices': [{'name': 'NVIDIA GeForce GTX 1650', 'memory_total': 4294967296}], 'memory': {'total': 15.420913696289062}}
+2024-03-07 10:53:01,587 INFO    HandlerThread:6804 [system_monitor.py:probe():211] Finished collecting system info
+2024-03-07 10:53:01,587 INFO    HandlerThread:6804 [system_monitor.py:probe():214] Publishing system info
+2024-03-07 10:53:01,587 DEBUG   HandlerThread:6804 [system_info.py:_save_pip():53] Saving list of pip packages installed into the current environment
+2024-03-07 10:53:01,588 DEBUG   HandlerThread:6804 [system_info.py:_save_pip():68] Saving pip packages done
+2024-03-07 10:53:01,588 DEBUG   HandlerThread:6804 [system_info.py:_save_conda():76] Saving list of conda packages installed into the current environment
+2024-03-07 10:53:02,272 INFO    Thread-16 :6804 [dir_watcher.py:_on_file_created():271] file/dir created: C:\Users\aplus\macbf\drones\drones\wandb\run-20240307_105300-5b9iajkn\files\conda-environment.yaml
+2024-03-07 10:53:02,272 INFO    Thread-16 :6804 [dir_watcher.py:_on_file_created():271] file/dir created: C:\Users\aplus\macbf\drones\drones\wandb\run-20240307_105300-5b9iajkn\files\requirements.txt
+2024-03-07 10:53:05,804 DEBUG   HandlerThread:6804 [system_info.py:_save_conda():87] Saving conda packages done
+2024-03-07 10:53:05,805 INFO    HandlerThread:6804 [system_monitor.py:probe():216] Finished publishing system info
+2024-03-07 10:53:05,821 DEBUG   HandlerThread:6804 [handler.py:handle_request():144] handle_request: status_report
+2024-03-07 10:53:05,821 DEBUG   SenderThread:6804 [sender.py:send():380] send: files
+2024-03-07 10:53:05,821 INFO    SenderThread:6804 [sender.py:_save_file():1378] saving file wandb-metadata.json with policy now
+2024-03-07 10:53:05,834 DEBUG   HandlerThread:6804 [handler.py:handle_request():144] handle_request: stop_status
+2024-03-07 10:53:05,835 DEBUG   SenderThread:6804 [sender.py:send_request():407] send_request: stop_status
+2024-03-07 10:53:05,836 DEBUG   HandlerThread:6804 [handler.py:handle_request():144] handle_request: internal_messages
+2024-03-07 10:53:06,195 DEBUG   SenderThread:6804 [sender.py:send():380] send: telemetry
+2024-03-07 10:53:06,196 DEBUG   SenderThread:6804 [sender.py:send():380] send: config
+2024-03-07 10:53:06,294 INFO    Thread-16 :6804 [dir_watcher.py:_on_file_modified():288] file/dir modified: C:\Users\aplus\macbf\drones\drones\wandb\run-20240307_105300-5b9iajkn\files\conda-environment.yaml
+2024-03-07 10:53:06,294 INFO    Thread-16 :6804 [dir_watcher.py:_on_file_created():271] file/dir created: C:\Users\aplus\macbf\drones\drones\wandb\run-20240307_105300-5b9iajkn\files\wandb-metadata.json
+2024-03-07 10:53:06,294 INFO    Thread-16 :6804 [dir_watcher.py:_on_file_created():271] file/dir created: C:\Users\aplus\macbf\drones\drones\wandb\run-20240307_105300-5b9iajkn\files\output.log
+2024-03-07 10:53:06,896 INFO    wandb-upload_0:6804 [upload_job.py:push():131] Uploaded file C:\Users\aplus\AppData\Local\Temp\tmpxho16q3pwandb\sm4670nc-wandb-metadata.json
+2024-03-07 10:53:08,299 INFO    Thread-16 :6804 [dir_watcher.py:_on_file_modified():288] file/dir modified: C:\Users\aplus\macbf\drones\drones\wandb\run-20240307_105300-5b9iajkn\files\output.log
+2024-03-07 10:53:09,314 INFO    Thread-16 :6804 [dir_watcher.py:_on_file_modified():288] file/dir modified: C:\Users\aplus\macbf\drones\drones\wandb\run-20240307_105300-5b9iajkn\files\output.log
+2024-03-07 10:53:09,994 DEBUG   HandlerThread:6804 [handler.py:handle_request():144] handle_request: partial_history
+2024-03-07 10:53:09,996 DEBUG   SenderThread:6804 [sender.py:send():380] send: history
+2024-03-07 10:53:09,996 DEBUG   SenderThread:6804 [sender.py:send_request():407] send_request: summary_record
+2024-03-07 10:53:09,997 INFO    SenderThread:6804 [sender.py:_save_file():1378] saving file wandb-summary.json with policy end
+2024-03-07 10:53:10,324 INFO    Thread-16 :6804 [dir_watcher.py:_on_file_modified():288] file/dir modified: C:\Users\aplus\macbf\drones\drones\wandb\run-20240307_105300-5b9iajkn\files\output.log
+2024-03-07 10:53:10,324 INFO    Thread-16 :6804 [dir_watcher.py:_on_file_created():271] file/dir created: C:\Users\aplus\macbf\drones\drones\wandb\run-20240307_105300-5b9iajkn\files\wandb-summary.json
+2024-03-07 10:53:11,013 DEBUG   HandlerThread:6804 [handler.py:handle_request():144] handle_request: status_report
+2024-03-07 10:53:11,329 INFO    Thread-16 :6804 [dir_watcher.py:_on_file_modified():288] file/dir modified: C:\Users\aplus\macbf\drones\drones\wandb\run-20240307_105300-5b9iajkn\files\output.log
+2024-03-07 10:53:16,054 DEBUG   HandlerThread:6804 [handler.py:handle_request():144] handle_request: status_report
+2024-03-07 10:53:20,080 DEBUG   HandlerThread:6804 [handler.py:handle_request():144] handle_request: partial_history
+2024-03-07 10:53:20,081 DEBUG   SenderThread:6804 [sender.py:send():380] send: history
+2024-03-07 10:53:20,081 DEBUG   SenderThread:6804 [sender.py:send_request():407] send_request: summary_record
+2024-03-07 10:53:20,083 INFO    SenderThread:6804 [sender.py:_save_file():1378] saving file wandb-summary.json with policy end
+2024-03-07 10:53:20,405 INFO    Thread-16 :6804 [dir_watcher.py:_on_file_modified():288] file/dir modified: C:\Users\aplus\macbf\drones\drones\wandb\run-20240307_105300-5b9iajkn\files\wandb-summary.json
+2024-03-07 10:53:20,831 DEBUG   HandlerThread:6804 [handler.py:handle_request():144] handle_request: internal_messages
+2024-03-07 10:53:20,831 DEBUG   HandlerThread:6804 [handler.py:handle_request():144] handle_request: stop_status
+2024-03-07 10:53:20,832 DEBUG   SenderThread:6804 [sender.py:send_request():407] send_request: stop_status
+2024-03-07 10:53:21,198 DEBUG   HandlerThread:6804 [handler.py:handle_request():144] handle_request: status_report
+2024-03-07 10:53:21,410 INFO    Thread-16 :6804 [dir_watcher.py:_on_file_modified():288] file/dir modified: C:\Users\aplus\macbf\drones\drones\wandb\run-20240307_105300-5b9iajkn\files\output.log
+2024-03-07 10:53:26,242 DEBUG   HandlerThread:6804 [handler.py:handle_request():144] handle_request: status_report
+2024-03-07 10:53:29,266 DEBUG   HandlerThread:6804 [handler.py:handle_request():144] handle_request: partial_history
+2024-03-07 10:53:29,267 DEBUG   SenderThread:6804 [sender.py:send():380] send: history
+2024-03-07 10:53:29,268 DEBUG   SenderThread:6804 [sender.py:send_request():407] send_request: summary_record
+2024-03-07 10:53:29,270 INFO    SenderThread:6804 [sender.py:_save_file():1378] saving file wandb-summary.json with policy end
+2024-03-07 10:53:29,482 INFO    Thread-16 :6804 [dir_watcher.py:_on_file_modified():288] file/dir modified: C:\Users\aplus\macbf\drones\drones\wandb\run-20240307_105300-5b9iajkn\files\wandb-summary.json
+2024-03-07 10:53:31,298 DEBUG   HandlerThread:6804 [handler.py:handle_request():144] handle_request: status_report
+2024-03-07 10:53:31,498 INFO    Thread-16 :6804 [dir_watcher.py:_on_file_modified():288] file/dir modified: C:\Users\aplus\macbf\drones\drones\wandb\run-20240307_105300-5b9iajkn\files\output.log
+2024-03-07 10:53:32,506 INFO    Thread-16 :6804 [dir_watcher.py:_on_file_modified():288] file/dir modified: C:\Users\aplus\macbf\drones\drones\wandb\run-20240307_105300-5b9iajkn\files\config.yaml
+2024-03-07 10:53:35,828 DEBUG   HandlerThread:6804 [handler.py:handle_request():144] handle_request: stop_status
+2024-03-07 10:53:35,829 DEBUG   SenderThread:6804 [sender.py:send_request():407] send_request: stop_status
+2024-03-07 10:53:35,845 DEBUG   HandlerThread:6804 [handler.py:handle_request():144] handle_request: internal_messages
+2024-03-07 10:53:37,184 DEBUG   HandlerThread:6804 [handler.py:handle_request():144] handle_request: status_report
+2024-03-07 10:53:38,745 DEBUG   HandlerThread:6804 [handler.py:handle_request():144] handle_request: partial_history
+2024-03-07 10:53:38,746 DEBUG   SenderThread:6804 [sender.py:send():380] send: history
+2024-03-07 10:53:38,746 DEBUG   SenderThread:6804 [sender.py:send_request():407] send_request: summary_record
+2024-03-07 10:53:38,747 INFO    SenderThread:6804 [sender.py:_save_file():1378] saving file wandb-summary.json with policy end
+2024-03-07 10:53:39,571 INFO    Thread-16 :6804 [dir_watcher.py:_on_file_modified():288] file/dir modified: C:\Users\aplus\macbf\drones\drones\wandb\run-20240307_105300-5b9iajkn\files\wandb-summary.json
+2024-03-07 10:53:41,592 INFO    Thread-16 :6804 [dir_watcher.py:_on_file_modified():288] file/dir modified: C:\Users\aplus\macbf\drones\drones\wandb\run-20240307_105300-5b9iajkn\files\output.log
+2024-03-07 10:53:42,769 DEBUG   HandlerThread:6804 [handler.py:handle_request():144] handle_request: status_report
+2024-03-07 10:53:47,823 DEBUG   HandlerThread:6804 [handler.py:handle_request():144] handle_request: status_report
+2024-03-07 10:53:48,618 DEBUG   HandlerThread:6804 [handler.py:handle_request():144] handle_request: partial_history
+2024-03-07 10:53:48,618 DEBUG   SenderThread:6804 [sender.py:send():380] send: history
+2024-03-07 10:53:48,619 DEBUG   SenderThread:6804 [sender.py:send_request():407] send_request: summary_record
+2024-03-07 10:53:48,620 INFO    SenderThread:6804 [sender.py:_save_file():1378] saving file wandb-summary.json with policy end
+2024-03-07 10:53:48,658 INFO    Thread-16 :6804 [dir_watcher.py:_on_file_modified():288] file/dir modified: C:\Users\aplus\macbf\drones\drones\wandb\run-20240307_105300-5b9iajkn\files\wandb-summary.json
+2024-03-07 10:53:49,674 INFO    Thread-16 :6804 [dir_watcher.py:_on_file_modified():288] file/dir modified: C:\Users\aplus\macbf\drones\drones\wandb\run-20240307_105300-5b9iajkn\files\output.log
+2024-03-07 10:53:50,837 DEBUG   HandlerThread:6804 [handler.py:handle_request():144] handle_request: stop_status
+2024-03-07 10:53:50,838 DEBUG   SenderThread:6804 [sender.py:send_request():407] send_request: stop_status
+2024-03-07 10:53:50,853 DEBUG   HandlerThread:6804 [handler.py:handle_request():144] handle_request: internal_messages
+2024-03-07 10:53:53,238 DEBUG   HandlerThread:6804 [handler.py:handle_request():144] handle_request: status_report

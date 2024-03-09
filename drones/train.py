@@ -71,6 +71,9 @@ def build_optimizer(loss):
 
 
 def build_training_graph(num_agents):
+
+
+    
     # s is the state vectors of the agents
     s = tf.placeholder(tf.float32, [num_agents, 8])
     # s_ref is the goal states
@@ -84,6 +87,9 @@ def build_training_graph(num_agents):
     # u is the control action of each agent, with shape [num_agents, 3]
     u = core.network_action(
         s=s, s_ref=s_ref, obs_radius=config.OBS_RADIUS, indices=indices)
+    
+
+
     # compute the value of loss functions and the accuracies
     # loss_dang is for h(s) < 0, s in dangerous set
     # loss safe is for h(s) >=0, s in safe set
@@ -93,7 +99,7 @@ def build_training_graph(num_agents):
         h=h, s=s, indices=indices)
     loss_dang_ic, loss_safe_ic, acc_dang_ic, acc_safe_ic = core.loss_barrier_ic(
         u=u, indices=indices)
-    loss_agile = core.loss_agile(s=s, s_ref=s_ref, u=u, u_max=0.2, sigma_tight=0.05)
+    loss_agile = core.loss_agile(s=s, s_ref=s_ref, u=u, v_max=0.2, sigma_tight=0.05)
     # loss_dang_deriv is for doth(s) + alpha h(s) >=0 for s in dangerous set
     # loss_safe_deriv is for doth(s) + alpha h(s) >=0 for s in safe set
     # loss_medium_deriv is for doth(s) + alpha h(s) >=0 for s not in the dangerous
@@ -106,7 +112,7 @@ def build_training_graph(num_agents):
 
     # the weight of each loss item requires careful tuning
     loss_list = [loss_dang, loss_safe, 3 * loss_dang_deriv,
-                 loss_safe_deriv, 2 * loss_medium_deriv, 0.5 * loss_action, loss_dang_ic, loss_safe_ic, loss_agile]
+                 loss_safe_deriv, 2 * loss_medium_deriv, 0.5 * loss_action, loss_dang_ic, loss_safe_ic, 0.5*loss_agile]
     acc_list = [acc_dang, acc_safe, acc_dang_deriv,
                 acc_safe_deriv, acc_medium_deriv, acc_dang_ic, acc_safe_ic]
     
@@ -114,6 +120,7 @@ def build_training_graph(num_agents):
     #              loss_safe_deriv, 2 * loss_medium_deriv, 0.5 * loss_action]
     # acc_list = [acc_dang, acc_safe, acc_dang_deriv,
     #             acc_safe_deriv, acc_medium_deriv]
+
 
     weight_loss = [
         config.WEIGHT_DECAY * tf.nn.l2_loss(v) for v in tf.trainable_variables()]
@@ -132,7 +139,7 @@ def count_accuracy(accuracy_lists):
 
 def main():
     args = parse_args()
-    wandb.init(project="your_project_name", config=args)
+    wandb.init(project="maicbf", name = 'run_3_agile_4', config=args)
     wandb.config.update(args)
 
     os.environ["CUDA_VISIBLE_DEVICES"] = args.gpu
@@ -150,100 +157,83 @@ def main():
         sess.run(tf.global_variables_initializer())
         saver = tf.train.Saver()
 
-        # Open a text file for logging training progress
-        with open('training_log.txt', 'w') as log_file, open('losses.csv', 'w', newline='') as csvfile:
+        # Keep the file operations within the context manager scope
+        with open('train_logs/training_log.txt', 'w') as log_file, open('csv_data/losses.csv', 'w', newline='') as csvfile:
             loss_writer = csv.writer(csvfile)
             loss_writer.writerow(['Step', 'Loss', 'Accuracy', 'Dist Error', 'Safety Ratio'])  # CSV Header
 
+            if args.model_path:
+                saver.restore(sess, args.model_path)
 
-        if args.model_path:
-            saver.restore(sess, args.model_path)
+            loss_lists_np = []
+            acc_lists_np = []
+            dist_errors_np = []
+            dist_errors_baseline_np = []
 
-        loss_lists_np = []
-        acc_lists_np = []
-        dist_errors_np = []
-        dist_errors_baseline_np = []
-
-        safety_ratios_epoch = []
-        safety_ratios_epoch_baseline = []
-    
-        scene = core.Cityscape(args.num_agents)
-        start_time = time.time()
+            safety_ratios_epoch = []
+            safety_ratios_epoch_baseline = []
         
-        for istep in range(config.TRAIN_STEPS):
-            scene.reset()
-            # the initial state
-            s_np = np.concatenate(
-                [scene.start_points, np.zeros((args.num_agents, 5))], axis=1)
-            # set the gradient accumulation tensor to zero
-            sess.run(zero_ops)
-            for t in range(scene.steps):
-                # for each scene.step, we have a goal (reference) state for each agent
-                s_ref_np = np.concatenate(
-                    [scene.waypoints[t], np.zeros((args.num_agents, 5))], axis=1)
-                # run the system and accumulate gradient over multiple steps
-                for i in range(accumulation_steps):
-                    u_np, out = sess.run([u, accumulate_ops], feed_dict={
-                                         s: s_np, s_ref: s_ref_np})
-                    dsdt = core.quadrotor_dynamics_np(s_np, u_np)
-                    s_np = s_np + dsdt * config.TIME_STEP
-                    safety_ratio = 1 - np.mean(
-                        core.dangerous_mask_np(s_np, config.DIST_MIN_CHECK), axis=1)
-                    safety_ratio = np.mean(safety_ratio == 1)
-                    safety_ratios_epoch.append(safety_ratio)
-                    loss_list_np, acc_list_np = out[-2], out[-1]
-                    loss_lists_np.append(loss_list_np)
-                    acc_lists_np.append(acc_list_np)
-
-            dist_errors_np.append(np.mean(np.linalg.norm(
-                s_np[:, :3] - s_ref_np[:, :3], axis=1)))
+            scene = core.Cityscape(args.num_agents)
+            start_time = time.time()
             
-            # achieve the same goal states using LQR controllers without considering collision
-            s_np = np.concatenate(
-                [scene.start_points, np.zeros((args.num_agents, 5))], axis=1)
-            for t in range(scene.steps):
-                s_ref_np = np.concatenate(
-                    [scene.waypoints[t], np.zeros((args.num_agents, 5))], axis=1)
-                for i in range(accumulation_steps):
-                    u_np = core.quadrotor_controller_np(s_np, s_ref_np)
-                    dsdt = core.quadrotor_dynamics_np(s_np, u_np)
-                    s_np = s_np + dsdt * config.TIME_STEP
-                    safety_ratio = 1 - np.mean(
-                        core.dangerous_mask_np(s_np, config.DIST_MIN_CHECK), axis=1)
-                    safety_ratio = np.mean(safety_ratio == 1)
-                    safety_ratios_epoch_baseline.append(safety_ratio)
-            dist_errors_baseline_np.append(
-                np.mean(np.linalg.norm(s_np[:, :3] - s_ref_np[:, :3], axis=1)))
+            for istep in range(config.TRAIN_STEPS):
+                scene.reset()
+                s_np = np.concatenate(
+                    [scene.start_points, np.zeros((args.num_agents, 5))], axis=1)
+                sess.run(zero_ops)
+                for t in range(scene.steps):
+                    s_ref_np = np.concatenate(
+                        [scene.waypoints[t], np.zeros((args.num_agents, 5))], axis=1)
+                    for i in range(accumulation_steps):
+                        u_np, out = sess.run([u, accumulate_ops], feed_dict={
+                                             s: s_np, s_ref: s_ref_np})
+                        dsdt = core.quadrotor_dynamics_np(s_np, u_np)
+                        s_np = s_np + dsdt * config.TIME_STEP
+                        safety_ratio = 1 - np.mean(
+                            core.dangerous_mask_np(s_np, config.DIST_MIN_CHECK), axis=1)
+                        safety_ratio = np.mean(safety_ratio == 1)
+                        safety_ratios_epoch.append(safety_ratio)
+                        loss_list_np, acc_list_np = out[-2], out[-1]
+                        loss_lists_np.append(loss_list_np)
+                        acc_lists_np.append(acc_list_np)
 
-            if np.mod(istep // 10, 2) == 0:
-                sess.run(train_step_h)
-            else:
-                sess.run(train_step_a)
+                dist_errors_np.append(np.mean(np.linalg.norm(
+                    s_np[:, :3] - s_ref_np[:, :3], axis=1)))
 
-            if np.mod(istep, config.DISPLAY_STEPS) == 0:
-                print('Step: {}, Time: {:.1f}, Loss: {}, Dist: {:.3f}, Safety Rate: {:.3f}'.format(
-                    istep, time.time() - start_time, np.mean(loss_lists_np, axis=0),
-                    np.mean(dist_errors_np), np.mean(safety_ratios_epoch)))
-                start_time = time.time()
-                (loss_lists_np, acc_lists_np, dist_errors_np, dist_errors_baseline_np, safety_ratios_epoch,
-                 safety_ratios_epoch_baseline) = [], [], [], [], [], []
+                if np.mod(istep // 10, 2) == 0:
+                    sess.run(train_step_h)
+                else:
+                    sess.run(train_step_a)
 
-            # Log training metrics to wandb
-                wandb.log({"Loss": np.mean(loss_lists_np, axis=0),
-                           "Accuracy": np.mean(acc_lists_np),
-                           "Dist Error": np.mean(dist_errors_np),
-                           "Safety Ratio": np.mean(safety_ratios_epoch),
-                           "Step": istep})
+                if np.mod(istep, config.DISPLAY_STEPS) == 0:
+                    print('Step: {}, Time: {:.1f}, Loss: {}, Dist: {:.3f}, Safety Rate: {:.3f}'.format(
+                        istep, time.time() - start_time, np.mean(loss_lists_np, axis=0),
+                        np.mean(dist_errors_np), np.mean(safety_ratios_epoch)))
+                    start_time = time.time()
 
-            # Write training progress to text file and save losses to CSV
-            log_message = f'Step: {istep}, Time: {time.time() - start_time:.1f}, Loss: {np.mean(loss_lists_np, axis=0)}, Dist: {np.mean(dist_errors_np):.3f}, Safety Rate: {np.mean(safety_ratios_epoch):.3f}\n'
-            log_file.write(log_message)
-            loss_writer.writerow([istep, np.mean(loss_lists_np, axis=0), np.mean(acc_lists_np), np.mean(dist_errors_np), np.mean(safety_ratios_epoch)])
+                    
+                # Log training metrics to wandb
+                    wandb.log({"Loss_agile": float(np.mean(loss_lists_np[8], axis=0)),
+                              "Loss_safe_ic": float(np.mean(loss_lists_np[7], axis=0)),
+                              "Loss_dang_ic": float(np.mean(loss_lists_np[6], axis=0)),
+                               "Accuracy": float(np.mean(acc_lists_np[1])),
+                               "Dist Error": float(np.mean(dist_errors_np)),
+                               "Safety Ratio": float(np.mean(safety_ratios_epoch)),
+                               "Step": istep})
 
-            if np.mod(istep, config.SAVE_STEPS) == 0 or istep + 1 == config.TRAIN_STEPS:
-                saver.save(
-                    sess, 'models/model_ours(1.0)_4_0.8_{}_iter_{}'.format(args.tag, istep))
+                    # Write training progress to text file and save losses to CSV within the with block
+                    log_message = f'Step: {istep}, Time: {time.time() - start_time:.1f}, Loss: {np.mean(loss_lists_np, axis=0)}, Dist: {np.mean(dist_errors_np):.3f}, Safety Rate: {np.mean(safety_ratios_epoch):.3f}\n'
+                    log_file.write(log_message)
+                    loss_writer.writerow([istep, np.mean(loss_lists_np, axis=0), np.mean(acc_lists_np), np.mean(dist_errors_np), np.mean(safety_ratios_epoch)])
 
+                    # print(np.mean(loss_lists_np))
+                    # print(loss_lists_np)
+                    (loss_lists_np, acc_lists_np, dist_errors_np, dist_errors_baseline_np, safety_ratios_epoch,
+                     safety_ratios_epoch_baseline) = [], [], [], [], [], []
+                
+
+                if np.mod(istep, config.SAVE_STEPS) == 0 or istep + 1 == config.TRAIN_STEPS:
+                    saver.save(sess, 'models/agile_u_max_0.2/model_ours_weight_1.0_agents_4_v_max_0.2_u_max_0.2_sigma_0.05_{}_iter_{}'.format(args.tag, istep))
 
 if __name__ == '__main__':
     main()

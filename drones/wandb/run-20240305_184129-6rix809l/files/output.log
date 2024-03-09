@@ -1,0 +1,341 @@
+WARNING:tensorflow:From train.py:75: The name tf.placeholder is deprecated. Please use tf.compat.v1.placeholder instead.
+WARNING:tensorflow:
+The TensorFlow contrib module will not be included in TensorFlow 2.0.
+For more information, please see:
+  * https://github.com/tensorflow/community/blob/master/rfcs/20180907-contrib-sunset.md
+  * https://github.com/tensorflow/addons
+  * https://github.com/tensorflow/io (for I/O related ops)
+If you depend on functionality not listed there, please file an issue.
+WARNING:tensorflow:From C:\Users\aplus\macbf\drones\drones\core.py:278: The name tf.AUTO_REUSE is deprecated. Please use tf.compat.v1.AUTO_REUSE instead.
+WARNING:tensorflow:Entity <bound method Conv1D.call of <tensorflow.python.layers.convolutional.Conv1D object at 0x0000023F09B60550>> could not be transformed and will be executed as-is. Please report this to the AutgoGraph team. When filing the bug, set the verbosity to 10 (on Linux, `export AUTOGRAPH_VERBOSITY=10`) and attach the full output. Cause: converting <bound method Conv1D.call of <tensorflow.python.layers.convolutional.Conv1D object at 0x0000023F09B60550>>: AttributeError: module 'gast' has no attribute 'Str'
+WARNING:tensorflow:Entity <bound method Conv1D.call of <tensorflow.python.layers.convolutional.Conv1D object at 0x0000023F2DA15DA0>> could not be transformed and will be executed as-is. Please report this to the AutgoGraph team. When filing the bug, set the verbosity to 10 (on Linux, `export AUTOGRAPH_VERBOSITY=10`) and attach the full output. Cause: converting <bound method Conv1D.call of <tensorflow.python.layers.convolutional.Conv1D object at 0x0000023F2DA15DA0>>: AttributeError: module 'gast' has no attribute 'Str'
+WARNING:tensorflow:Entity <bound method Conv1D.call of <tensorflow.python.layers.convolutional.Conv1D object at 0x0000023F2DA15F28>> could not be transformed and will be executed as-is. Please report this to the AutgoGraph team. When filing the bug, set the verbosity to 10 (on Linux, `export AUTOGRAPH_VERBOSITY=10`) and attach the full output. Cause: converting <bound method Conv1D.call of <tensorflow.python.layers.convolutional.Conv1D object at 0x0000023F2DA15F28>>: AttributeError: module 'gast' has no attribute 'Str'
+WARNING:tensorflow:Entity <bound method Conv1D.call of <tensorflow.python.layers.convolutional.Conv1D object at 0x0000023F2DA36BE0>> could not be transformed and will be executed as-is. Please report this to the AutgoGraph team. When filing the bug, set the verbosity to 10 (on Linux, `export AUTOGRAPH_VERBOSITY=10`) and attach the full output. Cause: converting <bound method Conv1D.call of <tensorflow.python.layers.convolutional.Conv1D object at 0x0000023F2DA36BE0>>: AttributeError: module 'gast' has no attribute 'Str'
+WARNING:tensorflow:Entity <bound method Conv1D.call of <tensorflow.python.layers.convolutional.Conv1D object at 0x0000023F2DBE0C88>> could not be transformed and will be executed as-is. Please report this to the AutgoGraph team. When filing the bug, set the verbosity to 10 (on Linux, `export AUTOGRAPH_VERBOSITY=10`) and attach the full output. Cause: converting <bound method Conv1D.call of <tensorflow.python.layers.convolutional.Conv1D object at 0x0000023F2DBE0C88>>: AttributeError: module 'gast' has no attribute 'Str'
+WARNING:tensorflow:Entity <bound method Conv1D.call of <tensorflow.python.layers.convolutional.Conv1D object at 0x0000023F2DB8AE10>> could not be transformed and will be executed as-is. Please report this to the AutgoGraph team. When filing the bug, set the verbosity to 10 (on Linux, `export AUTOGRAPH_VERBOSITY=10`) and attach the full output. Cause: converting <bound method Conv1D.call of <tensorflow.python.layers.convolutional.Conv1D object at 0x0000023F2DB8AE10>>: AttributeError: module 'gast' has no attribute 'Str'
+WARNING:tensorflow:Entity <bound method Dense.call of <tensorflow.python.layers.core.Dense object at 0x0000023F2DC00EF0>> could not be transformed and will be executed as-is. Please report this to the AutgoGraph team. When filing the bug, set the verbosity to 10 (on Linux, `export AUTOGRAPH_VERBOSITY=10`) and attach the full output. Cause: converting <bound method Dense.call of <tensorflow.python.layers.core.Dense object at 0x0000023F2DC00EF0>>: AttributeError: module 'gast' has no attribute 'Index'
+WARNING:tensorflow:Entity <bound method Dense.call of <tensorflow.python.layers.core.Dense object at 0x0000023F2DC00B38>> could not be transformed and will be executed as-is. Please report this to the AutgoGraph team. When filing the bug, set the verbosity to 10 (on Linux, `export AUTOGRAPH_VERBOSITY=10`) and attach the full output. Cause: converting <bound method Dense.call of <tensorflow.python.layers.core.Dense object at 0x0000023F2DC00B38>>: AttributeError: module 'gast' has no attribute 'Index'
+WARNING:tensorflow:Entity <bound method Dense.call of <tensorflow.python.layers.core.Dense object at 0x0000023F2DC00EF0>> could not be transformed and will be executed as-is. Please report this to the AutgoGraph team. When filing the bug, set the verbosity to 10 (on Linux, `export AUTOGRAPH_VERBOSITY=10`) and attach the full output. Cause: converting <bound method Dense.call of <tensorflow.python.layers.core.Dense object at 0x0000023F2DC00EF0>>: AttributeError: module 'gast' has no attribute 'Index'
+WARNING:tensorflow:Entity <bound method Dense.call of <tensorflow.python.layers.core.Dense object at 0x0000023F2DC00F98>> could not be transformed and will be executed as-is. Please report this to the AutgoGraph team. When filing the bug, set the verbosity to 10 (on Linux, `export AUTOGRAPH_VERBOSITY=10`) and attach the full output. Cause: converting <bound method Dense.call of <tensorflow.python.layers.core.Dense object at 0x0000023F2DC00F98>>: AttributeError: module 'gast' has no attribute 'Index'
+WARNING:tensorflow:From D:\Anaconda\envs\macbf\lib\site-packages\tensorflow\python\ops\array_ops.py:1354: add_dispatch_support.<locals>.wrapper (from tensorflow.python.ops.array_ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use tf.where in 2.0, which has the same broadcast rule as np.where
+WARNING:tensorflow:Entity <bound method Conv1D.call of <tensorflow.python.layers.convolutional.Conv1D object at 0x0000023F2EDEDEF0>> could not be transformed and will be executed as-is. Please report this to the AutgoGraph team. When filing the bug, set the verbosity to 10 (on Linux, `export AUTOGRAPH_VERBOSITY=10`) and attach the full output. Cause: converting <bound method Conv1D.call of <tensorflow.python.layers.convolutional.Conv1D object at 0x0000023F2EDEDEF0>>: AttributeError: module 'gast' has no attribute 'Str'
+WARNING:tensorflow:Entity <bound method Conv1D.call of <tensorflow.python.layers.convolutional.Conv1D object at 0x0000023F2EE01E80>> could not be transformed and will be executed as-is. Please report this to the AutgoGraph team. When filing the bug, set the verbosity to 10 (on Linux, `export AUTOGRAPH_VERBOSITY=10`) and attach the full output. Cause: converting <bound method Conv1D.call of <tensorflow.python.layers.convolutional.Conv1D object at 0x0000023F2EE01E80>>: AttributeError: module 'gast' has no attribute 'Str'
+WARNING:tensorflow:Entity <bound method Conv1D.call of <tensorflow.python.layers.convolutional.Conv1D object at 0x0000023F2EE01588>> could not be transformed and will be executed as-is. Please report this to the AutgoGraph team. When filing the bug, set the verbosity to 10 (on Linux, `export AUTOGRAPH_VERBOSITY=10`) and attach the full output. Cause: converting <bound method Conv1D.call of <tensorflow.python.layers.convolutional.Conv1D object at 0x0000023F2EE01588>>: AttributeError: module 'gast' has no attribute 'Str'
+WARNING:tensorflow:Entity <bound method Conv1D.call of <tensorflow.python.layers.convolutional.Conv1D object at 0x0000023F2EE35518>> could not be transformed and will be executed as-is. Please report this to the AutgoGraph team. When filing the bug, set the verbosity to 10 (on Linux, `export AUTOGRAPH_VERBOSITY=10`) and attach the full output. Cause: converting <bound method Conv1D.call of <tensorflow.python.layers.convolutional.Conv1D object at 0x0000023F2EE35518>>: AttributeError: module 'gast' has no attribute 'Str'
+WARNING:tensorflow:From train.py:120: The name tf.trainable_variables is deprecated. Please use tf.compat.v1.trainable_variables instead.
+WARNING:tensorflow:From train.py:28: The name tf.train.AdamOptimizer is deprecated. Please use tf.compat.v1.train.AdamOptimizer instead.
+WARNING:tensorflow:From train.py:36: Variable.initialized_value (from tensorflow.python.ops.variables) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use Variable.read_value. Variables in 2.X are initialized automatically both in eager and graph (inside tf.defun) contexts.
+WARNING:tensorflow:From train.py:150: The name tf.Session is deprecated. Please use tf.compat.v1.Session instead.
+WARNING:tensorflow:From train.py:151: The name tf.global_variables_initializer is deprecated. Please use tf.compat.v1.global_variables_initializer instead.
+WARNING:tensorflow:From train.py:152: The name tf.train.Saver is deprecated. Please use tf.compat.v1.train.Saver instead.
+D:\Anaconda\envs\macbf\lib\site-packages\numpy\core\fromnumeric.py:3373: RuntimeWarning: Mean of empty slice.
+  out=out, **kwargs)
+D:\Anaconda\envs\macbf\lib\site-packages\numpy\core\_methods.py:170: RuntimeWarning: invalid value encountered in double_scalars
+  ret = ret.dtype.type(ret / rcount)
+Step: 0, Time: 1.5, Loss: [0.000e+00 1.940e-03 0.000e+00 1.118e-04 0.000e+00 7.971e-03 2.685e+00
+ 3.742e-02], Dist: 0.392, Safety Rate: 1.000
+()
+<class 'builtin_function_or_method'>
+Step: 1, Time: 1.1, Loss: [3.885e-02 6.498e-04 1.749e-01 1.322e-04 2.154e-02 1.608e-03 2.707e+00
+ 2.993e-02], Dist: 0.417, Safety Rate: 0.509
+()
+<class 'builtin_function_or_method'>
+Step: 2, Time: 1.1, Loss: [1.617e-03 9.238e-04 1.419e-02 1.549e-04 1.467e-03 6.142e-03 2.638e+00
+ 5.535e-02], Dist: 0.316, Safety Rate: 0.984
+()
+<class 'builtin_function_or_method'>
+Step: 3, Time: 0.8, Loss: [8.839e-05 1.433e-03 1.281e-02 1.714e-04 7.664e-03 7.572e-03 2.552e+00
+ 1.047e-01], Dist: 0.855, Safety Rate: 1.000
+()
+<class 'builtin_function_or_method'>
+Step: 4, Time: 0.9, Loss: [1.126e-03 6.328e-03 4.864e-02 3.909e-04 3.933e-03 1.115e-02 2.632e+00
+ 6.106e-02], Dist: 0.741, Safety Rate: 0.936
+()
+<class 'builtin_function_or_method'>
+Step: 5, Time: 0.9, Loss: [5.969e-05 2.279e-03 1.144e-02 1.858e-04 2.742e-03 1.125e-02 2.668e+00
+ 6.138e-02], Dist: 0.808, Safety Rate: 1.000
+()
+<class 'builtin_function_or_method'>
+Step: 6, Time: 0.9, Loss: [0.000e+00 1.226e-03 0.000e+00 3.638e-05 0.000e+00 5.768e-03 2.652e+00
+ 5.966e-02], Dist: 0.606, Safety Rate: 1.000
+()
+<class 'builtin_function_or_method'>
+Step: 7, Time: 1.1, Loss: [2.710e-03 1.269e-03 7.777e-02 1.534e-04 1.801e-02 8.709e-03 2.640e+00
+ 7.838e-02], Dist: 0.435, Safety Rate: 0.886
+()
+<class 'builtin_function_or_method'>
+Step: 8, Time: 1.1, Loss: [0.000e+00 1.019e-03 0.000e+00 8.546e-05 9.990e-03 7.621e-03 2.682e+00
+ 4.117e-02], Dist: 0.437, Safety Rate: 1.000
+()
+<class 'builtin_function_or_method'>
+Step: 9, Time: 0.8, Loss: [0.000e+00 1.196e-03 0.000e+00 8.986e-05 1.835e-02 4.391e-03 2.688e+00
+ 2.913e-02], Dist: 0.625, Safety Rate: 1.000
+()
+<class 'builtin_function_or_method'>
+Step: 10, Time: 1.1, Loss: [0.000e+00 7.500e-04 0.000e+00 0.000e+00 0.000e+00 8.226e-03 2.542e+00
+ 7.345e-02], Dist: 0.322, Safety Rate: 1.000
+()
+<class 'builtin_function_or_method'>
+Step: 11, Time: 1.0, Loss: [3.476e-03 6.823e-04 1.253e-01 8.548e-05 1.154e-02 4.098e-03 2.518e+00
+ 7.652e-02], Dist: 0.622, Safety Rate: 0.776
+()
+<class 'builtin_function_or_method'>
+Step: 12, Time: 1.0, Loss: [0.000e+00 8.042e-04 0.000e+00 1.077e-05 8.789e-03 4.652e-03 2.652e+00
+ 4.489e-02], Dist: 0.527, Safety Rate: 1.000
+()
+<class 'builtin_function_or_method'>
+Step: 13, Time: 1.2, Loss: [9.850e-04 7.955e-04 2.872e-02 9.129e-05 2.674e-03 5.593e-03 2.647e+00
+ 4.079e-02], Dist: 0.544, Safety Rate: 0.979
+()
+<class 'builtin_function_or_method'>
+Step: 14, Time: 1.0, Loss: [0.000e+00 1.107e-03 0.000e+00 1.452e-04 3.147e-03 5.992e-03 2.703e+00
+ 2.679e-02], Dist: 0.516, Safety Rate: 1.000
+()
+<class 'builtin_function_or_method'>
+Step: 15, Time: 1.2, Loss: [6.829e-04 7.853e-04 1.974e-02 1.172e-04 1.512e-03 8.190e-03 2.656e+00
+ 5.515e-02], Dist: 0.592, Safety Rate: 0.971
+()
+<class 'builtin_function_or_method'>
+Step: 16, Time: 1.1, Loss: [0.000e+00 8.492e-04 0.000e+00 8.468e-05 7.000e-03 1.138e-02 2.711e+00
+ 2.458e-02], Dist: 0.559, Safety Rate: 1.000
+()
+<class 'builtin_function_or_method'>
+Step: 17, Time: 1.0, Loss: [2.796e-03 7.650e-04 7.166e-02 1.792e-04 2.230e-02 1.267e-02 2.636e+00
+ 4.165e-02], Dist: 0.990, Safety Rate: 0.927
+()
+<class 'builtin_function_or_method'>
+Step: 18, Time: 1.2, Loss: [3.357e-03 7.890e-04 1.091e-01 7.228e-05 3.923e-03 1.848e-02 2.667e+00
+ 4.180e-02], Dist: 0.850, Safety Rate: 0.819
+()
+<class 'builtin_function_or_method'>
+Step: 19, Time: 1.2, Loss: [1.857e-03 1.275e-03 1.675e-01 7.278e-05 1.287e-02 1.104e-02 2.452e+00
+ 7.065e-02], Dist: 1.144, Safety Rate: 0.685
+()
+<class 'builtin_function_or_method'>
+Step: 20, Time: 1.5, Loss: [9.918e-04 7.685e-04 2.950e-02 1.225e-04 8.130e-03 1.824e-02 2.695e+00
+ 1.881e-02], Dist: 0.450, Safety Rate: 0.972
+()
+<class 'builtin_function_or_method'>
+Step: 21, Time: 1.1, Loss: [0.000e+00 1.169e-03 0.000e+00 2.281e-04 0.000e+00 1.795e-02 2.544e+00
+ 4.527e-02], Dist: 0.904, Safety Rate: 1.000
+()
+<class 'builtin_function_or_method'>
+Step: 22, Time: 1.1, Loss: [9.504e-04 7.332e-04 2.122e-02 5.004e-04 2.102e-03 1.647e-02 2.631e+00
+ 3.181e-02], Dist: 0.705, Safety Rate: 0.967
+()
+<class 'builtin_function_or_method'>
+Step: 23, Time: 1.0, Loss: [4.264e-03 6.912e-04 2.319e-02 1.454e-04 1.623e-02 2.195e-02 2.612e+00
+ 4.401e-02], Dist: 0.913, Safety Rate: 1.000
+()
+<class 'builtin_function_or_method'>
+Step: 24, Time: 1.1, Loss: [0.000e+00 7.352e-04 0.000e+00 1.718e-04 0.000e+00 1.882e-02 2.648e+00
+ 3.860e-02], Dist: 0.826, Safety Rate: 1.000
+()
+<class 'builtin_function_or_method'>
+Step: 25, Time: 1.2, Loss: [1.024e-03 7.788e-04 1.376e-02 6.698e-05 2.155e-03 1.574e-02 2.627e+00
+ 4.125e-02], Dist: 0.608, Safety Rate: 1.000
+()
+<class 'builtin_function_or_method'>
+Step: 26, Time: 1.3, Loss: [0.000e+00 8.399e-04 0.000e+00 1.265e-04 2.823e-03 1.983e-02 2.668e+00
+ 2.857e-02], Dist: 0.431, Safety Rate: 1.000
+()
+<class 'builtin_function_or_method'>
+Step: 27, Time: 1.2, Loss: [5.664e-04 7.997e-04 6.818e-03 6.404e-05 2.337e-03 2.092e-02 2.635e+00
+ 4.856e-02], Dist: 0.554, Safety Rate: 1.000
+()
+<class 'builtin_function_or_method'>
+Step: 28, Time: 0.9, Loss: [9.373e-03 7.794e-04 6.554e-02 1.142e-04 8.983e-03 1.859e-02 2.731e+00
+ 1.908e-02], Dist: 1.195, Safety Rate: 0.973
+()
+<class 'builtin_function_or_method'>
+Step: 29, Time: 1.0, Loss: [8.513e-04 8.433e-04 3.081e-02 1.036e-04 2.040e-02 2.056e-02 2.561e+00
+ 6.986e-02], Dist: 0.823, Safety Rate: 0.955
+()
+<class 'builtin_function_or_method'>
+Step: 30, Time: 1.1, Loss: [1.020e-03 1.065e-03 3.796e-02 1.327e-04 3.658e-03 2.788e-02 2.518e+00
+ 6.554e-02], Dist: 1.181, Safety Rate: 0.932
+()
+<class 'builtin_function_or_method'>
+Step: 31, Time: 0.9, Loss: [0.000e+00 1.270e-03 0.000e+00 2.569e-04 2.898e-03 2.477e-02 2.635e+00
+ 2.532e-02], Dist: 0.710, Safety Rate: 1.000
+()
+<class 'builtin_function_or_method'>
+Step: 32, Time: 1.0, Loss: [0.000e+00 7.500e-04 0.000e+00 0.000e+00 0.000e+00 2.463e-02 2.600e+00
+ 4.535e-02], Dist: 0.720, Safety Rate: 1.000
+()
+<class 'builtin_function_or_method'>
+Step: 33, Time: 1.3, Loss: [8.509e-04 7.281e-04 7.221e-02 9.244e-06 2.806e-03 2.703e-02 2.660e+00
+ 3.214e-02], Dist: 0.468, Safety Rate: 0.880
+()
+<class 'builtin_function_or_method'>
+Step: 34, Time: 0.9, Loss: [0.000e+00 7.392e-04 0.000e+00 3.695e-04 9.000e-03 3.722e-02 2.636e+00
+ 3.476e-02], Dist: 0.966, Safety Rate: 1.000
+()
+<class 'builtin_function_or_method'>
+Step: 35, Time: 0.8, Loss: [0.000e+00 7.436e-04 0.000e+00 0.000e+00 1.075e-02 4.261e-02 2.583e+00
+ 5.217e-02], Dist: 1.690, Safety Rate: 1.000
+()
+<class 'builtin_function_or_method'>
+Step: 36, Time: 1.0, Loss: [1.978e-03 8.028e-04 3.670e-02 1.104e-04 5.100e-03 5.290e-02 2.632e+00
+ 2.140e-02], Dist: 0.929, Safety Rate: 0.944
+()
+<class 'builtin_function_or_method'>
+Step: 37, Time: 1.0, Loss: [1.213e-03 9.296e-04 4.126e-02 2.860e-04 1.559e-02 5.314e-02 2.598e+00
+ 4.605e-02], Dist: 0.843, Safety Rate: 0.939
+()
+<class 'builtin_function_or_method'>
+Step: 38, Time: 1.0, Loss: [9.155e-04 6.912e-04 6.689e-03 6.483e-04 2.875e-03 5.348e-02 2.659e+00
+ 2.966e-02], Dist: 1.002, Safety Rate: 1.000
+()
+<class 'builtin_function_or_method'>
+Step: 39, Time: 0.9, Loss: [0.000e+00 7.379e-04 0.000e+00 1.374e-04 0.000e+00 5.295e-02 2.665e+00
+ 2.545e-02], Dist: 1.109, Safety Rate: 1.000
+()
+<class 'builtin_function_or_method'>
+Step: 40, Time: 0.9, Loss: [0.000e+00 6.551e-04 0.000e+00 4.433e-04 0.000e+00 6.973e-02 2.606e+00
+ 5.189e-02], Dist: 0.974, Safety Rate: 1.000
+()
+<class 'builtin_function_or_method'>
+Step: 41, Time: 0.9, Loss: [2.910e-03 7.669e-04 3.880e-02 5.133e-05 1.466e-02 4.643e-02 2.531e+00
+ 4.186e-02], Dist: 0.869, Safety Rate: 1.000
+()
+<class 'builtin_function_or_method'>
+Step: 42, Time: 1.1, Loss: [9.406e-04 8.856e-04 1.568e-02 1.033e-04 4.167e-03 6.107e-02 2.603e+00
+ 3.896e-02], Dist: 0.812, Safety Rate: 0.990
+()
+<class 'builtin_function_or_method'>
+Step: 43, Time: 0.8, Loss: [9.915e-05 8.956e-04 1.255e-02 1.969e-04 1.779e-03 5.845e-02 2.650e+00
+ 2.115e-02], Dist: 1.348, Safety Rate: 1.000
+()
+<class 'builtin_function_or_method'>
+Step: 44, Time: 1.0, Loss: [0.000e+00 1.074e-03 0.000e+00 8.447e-05 1.161e-02 4.413e-02 2.595e+00
+ 3.487e-02], Dist: 0.881, Safety Rate: 1.000
+()
+<class 'builtin_function_or_method'>
+Step: 45, Time: 1.0, Loss: [6.732e-04 9.568e-04 1.048e-01 1.619e-04 1.189e-02 5.051e-02 2.590e+00
+ 4.291e-02], Dist: 0.859, Safety Rate: 0.820
+()
+<class 'builtin_function_or_method'>
+Step: 46, Time: 0.8, Loss: [0.000e+00 1.367e-03 0.000e+00 1.033e-04 1.286e-02 5.649e-02 2.672e+00
+ 2.590e-02], Dist: 1.058, Safety Rate: 1.000
+()
+<class 'builtin_function_or_method'>
+Step: 47, Time: 0.9, Loss: [0.000e+00 2.006e-03 4.109e-02 3.472e-04 2.160e-02 4.734e-02 2.615e+00
+ 3.850e-02], Dist: 0.819, Safety Rate: 0.939
+()
+<class 'builtin_function_or_method'>
+Step: 48, Time: 0.8, Loss: [2.600e-04 2.361e-03 5.226e-02 6.359e-04 1.667e-02 6.120e-02 2.536e+00
+ 5.539e-02], Dist: 1.088, Safety Rate: 0.982
+()
+<class 'builtin_function_or_method'>
+Step: 49, Time: 1.0, Loss: [3.912e-04 1.701e-03 2.563e-02 2.967e-04 3.103e-02 5.585e-02 2.632e+00
+ 3.849e-02], Dist: 0.998, Safety Rate: 0.970
+()
+<class 'builtin_function_or_method'>
+Step: 50, Time: 1.0, Loss: [0.000e+00 7.281e-04 0.000e+00 0.000e+00 0.000e+00 4.184e-02 2.565e+00
+ 3.389e-02], Dist: 0.757, Safety Rate: 1.000
+()
+<class 'builtin_function_or_method'>
+Step: 51, Time: 1.0, Loss: [0.000e+00 7.504e-04 0.000e+00 5.624e-05 2.092e-03 5.249e-02 2.550e+00
+ 2.431e-02], Dist: 1.007, Safety Rate: 1.000
+()
+<class 'builtin_function_or_method'>
+Step: 52, Time: 0.9, Loss: [7.570e-04 7.427e-04 2.811e-02 5.200e-05 5.581e-03 5.226e-02 2.584e+00
+ 3.947e-02], Dist: 1.653, Safety Rate: 0.954
+()
+<class 'builtin_function_or_method'>
+Step: 53, Time: 1.2, Loss: [4.884e-04 7.037e-04 1.420e-02 2.610e-04 2.460e-02 5.065e-02 2.605e+00
+ 3.365e-02], Dist: 0.735, Safety Rate: 1.000
+()
+<class 'builtin_function_or_method'>
+Step: 54, Time: 0.9, Loss: [0.000e+00 1.066e-03 0.000e+00 2.528e-04 6.189e-04 4.372e-02 2.664e+00
+ 2.240e-02], Dist: 1.238, Safety Rate: 1.000
+()
+<class 'builtin_function_or_method'>
+Step: 55, Time: 1.1, Loss: [0.000e+00 9.816e-04 0.000e+00 2.985e-04 0.000e+00 4.663e-02 2.660e+00
+ 2.452e-02], Dist: 0.751, Safety Rate: 1.000
+()
+<class 'builtin_function_or_method'>
+Step: 56, Time: 0.8, Loss: [7.077e-04 9.521e-04 4.606e-02 7.299e-04 1.338e-02 4.421e-02 2.638e+00
+ 3.799e-02], Dist: 1.209, Safety Rate: 0.946
+()
+<class 'builtin_function_or_method'>
+Step: 57, Time: 1.2, Loss: [9.411e-04 7.429e-04 1.659e-02 5.382e-05 8.006e-03 3.748e-02 2.637e+00
+ 2.551e-02], Dist: 0.536, Safety Rate: 0.975
+()
+<class 'builtin_function_or_method'>
+Step: 58, Time: 1.1, Loss: [0.000e+00 7.347e-04 0.000e+00 2.681e-04 0.000e+00 3.909e-02 2.676e+00
+ 3.048e-02], Dist: 0.818, Safety Rate: 1.000
+()
+<class 'builtin_function_or_method'>
+Step: 59, Time: 0.8, Loss: [1.034e-03 8.463e-04 2.892e-02 3.988e-04 1.056e-02 3.599e-02 2.642e+00
+ 2.855e-02], Dist: 1.602, Safety Rate: 0.923
+()
+<class 'builtin_function_or_method'>
+Step: 60, Time: 1.1, Loss: [6.375e-04 1.148e-03 2.269e-02 2.314e-04 9.775e-03 4.380e-02 2.601e+00
+ 3.093e-02], Dist: 0.768, Safety Rate: 0.965
+()
+<class 'builtin_function_or_method'>
+Step: 61, Time: 1.0, Loss: [0.000e+00 7.207e-04 0.000e+00 0.000e+00 0.000e+00 3.017e-02 2.610e+00
+ 2.131e-02], Dist: 0.724, Safety Rate: 1.000
+()
+<class 'builtin_function_or_method'>
+Step: 62, Time: 1.1, Loss: [1.708e-03 7.999e-04 1.501e-02 2.142e-04 1.805e-03 4.441e-02 2.605e+00
+ 3.675e-02], Dist: 0.749, Safety Rate: 0.990
+()
+<class 'builtin_function_or_method'>
+Step: 63, Time: 1.0, Loss: [3.673e-03 7.234e-04 1.820e-02 2.831e-04 1.842e-03 4.052e-02 2.634e+00
+ 2.785e-02], Dist: 1.126, Safety Rate: 0.980
+()
+<class 'builtin_function_or_method'>
+Step: 64, Time: 0.8, Loss: [3.453e-03 7.390e-04 2.485e-02 4.158e-05 2.968e-03 4.678e-02 2.571e+00
+ 5.833e-02], Dist: 1.255, Safety Rate: 0.959
+()
+<class 'builtin_function_or_method'>
+Step: 65, Time: 1.0, Loss: [0.000e+00 6.891e-04 0.000e+00 2.423e-04 0.000e+00 3.713e-02 2.647e+00
+ 3.037e-02], Dist: 0.840, Safety Rate: 1.000
+()
+<class 'builtin_function_or_method'>
+Step: 66, Time: 1.2, Loss: [3.922e-03 8.237e-04 1.864e-02 3.461e-04 4.464e-03 3.606e-02 2.637e+00
+ 2.327e-02], Dist: 0.529, Safety Rate: 0.986
+()
+<class 'builtin_function_or_method'>
+Step: 67, Time: 1.0, Loss: [3.895e-03 7.131e-04 1.246e-01 6.303e-05 8.825e-03 3.729e-02 2.534e+00
+ 7.550e-02], Dist: 0.955, Safety Rate: 0.828
+()
+<class 'builtin_function_or_method'>
+Step: 68, Time: 1.2, Loss: [0.000e+00 7.294e-04 0.000e+00 7.637e-05 0.000e+00 3.314e-02 2.563e+00
+ 3.833e-02], Dist: 0.588, Safety Rate: 1.000
+()
+<class 'builtin_function_or_method'>
+Step: 69, Time: 0.7, Loss: [0.000e+00 7.632e-04 0.000e+00 1.309e-04 4.415e-02 3.011e-02 2.537e+00
+ 3.539e-02], Dist: 1.475, Safety Rate: 1.000
+()
+<class 'builtin_function_or_method'>
+Step: 70, Time: 1.2, Loss: [9.471e-04 8.312e-04 1.699e-02 1.417e-04 4.426e-03 3.709e-02 2.607e+00
+ 3.263e-02], Dist: 0.573, Safety Rate: 1.000
+()
+<class 'builtin_function_or_method'>
+Step: 71, Time: 0.9, Loss: [2.685e-03 7.169e-04 4.268e-02 6.432e-04 2.418e-03 3.914e-02 2.665e+00
+ 2.277e-02], Dist: 0.912, Safety Rate: 0.939
+()
+<class 'builtin_function_or_method'>
+Step: 72, Time: 0.8, Loss: [0.000e+00 7.268e-04 0.000e+00 4.055e-04 9.000e-03 3.357e-02 2.645e+00
+ 2.182e-02], Dist: 1.312, Safety Rate: 1.000
+()
+<class 'builtin_function_or_method'>
+Step: 73, Time: 1.0, Loss: [0.000e+00 6.684e-04 0.000e+00 4.174e-04 0.000e+00 4.019e-02 2.586e+00
+ 3.912e-02], Dist: 0.756, Safety Rate: 1.000
+()
+<class 'builtin_function_or_method'>
+Step: 74, Time: 1.1, Loss: [0.000e+00 6.664e-04 0.000e+00 6.303e-04 1.667e-03 4.173e-02 2.597e+00
+ 4.752e-02], Dist: 0.944, Safety Rate: 1.000
+()
+<class 'builtin_function_or_method'>
+Step: 75, Time: 1.0, Loss: [0.000e+00 6.713e-04 0.000e+00 7.173e-04 1.299e-02 3.740e-02 2.554e+00
+ 7.173e-02], Dist: 0.950, Safety Rate: 1.000
+()

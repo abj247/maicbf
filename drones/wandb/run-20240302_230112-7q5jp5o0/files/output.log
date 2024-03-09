@@ -1,0 +1,73 @@
+WARNING:tensorflow:From train.py:75: The name tf.placeholder is deprecated. Please use tf.compat.v1.placeholder instead.
+WARNING:tensorflow:
+The TensorFlow contrib module will not be included in TensorFlow 2.0.
+For more information, please see:
+  * https://github.com/tensorflow/community/blob/master/rfcs/20180907-contrib-sunset.md
+  * https://github.com/tensorflow/addons
+  * https://github.com/tensorflow/io (for I/O related ops)
+If you depend on functionality not listed there, please file an issue.
+WARNING:tensorflow:From C:\Users\aplus\macbf\drones\drones\core.py:278: The name tf.AUTO_REUSE is deprecated. Please use tf.compat.v1.AUTO_REUSE instead.
+WARNING:tensorflow:Entity <bound method Conv1D.call of <tensorflow.python.layers.convolutional.Conv1D object at 0x0000017DAB2DD940>> could not be transformed and will be executed as-is. Please report this to the AutgoGraph team. When filing the bug, set the verbosity to 10 (on Linux, `export AUTOGRAPH_VERBOSITY=10`) and attach the full output. Cause: converting <bound method Conv1D.call of <tensorflow.python.layers.convolutional.Conv1D object at 0x0000017DAB2DD940>>: AttributeError: module 'gast' has no attribute 'Str'
+WARNING:tensorflow:Entity <bound method Conv1D.call of <tensorflow.python.layers.convolutional.Conv1D object at 0x0000017D871F5978>> could not be transformed and will be executed as-is. Please report this to the AutgoGraph team. When filing the bug, set the verbosity to 10 (on Linux, `export AUTOGRAPH_VERBOSITY=10`) and attach the full output. Cause: converting <bound method Conv1D.call of <tensorflow.python.layers.convolutional.Conv1D object at 0x0000017D871F5978>>: AttributeError: module 'gast' has no attribute 'Str'
+WARNING:tensorflow:Entity <bound method Conv1D.call of <tensorflow.python.layers.convolutional.Conv1D object at 0x0000017D8777E2E8>> could not be transformed and will be executed as-is. Please report this to the AutgoGraph team. When filing the bug, set the verbosity to 10 (on Linux, `export AUTOGRAPH_VERBOSITY=10`) and attach the full output. Cause: converting <bound method Conv1D.call of <tensorflow.python.layers.convolutional.Conv1D object at 0x0000017D8777E2E8>>: AttributeError: module 'gast' has no attribute 'Str'
+WARNING:tensorflow:Entity <bound method Conv1D.call of <tensorflow.python.layers.convolutional.Conv1D object at 0x0000017DAB2D4080>> could not be transformed and will be executed as-is. Please report this to the AutgoGraph team. When filing the bug, set the verbosity to 10 (on Linux, `export AUTOGRAPH_VERBOSITY=10`) and attach the full output. Cause: converting <bound method Conv1D.call of <tensorflow.python.layers.convolutional.Conv1D object at 0x0000017DAB2D4080>>: AttributeError: module 'gast' has no attribute 'Str'
+WARNING:tensorflow:Entity <bound method Conv1D.call of <tensorflow.python.layers.convolutional.Conv1D object at 0x0000017DAC301AC8>> could not be transformed and will be executed as-is. Please report this to the AutgoGraph team. When filing the bug, set the verbosity to 10 (on Linux, `export AUTOGRAPH_VERBOSITY=10`) and attach the full output. Cause: converting <bound method Conv1D.call of <tensorflow.python.layers.convolutional.Conv1D object at 0x0000017DAC301AC8>>: AttributeError: module 'gast' has no attribute 'Str'
+WARNING:tensorflow:Entity <bound method Conv1D.call of <tensorflow.python.layers.convolutional.Conv1D object at 0x0000017DAC18E630>> could not be transformed and will be executed as-is. Please report this to the AutgoGraph team. When filing the bug, set the verbosity to 10 (on Linux, `export AUTOGRAPH_VERBOSITY=10`) and attach the full output. Cause: converting <bound method Conv1D.call of <tensorflow.python.layers.convolutional.Conv1D object at 0x0000017DAC18E630>>: AttributeError: module 'gast' has no attribute 'Str'
+WARNING:tensorflow:Entity <bound method Dense.call of <tensorflow.python.layers.core.Dense object at 0x0000017DAC18E630>> could not be transformed and will be executed as-is. Please report this to the AutgoGraph team. When filing the bug, set the verbosity to 10 (on Linux, `export AUTOGRAPH_VERBOSITY=10`) and attach the full output. Cause: converting <bound method Dense.call of <tensorflow.python.layers.core.Dense object at 0x0000017DAC18E630>>: AttributeError: module 'gast' has no attribute 'Index'
+WARNING:tensorflow:Entity <bound method Dense.call of <tensorflow.python.layers.core.Dense object at 0x0000017DAC1A0470>> could not be transformed and will be executed as-is. Please report this to the AutgoGraph team. When filing the bug, set the verbosity to 10 (on Linux, `export AUTOGRAPH_VERBOSITY=10`) and attach the full output. Cause: converting <bound method Dense.call of <tensorflow.python.layers.core.Dense object at 0x0000017DAC1A0470>>: AttributeError: module 'gast' has no attribute 'Index'
+WARNING:tensorflow:Entity <bound method Dense.call of <tensorflow.python.layers.core.Dense object at 0x0000017D87715D68>> could not be transformed and will be executed as-is. Please report this to the AutgoGraph team. When filing the bug, set the verbosity to 10 (on Linux, `export AUTOGRAPH_VERBOSITY=10`) and attach the full output. Cause: converting <bound method Dense.call of <tensorflow.python.layers.core.Dense object at 0x0000017D87715D68>>: AttributeError: module 'gast' has no attribute 'Index'
+WARNING:tensorflow:Entity <bound method Dense.call of <tensorflow.python.layers.core.Dense object at 0x0000017DAC1A0470>> could not be transformed and will be executed as-is. Please report this to the AutgoGraph team. When filing the bug, set the verbosity to 10 (on Linux, `export AUTOGRAPH_VERBOSITY=10`) and attach the full output. Cause: converting <bound method Dense.call of <tensorflow.python.layers.core.Dense object at 0x0000017DAC1A0470>>: AttributeError: module 'gast' has no attribute 'Index'
+WARNING:tensorflow:From D:\Anaconda\envs\macbf\lib\site-packages\tensorflow\python\ops\array_ops.py:1354: add_dispatch_support.<locals>.wrapper (from tensorflow.python.ops.array_ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use tf.where in 2.0, which has the same broadcast rule as np.where
+WARNING:tensorflow:Entity <bound method Conv1D.call of <tensorflow.python.layers.convolutional.Conv1D object at 0x0000017DAD551400>> could not be transformed and will be executed as-is. Please report this to the AutgoGraph team. When filing the bug, set the verbosity to 10 (on Linux, `export AUTOGRAPH_VERBOSITY=10`) and attach the full output. Cause: converting <bound method Conv1D.call of <tensorflow.python.layers.convolutional.Conv1D object at 0x0000017DAD551400>>: AttributeError: module 'gast' has no attribute 'Str'
+WARNING:tensorflow:Entity <bound method Conv1D.call of <tensorflow.python.layers.convolutional.Conv1D object at 0x0000017DAD551F98>> could not be transformed and will be executed as-is. Please report this to the AutgoGraph team. When filing the bug, set the verbosity to 10 (on Linux, `export AUTOGRAPH_VERBOSITY=10`) and attach the full output. Cause: converting <bound method Conv1D.call of <tensorflow.python.layers.convolutional.Conv1D object at 0x0000017DAD551F98>>: AttributeError: module 'gast' has no attribute 'Str'
+WARNING:tensorflow:Entity <bound method Conv1D.call of <tensorflow.python.layers.convolutional.Conv1D object at 0x0000017DAD551908>> could not be transformed and will be executed as-is. Please report this to the AutgoGraph team. When filing the bug, set the verbosity to 10 (on Linux, `export AUTOGRAPH_VERBOSITY=10`) and attach the full output. Cause: converting <bound method Conv1D.call of <tensorflow.python.layers.convolutional.Conv1D object at 0x0000017DAD551908>>: AttributeError: module 'gast' has no attribute 'Str'
+WARNING:tensorflow:Entity <bound method Conv1D.call of <tensorflow.python.layers.convolutional.Conv1D object at 0x0000017DAD5516A0>> could not be transformed and will be executed as-is. Please report this to the AutgoGraph team. When filing the bug, set the verbosity to 10 (on Linux, `export AUTOGRAPH_VERBOSITY=10`) and attach the full output. Cause: converting <bound method Conv1D.call of <tensorflow.python.layers.convolutional.Conv1D object at 0x0000017DAD5516A0>>: AttributeError: module 'gast' has no attribute 'Str'
+WARNING:tensorflow:From train.py:120: The name tf.trainable_variables is deprecated. Please use tf.compat.v1.trainable_variables instead.
+WARNING:tensorflow:From train.py:28: The name tf.train.AdamOptimizer is deprecated. Please use tf.compat.v1.train.AdamOptimizer instead.
+WARNING:tensorflow:From train.py:36: Variable.initialized_value (from tensorflow.python.ops.variables) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use Variable.read_value. Variables in 2.X are initialized automatically both in eager and graph (inside tf.defun) contexts.
+WARNING:tensorflow:From train.py:150: The name tf.Session is deprecated. Please use tf.compat.v1.Session instead.
+WARNING:tensorflow:From train.py:151: The name tf.global_variables_initializer is deprecated. Please use tf.compat.v1.global_variables_initializer instead.
+WARNING:tensorflow:From train.py:152: The name tf.train.Saver is deprecated. Please use tf.compat.v1.train.Saver instead.
+D:\Anaconda\envs\macbf\lib\site-packages\numpy\core\fromnumeric.py:3373: RuntimeWarning: Mean of empty slice.
+  out=out, **kwargs)
+D:\Anaconda\envs\macbf\lib\site-packages\numpy\core\_methods.py:170: RuntimeWarning: invalid value encountered in double_scalars
+  ret = ret.dtype.type(ret / rcount)
+Step: 0, Time: 2.5, Loss: [3.415e-03 3.920e-02 2.115e-01 2.520e-03 6.246e-02 4.805e-03 2.155e+01
+ 2.379e-01], Dist: 0.119, Safety Rate: 0.747
+Step: 1, Time: 2.0, Loss: [2.530e-02 1.401e-02 2.016e-01 1.072e-03 6.288e-02 4.841e-03 2.163e+01
+ 2.174e-01], Dist: 0.250, Safety Rate: 0.757
+Step: 2, Time: 1.7, Loss: [3.452e-02 4.594e-03 1.990e-01 5.585e-04 6.068e-02 5.627e-03 2.151e+01
+ 2.627e-01], Dist: 0.227, Safety Rate: 0.767
+Step: 3, Time: 1.7, Loss: [2.433e-02 4.419e-03 1.995e-01 6.077e-04 6.089e-02 6.667e-03 2.161e+01
+ 2.490e-01], Dist: 0.376, Safety Rate: 0.742
+Step: 4, Time: 1.7, Loss: [1.040e-02 3.245e-03 2.027e-01 4.594e-04 6.029e-02 5.562e-03 2.155e+01
+ 2.609e-01], Dist: 0.251, Safety Rate: 0.777
+Step: 5, Time: 1.9, Loss: [3.492e-03 2.966e-03 2.102e-01 3.976e-04 6.258e-02 4.481e-03 2.166e+01
+ 2.072e-01], Dist: 0.151, Safety Rate: 0.777
+Step: 6, Time: 1.9, Loss: [2.229e-03 4.047e-03 1.871e-01 5.053e-04 6.352e-02 5.815e-03 2.160e+01
+ 2.185e-01], Dist: 0.129, Safety Rate: 0.852
+Step: 7, Time: 2.0, Loss: [1.336e-03 3.200e-03 2.128e-01 5.182e-04 6.360e-02 5.069e-03 2.159e+01
+ 2.279e-01], Dist: 0.149, Safety Rate: 0.763
+Step: 8, Time: 1.8, Loss: [1.815e-03 2.126e-03 2.128e-01 4.332e-04 6.266e-02 6.469e-03 2.152e+01
+ 2.515e-01], Dist: 0.130, Safety Rate: 0.738
+Step: 9, Time: 1.8, Loss: [3.498e-03 1.655e-03 2.099e-01 4.668e-04 5.851e-02 4.971e-03 2.158e+01
+ 2.264e-01], Dist: 0.110, Safety Rate: 0.807
+Step: 10, Time: 2.0, Loss: [6.127e-03 1.291e-03 1.990e-01 5.497e-04 5.969e-02 5.076e-03 2.153e+01
+ 2.155e-01], Dist: 0.153, Safety Rate: 0.736
+Step: 11, Time: 2.0, Loss: [5.358e-03 1.469e-03 1.789e-01 5.103e-04 5.896e-02 5.241e-03 2.147e+01
+ 2.660e-01], Dist: 0.205, Safety Rate: 0.800
+Step: 12, Time: 1.9, Loss: [3.965e-03 1.354e-03 1.856e-01 5.490e-04 5.958e-02 4.592e-03 2.147e+01
+ 2.413e-01], Dist: 0.243, Safety Rate: 0.765
+Step: 13, Time: 2.1, Loss: [3.592e-03 1.311e-03 2.137e-01 5.433e-04 5.965e-02 3.942e-03 2.148e+01
+ 2.123e-01], Dist: 0.096, Safety Rate: 0.750
+Step: 14, Time: 2.2, Loss: [4.448e-03 1.314e-03 2.092e-01 5.415e-04 5.981e-02 4.193e-03 2.145e+01
+ 2.549e-01], Dist: 0.198, Safety Rate: 0.735
+Step: 15, Time: 2.1, Loss: [6.771e-03 1.370e-03 2.075e-01 5.402e-04 5.839e-02 6.499e-03 2.150e+01
+ 2.041e-01], Dist: 0.298, Safety Rate: 0.823
+Step: 16, Time: 2.0, Loss: [4.113e-03 1.387e-03 2.050e-01 5.450e-04 5.926e-02 1.137e-02 2.131e+01
+ 2.462e-01], Dist: 0.414, Safety Rate: 0.773
+Step: 17, Time: 1.9, Loss: [4.089e-03 1.360e-03 2.024e-01 4.941e-04 5.586e-02 9.350e-03 2.134e+01

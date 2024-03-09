@@ -398,7 +398,7 @@ def loss_barrier(h, s, indices=None, eps=[5e-2, 1e-3]):
 
     return loss_dang, loss_safe, acc_dang, acc_safe
 
-def loss_barrier_ic(u, u_max = 0.8, indices=None, eps=[5e-2, 1e-3]):
+def loss_barrier_ic(u, u_max = 0.2, indices=None, eps=[5e-2, 1e-3]):
     """ Build the loss function for the control barrier functions.
     Args:
         u_max: maximum value of control action
@@ -521,7 +521,7 @@ def loss_actions(s, u, s_ref, indices):
     return loss
 
 
-def loss_agile(s, s_ref, u, u_max=0.2, sigma_tight=0.05):
+def loss_agile(s, s_ref, u, v_max=0.2, sigma_tight=0.05):
     """
     Args:
         s (N, 8): The current state of N agents.
@@ -531,14 +531,15 @@ def loss_agile(s, s_ref, u, u_max=0.2, sigma_tight=0.05):
         sigma_tight (float): The threshold for the tightness condition.
 
     Returns:
-        r_giggle (float): The giggle loss function.
+        r_agile (float): The giggle loss function.
     """
     v_x = u[:, 2]
     v_ratio = tf.nn.relu(v_x / v_max)
     correct_direction = tf.constant(1.0)  
-    d_goal = tf.norm(s - s_ref, axis=1)
+    d_goal = tf.norm(s[:,:3] - s_ref[:,:3], axis=1)
     goal_condition = tf.cast(tf.less(d_goal, sigma_tight), tf.float32)
-    loss_agile = 1- (tf.reduce_max(v_ratio * correct_direction, goal_condition))
+    loss_agile_agents = 1- (tf.maximum(v_ratio * correct_direction, goal_condition))
+    loss_agile = tf.reduce_mean(loss_agile_agents)
 
     return loss_agile
 

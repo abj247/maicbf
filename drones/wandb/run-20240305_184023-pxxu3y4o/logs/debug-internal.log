@@ -1,0 +1,291 @@
+2024-03-05 18:40:23,869 INFO    StreamThr :39984 [internal.py:wandb_internal():89] W&B internal server running at pid: 39984, started at: 2024-03-05 18:40:23.868788
+2024-03-05 18:40:23,870 DEBUG   HandlerThread:39984 [handler.py:handle_request():144] handle_request: status
+2024-03-05 18:40:23,875 INFO    WriterThread:39984 [datastore.py:open_for_write():85] open: C:\Users\aplus\macbf\drones\drones\wandb\run-20240305_184023-pxxu3y4o\run-pxxu3y4o.wandb
+2024-03-05 18:40:23,876 DEBUG   SenderThread:39984 [sender.py:send():380] send: header
+2024-03-05 18:40:23,933 DEBUG   SenderThread:39984 [sender.py:send():380] send: run
+2024-03-05 18:40:25,092 INFO    SenderThread:39984 [dir_watcher.py:__init__():211] watching files in: C:\Users\aplus\macbf\drones\drones\wandb\run-20240305_184023-pxxu3y4o\files
+2024-03-05 18:40:25,093 INFO    SenderThread:39984 [sender.py:_start_run_threads():1125] run started: pxxu3y4o with start time 1709644223.869796
+2024-03-05 18:40:25,099 DEBUG   HandlerThread:39984 [handler.py:handle_request():144] handle_request: check_version
+2024-03-05 18:40:25,100 DEBUG   SenderThread:39984 [sender.py:send_request():407] send_request: check_version
+2024-03-05 18:40:25,177 DEBUG   HandlerThread:39984 [handler.py:handle_request():144] handle_request: run_start
+2024-03-05 18:40:25,204 DEBUG   HandlerThread:39984 [system_info.py:__init__():32] System info init
+2024-03-05 18:40:25,204 DEBUG   HandlerThread:39984 [system_info.py:__init__():47] System info init done
+2024-03-05 18:40:25,204 INFO    HandlerThread:39984 [system_monitor.py:start():181] Starting system monitor
+2024-03-05 18:40:25,204 INFO    SystemMonitor:39984 [system_monitor.py:_start():145] Starting system asset monitoring threads
+2024-03-05 18:40:25,204 INFO    HandlerThread:39984 [system_monitor.py:probe():201] Collecting system info
+2024-03-05 18:40:25,213 INFO    SystemMonitor:39984 [interfaces.py:start():190] Started cpu monitoring
+2024-03-05 18:40:25,213 INFO    SystemMonitor:39984 [interfaces.py:start():190] Started disk monitoring
+2024-03-05 18:40:25,214 INFO    SystemMonitor:39984 [interfaces.py:start():190] Started gpu monitoring
+2024-03-05 18:40:25,231 INFO    SystemMonitor:39984 [interfaces.py:start():190] Started memory monitoring
+2024-03-05 18:40:25,244 INFO    SystemMonitor:39984 [interfaces.py:start():190] Started network monitoring
+2024-03-05 18:40:25,252 DEBUG   HandlerThread:39984 [system_info.py:probe():196] Probing system
+2024-03-05 18:40:25,272 DEBUG   HandlerThread:39984 [system_info.py:_probe_git():181] Probing git
+2024-03-05 18:40:25,372 DEBUG   HandlerThread:39984 [system_info.py:_probe_git():189] Probing git done
+2024-03-05 18:40:25,372 DEBUG   HandlerThread:39984 [system_info.py:probe():244] Probing system done
+2024-03-05 18:40:25,372 DEBUG   HandlerThread:39984 [system_monitor.py:probe():210] {'os': 'Windows-10-10.0.22621-SP0', 'python': '3.6.13', 'heartbeatAt': '2024-03-05T13:10:25.252480', 'startedAt': '2024-03-05T13:10:23.857801', 'docker': None, 'cuda': None, 'args': ('--num_agents', '4'), 'state': 'running', 'program': 'train.py', 'codePathLocal': 'train.py', 'codePath': 'train.py', 'git': {'remote': 'https://github.com/abj247/MA-ICBF.git', 'commit': '0b0e29bcc0ae338a01cc3645c4a4307537a5a53f'}, 'email': 'abcdxyzw14@gmail.com', 'root': 'C:/Users/aplus/macbf/drones/drones', 'host': 'AJAXXX', 'username': 'aplus', 'executable': 'D:\\Anaconda\\envs\\macbf\\python.exe', 'cpu_count': 8, 'cpu_count_logical': 16, 'cpu_freq': {'current': 2901.0, 'min': 0.0, 'max': 2901.0}, 'cpu_freq_per_core': [{'current': 2901.0, 'min': 0.0, 'max': 2901.0}], 'disk': {'/': {'total': 253.39874649047852, 'used': 224.5266456604004}}, 'gpu': 'NVIDIA GeForce GTX 1650', 'gpu_count': 1, 'gpu_devices': [{'name': 'NVIDIA GeForce GTX 1650', 'memory_total': 4294967296}], 'memory': {'total': 15.420913696289062}}
+2024-03-05 18:40:25,372 INFO    HandlerThread:39984 [system_monitor.py:probe():211] Finished collecting system info
+2024-03-05 18:40:25,372 INFO    HandlerThread:39984 [system_monitor.py:probe():214] Publishing system info
+2024-03-05 18:40:25,372 DEBUG   HandlerThread:39984 [system_info.py:_save_pip():53] Saving list of pip packages installed into the current environment
+2024-03-05 18:40:25,373 DEBUG   HandlerThread:39984 [system_info.py:_save_pip():68] Saving pip packages done
+2024-03-05 18:40:25,373 DEBUG   HandlerThread:39984 [system_info.py:_save_conda():76] Saving list of conda packages installed into the current environment
+2024-03-05 18:40:26,098 INFO    Thread-16 :39984 [dir_watcher.py:_on_file_created():271] file/dir created: C:\Users\aplus\macbf\drones\drones\wandb\run-20240305_184023-pxxu3y4o\files\requirements.txt
+2024-03-05 18:40:26,098 INFO    Thread-16 :39984 [dir_watcher.py:_on_file_created():271] file/dir created: C:\Users\aplus\macbf\drones\drones\wandb\run-20240305_184023-pxxu3y4o\files\conda-environment.yaml
+2024-03-05 18:40:28,801 DEBUG   HandlerThread:39984 [system_info.py:_save_conda():87] Saving conda packages done
+2024-03-05 18:40:28,802 INFO    HandlerThread:39984 [system_monitor.py:probe():216] Finished publishing system info
+2024-03-05 18:40:28,816 DEBUG   SenderThread:39984 [sender.py:send():380] send: files
+2024-03-05 18:40:28,816 INFO    SenderThread:39984 [sender.py:_save_file():1378] saving file wandb-metadata.json with policy now
+2024-03-05 18:40:28,829 DEBUG   HandlerThread:39984 [handler.py:handle_request():144] handle_request: stop_status
+2024-03-05 18:40:28,830 DEBUG   SenderThread:39984 [sender.py:send_request():407] send_request: stop_status
+2024-03-05 18:40:28,830 DEBUG   HandlerThread:39984 [handler.py:handle_request():144] handle_request: internal_messages
+2024-03-05 18:40:29,121 INFO    Thread-16 :39984 [dir_watcher.py:_on_file_modified():288] file/dir modified: C:\Users\aplus\macbf\drones\drones\wandb\run-20240305_184023-pxxu3y4o\files\conda-environment.yaml
+2024-03-05 18:40:29,121 INFO    Thread-16 :39984 [dir_watcher.py:_on_file_created():271] file/dir created: C:\Users\aplus\macbf\drones\drones\wandb\run-20240305_184023-pxxu3y4o\files\wandb-metadata.json
+2024-03-05 18:40:29,240 DEBUG   SenderThread:39984 [sender.py:send():380] send: telemetry
+2024-03-05 18:40:29,240 DEBUG   SenderThread:39984 [sender.py:send():380] send: config
+2024-03-05 18:40:29,241 DEBUG   HandlerThread:39984 [handler.py:handle_request():144] handle_request: status_report
+2024-03-05 18:40:29,889 INFO    wandb-upload_0:39984 [upload_job.py:push():131] Uploaded file C:\Users\aplus\AppData\Local\Temp\tmplrig44pnwandb\zzwkq0va-wandb-metadata.json
+2024-03-05 18:40:30,127 INFO    Thread-16 :39984 [dir_watcher.py:_on_file_created():271] file/dir created: C:\Users\aplus\macbf\drones\drones\wandb\run-20240305_184023-pxxu3y4o\files\output.log
+2024-03-05 18:40:32,145 INFO    Thread-16 :39984 [dir_watcher.py:_on_file_modified():288] file/dir modified: C:\Users\aplus\macbf\drones\drones\wandb\run-20240305_184023-pxxu3y4o\files\output.log
+2024-03-05 18:40:32,727 DEBUG   SenderThread:39984 [sender.py:send():380] send: exit
+2024-03-05 18:40:32,727 INFO    SenderThread:39984 [sender.py:send_exit():585] handling exit code: 1
+2024-03-05 18:40:32,727 INFO    SenderThread:39984 [sender.py:send_exit():587] handling runtime: 7
+2024-03-05 18:40:32,728 INFO    SenderThread:39984 [sender.py:_save_file():1378] saving file wandb-summary.json with policy end
+2024-03-05 18:40:32,729 INFO    SenderThread:39984 [sender.py:send_exit():593] send defer
+2024-03-05 18:40:32,729 DEBUG   HandlerThread:39984 [handler.py:handle_request():144] handle_request: defer
+2024-03-05 18:40:32,729 INFO    HandlerThread:39984 [handler.py:handle_request_defer():170] handle defer: 0
+2024-03-05 18:40:32,730 DEBUG   SenderThread:39984 [sender.py:send_request():407] send_request: defer
+2024-03-05 18:40:32,730 INFO    SenderThread:39984 [sender.py:send_request_defer():609] handle sender defer: 0
+2024-03-05 18:40:32,730 INFO    SenderThread:39984 [sender.py:transition_state():613] send defer: 1
+2024-03-05 18:40:32,730 DEBUG   HandlerThread:39984 [handler.py:handle_request():144] handle_request: defer
+2024-03-05 18:40:32,731 INFO    HandlerThread:39984 [handler.py:handle_request_defer():170] handle defer: 1
+2024-03-05 18:40:32,731 DEBUG   SenderThread:39984 [sender.py:send_request():407] send_request: defer
+2024-03-05 18:40:32,731 INFO    SenderThread:39984 [sender.py:send_request_defer():609] handle sender defer: 1
+2024-03-05 18:40:32,731 INFO    SenderThread:39984 [sender.py:transition_state():613] send defer: 2
+2024-03-05 18:40:32,731 DEBUG   HandlerThread:39984 [handler.py:handle_request():144] handle_request: defer
+2024-03-05 18:40:32,732 INFO    HandlerThread:39984 [handler.py:handle_request_defer():170] handle defer: 2
+2024-03-05 18:40:32,732 INFO    HandlerThread:39984 [system_monitor.py:finish():190] Stopping system monitor
+2024-03-05 18:40:32,732 DEBUG   SystemMonitor:39984 [system_monitor.py:_start():159] Starting system metrics aggregation loop
+2024-03-05 18:40:32,742 DEBUG   SystemMonitor:39984 [system_monitor.py:_start():166] Finished system metrics aggregation loop
+2024-03-05 18:40:32,743 DEBUG   SystemMonitor:39984 [system_monitor.py:_start():170] Publishing last batch of metrics
+2024-03-05 18:40:32,743 INFO    HandlerThread:39984 [interfaces.py:finish():202] Joined cpu monitor
+2024-03-05 18:40:32,744 INFO    HandlerThread:39984 [interfaces.py:finish():202] Joined disk monitor
+2024-03-05 18:40:32,811 INFO    HandlerThread:39984 [interfaces.py:finish():202] Joined gpu monitor
+2024-03-05 18:40:32,811 INFO    HandlerThread:39984 [interfaces.py:finish():202] Joined memory monitor
+2024-03-05 18:40:32,812 INFO    HandlerThread:39984 [interfaces.py:finish():202] Joined network monitor
+2024-03-05 18:40:32,812 DEBUG   SenderThread:39984 [sender.py:send_request():407] send_request: defer
+2024-03-05 18:40:32,812 INFO    SenderThread:39984 [sender.py:send_request_defer():609] handle sender defer: 2
+2024-03-05 18:40:32,812 INFO    SenderThread:39984 [sender.py:transition_state():613] send defer: 3
+2024-03-05 18:40:32,813 DEBUG   SenderThread:39984 [sender.py:send():380] send: stats
+2024-03-05 18:40:32,813 DEBUG   HandlerThread:39984 [handler.py:handle_request():144] handle_request: defer
+2024-03-05 18:40:32,813 INFO    HandlerThread:39984 [handler.py:handle_request_defer():170] handle defer: 3
+2024-03-05 18:40:32,813 DEBUG   SenderThread:39984 [sender.py:send_request():407] send_request: defer
+2024-03-05 18:40:32,814 INFO    SenderThread:39984 [sender.py:send_request_defer():609] handle sender defer: 3
+2024-03-05 18:40:32,814 INFO    SenderThread:39984 [sender.py:transition_state():613] send defer: 4
+2024-03-05 18:40:32,814 DEBUG   HandlerThread:39984 [handler.py:handle_request():144] handle_request: defer
+2024-03-05 18:40:32,814 INFO    HandlerThread:39984 [handler.py:handle_request_defer():170] handle defer: 4
+2024-03-05 18:40:32,814 DEBUG   SenderThread:39984 [sender.py:send_request():407] send_request: defer
+2024-03-05 18:40:32,814 INFO    SenderThread:39984 [sender.py:send_request_defer():609] handle sender defer: 4
+2024-03-05 18:40:32,814 INFO    SenderThread:39984 [sender.py:transition_state():613] send defer: 5
+2024-03-05 18:40:32,814 DEBUG   HandlerThread:39984 [handler.py:handle_request():144] handle_request: defer
+2024-03-05 18:40:32,814 INFO    HandlerThread:39984 [handler.py:handle_request_defer():170] handle defer: 5
+2024-03-05 18:40:32,815 DEBUG   SenderThread:39984 [sender.py:send():380] send: summary
+2024-03-05 18:40:32,815 INFO    SenderThread:39984 [sender.py:_save_file():1378] saving file wandb-summary.json with policy end
+2024-03-05 18:40:32,816 DEBUG   SenderThread:39984 [sender.py:send_request():407] send_request: defer
+2024-03-05 18:40:32,816 INFO    SenderThread:39984 [sender.py:send_request_defer():609] handle sender defer: 5
+2024-03-05 18:40:32,816 INFO    SenderThread:39984 [sender.py:transition_state():613] send defer: 6
+2024-03-05 18:40:32,816 DEBUG   HandlerThread:39984 [handler.py:handle_request():144] handle_request: defer
+2024-03-05 18:40:32,816 INFO    HandlerThread:39984 [handler.py:handle_request_defer():170] handle defer: 6
+2024-03-05 18:40:32,817 DEBUG   SenderThread:39984 [sender.py:send_request():407] send_request: defer
+2024-03-05 18:40:32,817 INFO    SenderThread:39984 [sender.py:send_request_defer():609] handle sender defer: 6
+2024-03-05 18:40:32,820 DEBUG   HandlerThread:39984 [handler.py:handle_request():144] handle_request: status_report
+2024-03-05 18:40:33,152 INFO    Thread-16 :39984 [dir_watcher.py:_on_file_created():271] file/dir created: C:\Users\aplus\macbf\drones\drones\wandb\run-20240305_184023-pxxu3y4o\files\wandb-summary.json
+2024-03-05 18:40:33,155 INFO    SenderThread:39984 [sender.py:transition_state():613] send defer: 7
+2024-03-05 18:40:33,156 DEBUG   HandlerThread:39984 [handler.py:handle_request():144] handle_request: defer
+2024-03-05 18:40:33,156 INFO    HandlerThread:39984 [handler.py:handle_request_defer():170] handle defer: 7
+2024-03-05 18:40:33,156 DEBUG   SenderThread:39984 [sender.py:send_request():407] send_request: defer
+2024-03-05 18:40:33,156 INFO    SenderThread:39984 [sender.py:send_request_defer():609] handle sender defer: 7
+2024-03-05 18:40:33,819 DEBUG   HandlerThread:39984 [handler.py:handle_request():144] handle_request: poll_exit
+2024-03-05 18:40:34,162 INFO    Thread-16 :39984 [dir_watcher.py:_on_file_modified():288] file/dir modified: C:\Users\aplus\macbf\drones\drones\wandb\run-20240305_184023-pxxu3y4o\files\config.yaml
+2024-03-05 18:40:34,162 INFO    Thread-16 :39984 [dir_watcher.py:_on_file_modified():288] file/dir modified: C:\Users\aplus\macbf\drones\drones\wandb\run-20240305_184023-pxxu3y4o\files\output.log
+2024-03-05 18:40:34,722 INFO    SenderThread:39984 [sender.py:transition_state():613] send defer: 8
+2024-03-05 18:40:34,722 DEBUG   SenderThread:39984 [sender.py:send_request():407] send_request: poll_exit
+2024-03-05 18:40:34,722 DEBUG   HandlerThread:39984 [handler.py:handle_request():144] handle_request: defer
+2024-03-05 18:40:34,722 INFO    HandlerThread:39984 [handler.py:handle_request_defer():170] handle defer: 8
+2024-03-05 18:40:34,723 DEBUG   SenderThread:39984 [sender.py:send_request():407] send_request: defer
+2024-03-05 18:40:34,723 INFO    SenderThread:39984 [sender.py:send_request_defer():609] handle sender defer: 8
+2024-03-05 18:40:34,723 INFO    SenderThread:39984 [job_builder.py:build():281] Attempting to build job artifact
+2024-03-05 18:40:34,723 INFO    SenderThread:39984 [job_builder.py:_get_source_type():393] is repo sourced job
+2024-03-05 18:40:34,727 INFO    SenderThread:39984 [job_builder.py:build():369] adding wandb-job metadata file
+2024-03-05 18:40:34,738 INFO    SenderThread:39984 [sender.py:transition_state():613] send defer: 9
+2024-03-05 18:40:34,739 DEBUG   HandlerThread:39984 [handler.py:handle_request():144] handle_request: defer
+2024-03-05 18:40:34,739 INFO    HandlerThread:39984 [handler.py:handle_request_defer():170] handle defer: 9
+2024-03-05 18:40:34,739 DEBUG   SenderThread:39984 [sender.py:send():380] send: artifact
+2024-03-05 18:40:34,829 DEBUG   HandlerThread:39984 [handler.py:handle_request():144] handle_request: poll_exit
+2024-03-05 18:40:35,171 INFO    Thread-16 :39984 [dir_watcher.py:_on_file_modified():288] file/dir modified: C:\Users\aplus\macbf\drones\drones\wandb\run-20240305_184023-pxxu3y4o\files\output.log
+2024-03-05 18:40:37,171 ERROR   wandb-upload_1:39984 [upload_job.py:push():74] Failed to upload file: C:\Users\aplus\AppData\Local\wandb\wandb\artifacts\staging\tmp6uecl2fd
+Traceback (most recent call last):
+  File "D:\Anaconda\envs\macbf\lib\site-packages\wandb\filesync\upload_job.py", line 70, in push
+    lambda _, t: self._stats.update_uploaded_file(self.save_path, t)
+  File "D:\Anaconda\envs\macbf\lib\site-packages\wandb\sdk\artifacts\artifact_saver.py", line 181, in <lambda>
+    progress_callback=progress_callback,
+  File "D:\Anaconda\envs\macbf\lib\site-packages\wandb\sdk\artifacts\storage_policies\wandb_storage_policy.py", line 329, in store_file_sync
+    self._write_cache(entry)
+  File "D:\Anaconda\envs\macbf\lib\site-packages\wandb\sdk\artifacts\storage_policies\wandb_storage_policy.py", line 384, in _write_cache
+    with cache_open("wb") as f, open(entry.local_path, "rb") as src:
+  File "D:\Anaconda\envs\macbf\lib\contextlib.py", line 81, in __enter__
+    return next(self.gen)
+  File "D:\Anaconda\envs\macbf\lib\site-packages\wandb\sdk\artifacts\artifacts_cache.py", line 179, in helper
+    self._reserve_space(size)
+  File "D:\Anaconda\envs\macbf\lib\site-packages\wandb\sdk\artifacts\artifacts_cache.py", line 161, in _reserve_space
+    if size <= self._free_space():
+  File "D:\Anaconda\envs\macbf\lib\site-packages\wandb\sdk\artifacts\artifacts_cache.py", line 152, in _free_space
+    return shutil.disk_usage(self._cache_dir)[2]
+  File "D:\Anaconda\envs\macbf\lib\shutil.py", line 1018, in disk_usage
+    total, free = nt._getdiskusage(path)
+TypeError: _getdiskusage() argument 1 must be str, not WindowsPath
+2024-03-05 18:40:37,171 ERROR   wandb-upload_0:39984 [upload_job.py:push():74] Failed to upload file: C:\Users\aplus\AppData\Local\wandb\wandb\artifacts\staging\tmpyhi9tqwg
+Traceback (most recent call last):
+  File "D:\Anaconda\envs\macbf\lib\site-packages\wandb\filesync\upload_job.py", line 70, in push
+    lambda _, t: self._stats.update_uploaded_file(self.save_path, t)
+  File "D:\Anaconda\envs\macbf\lib\site-packages\wandb\sdk\artifacts\artifact_saver.py", line 181, in <lambda>
+    progress_callback=progress_callback,
+  File "D:\Anaconda\envs\macbf\lib\site-packages\wandb\sdk\artifacts\storage_policies\wandb_storage_policy.py", line 329, in store_file_sync
+    self._write_cache(entry)
+  File "D:\Anaconda\envs\macbf\lib\site-packages\wandb\sdk\artifacts\storage_policies\wandb_storage_policy.py", line 384, in _write_cache
+    with cache_open("wb") as f, open(entry.local_path, "rb") as src:
+  File "D:\Anaconda\envs\macbf\lib\contextlib.py", line 81, in __enter__
+    return next(self.gen)
+  File "D:\Anaconda\envs\macbf\lib\site-packages\wandb\sdk\artifacts\artifacts_cache.py", line 179, in helper
+    self._reserve_space(size)
+  File "D:\Anaconda\envs\macbf\lib\site-packages\wandb\sdk\artifacts\artifacts_cache.py", line 161, in _reserve_space
+    if size <= self._free_space():
+  File "D:\Anaconda\envs\macbf\lib\site-packages\wandb\sdk\artifacts\artifacts_cache.py", line 152, in _free_space
+    return shutil.disk_usage(self._cache_dir)[2]
+  File "D:\Anaconda\envs\macbf\lib\shutil.py", line 1018, in disk_usage
+    total, free = nt._getdiskusage(path)
+TypeError: _getdiskusage() argument 1 must be str, not WindowsPath
+2024-03-05 18:40:37,550 ERROR   Thread-15 :39984 [step_upload.py:_handle_event():201] Failed to upload file: C:\Users\aplus\AppData\Local\wandb\wandb\artifacts\staging\tmp6uecl2fd
+Traceback (most recent call last):
+  File "D:\Anaconda\envs\macbf\lib\concurrent\futures\thread.py", line 56, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "D:\Anaconda\envs\macbf\lib\site-packages\wandb\filesync\step_upload.py", line 288, in run_and_notify
+    self._do_upload_sync(event)
+  File "D:\Anaconda\envs\macbf\lib\site-packages\wandb\filesync\step_upload.py", line 330, in _do_upload_sync
+    job.run()
+  File "D:\Anaconda\envs\macbf\lib\site-packages\wandb\filesync\upload_job.py", line 57, in run
+    self.push()
+  File "D:\Anaconda\envs\macbf\lib\site-packages\wandb\filesync\upload_job.py", line 70, in push
+    lambda _, t: self._stats.update_uploaded_file(self.save_path, t)
+  File "D:\Anaconda\envs\macbf\lib\site-packages\wandb\sdk\artifacts\artifact_saver.py", line 181, in <lambda>
+    progress_callback=progress_callback,
+  File "D:\Anaconda\envs\macbf\lib\site-packages\wandb\sdk\artifacts\storage_policies\wandb_storage_policy.py", line 329, in store_file_sync
+    self._write_cache(entry)
+  File "D:\Anaconda\envs\macbf\lib\site-packages\wandb\sdk\artifacts\storage_policies\wandb_storage_policy.py", line 384, in _write_cache
+    with cache_open("wb") as f, open(entry.local_path, "rb") as src:
+  File "D:\Anaconda\envs\macbf\lib\contextlib.py", line 81, in __enter__
+    return next(self.gen)
+  File "D:\Anaconda\envs\macbf\lib\site-packages\wandb\sdk\artifacts\artifacts_cache.py", line 179, in helper
+    self._reserve_space(size)
+  File "D:\Anaconda\envs\macbf\lib\site-packages\wandb\sdk\artifacts\artifacts_cache.py", line 161, in _reserve_space
+    if size <= self._free_space():
+  File "D:\Anaconda\envs\macbf\lib\site-packages\wandb\sdk\artifacts\artifacts_cache.py", line 152, in _free_space
+    return shutil.disk_usage(self._cache_dir)[2]
+  File "D:\Anaconda\envs\macbf\lib\shutil.py", line 1018, in disk_usage
+    total, free = nt._getdiskusage(path)
+TypeError: _getdiskusage() argument 1 must be str, not WindowsPath
+2024-03-05 18:40:37,552 ERROR   Thread-15 :39984 [step_upload.py:_handle_event():201] Failed to upload file: C:\Users\aplus\AppData\Local\wandb\wandb\artifacts\staging\tmpyhi9tqwg
+Traceback (most recent call last):
+  File "D:\Anaconda\envs\macbf\lib\concurrent\futures\thread.py", line 56, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "D:\Anaconda\envs\macbf\lib\site-packages\wandb\filesync\step_upload.py", line 288, in run_and_notify
+    self._do_upload_sync(event)
+  File "D:\Anaconda\envs\macbf\lib\site-packages\wandb\filesync\step_upload.py", line 330, in _do_upload_sync
+    job.run()
+  File "D:\Anaconda\envs\macbf\lib\site-packages\wandb\filesync\upload_job.py", line 57, in run
+    self.push()
+  File "D:\Anaconda\envs\macbf\lib\site-packages\wandb\filesync\upload_job.py", line 70, in push
+    lambda _, t: self._stats.update_uploaded_file(self.save_path, t)
+  File "D:\Anaconda\envs\macbf\lib\site-packages\wandb\sdk\artifacts\artifact_saver.py", line 181, in <lambda>
+    progress_callback=progress_callback,
+  File "D:\Anaconda\envs\macbf\lib\site-packages\wandb\sdk\artifacts\storage_policies\wandb_storage_policy.py", line 329, in store_file_sync
+    self._write_cache(entry)
+  File "D:\Anaconda\envs\macbf\lib\site-packages\wandb\sdk\artifacts\storage_policies\wandb_storage_policy.py", line 384, in _write_cache
+    with cache_open("wb") as f, open(entry.local_path, "rb") as src:
+  File "D:\Anaconda\envs\macbf\lib\contextlib.py", line 81, in __enter__
+    return next(self.gen)
+  File "D:\Anaconda\envs\macbf\lib\site-packages\wandb\sdk\artifacts\artifacts_cache.py", line 179, in helper
+    self._reserve_space(size)
+  File "D:\Anaconda\envs\macbf\lib\site-packages\wandb\sdk\artifacts\artifacts_cache.py", line 161, in _reserve_space
+    if size <= self._free_space():
+  File "D:\Anaconda\envs\macbf\lib\site-packages\wandb\sdk\artifacts\artifacts_cache.py", line 152, in _free_space
+    return shutil.disk_usage(self._cache_dir)[2]
+  File "D:\Anaconda\envs\macbf\lib\shutil.py", line 1018, in disk_usage
+    total, free = nt._getdiskusage(path)
+TypeError: _getdiskusage() argument 1 must be str, not WindowsPath
+2024-03-05 18:40:37,554 ERROR   SenderThread:39984 [sender.py:send_artifact():1460] send_artifact: failed for artifact "job/job-https___github.com_abj247_MA-ICBF.git_train.py": _getdiskusage() argument 1 must be str, not WindowsPath
+2024-03-05 18:40:37,554 DEBUG   SenderThread:39984 [sender.py:send_request():407] send_request: defer
+2024-03-05 18:40:37,554 INFO    SenderThread:39984 [sender.py:send_request_defer():609] handle sender defer: 9
+2024-03-05 18:40:37,554 INFO    SenderThread:39984 [dir_watcher.py:finish():358] shutting down directory watcher
+2024-03-05 18:40:38,189 INFO    SenderThread:39984 [dir_watcher.py:finish():388] scan: C:\Users\aplus\macbf\drones\drones\wandb\run-20240305_184023-pxxu3y4o\files
+2024-03-05 18:40:38,189 INFO    SenderThread:39984 [dir_watcher.py:finish():402] scan save: C:\Users\aplus\macbf\drones\drones\wandb\run-20240305_184023-pxxu3y4o\files\conda-environment.yaml conda-environment.yaml
+2024-03-05 18:40:38,190 INFO    SenderThread:39984 [dir_watcher.py:finish():402] scan save: C:\Users\aplus\macbf\drones\drones\wandb\run-20240305_184023-pxxu3y4o\files\config.yaml config.yaml
+2024-03-05 18:40:38,192 INFO    SenderThread:39984 [dir_watcher.py:finish():402] scan save: C:\Users\aplus\macbf\drones\drones\wandb\run-20240305_184023-pxxu3y4o\files\output.log output.log
+2024-03-05 18:40:38,196 INFO    SenderThread:39984 [dir_watcher.py:finish():402] scan save: C:\Users\aplus\macbf\drones\drones\wandb\run-20240305_184023-pxxu3y4o\files\requirements.txt requirements.txt
+2024-03-05 18:40:38,197 INFO    SenderThread:39984 [dir_watcher.py:finish():402] scan save: C:\Users\aplus\macbf\drones\drones\wandb\run-20240305_184023-pxxu3y4o\files\wandb-metadata.json wandb-metadata.json
+2024-03-05 18:40:38,199 INFO    SenderThread:39984 [dir_watcher.py:finish():402] scan save: C:\Users\aplus\macbf\drones\drones\wandb\run-20240305_184023-pxxu3y4o\files\wandb-summary.json wandb-summary.json
+2024-03-05 18:40:38,202 INFO    SenderThread:39984 [sender.py:transition_state():613] send defer: 10
+2024-03-05 18:40:38,203 DEBUG   SenderThread:39984 [sender.py:send_request():407] send_request: poll_exit
+2024-03-05 18:40:38,203 DEBUG   HandlerThread:39984 [handler.py:handle_request():144] handle_request: defer
+2024-03-05 18:40:38,203 INFO    HandlerThread:39984 [handler.py:handle_request_defer():170] handle defer: 10
+2024-03-05 18:40:38,204 DEBUG   SenderThread:39984 [sender.py:send_request():407] send_request: defer
+2024-03-05 18:40:38,207 INFO    SenderThread:39984 [sender.py:send_request_defer():609] handle sender defer: 10
+2024-03-05 18:40:38,207 INFO    SenderThread:39984 [file_pusher.py:finish():175] shutting down file pusher
+2024-03-05 18:40:38,881 INFO    wandb-upload_2:39984 [upload_job.py:push():131] Uploaded file C:\Users\aplus\macbf\drones\drones\wandb\run-20240305_184023-pxxu3y4o\files\conda-environment.yaml
+2024-03-05 18:40:38,980 INFO    wandb-upload_1:39984 [upload_job.py:push():131] Uploaded file C:\Users\aplus\macbf\drones\drones\wandb\run-20240305_184023-pxxu3y4o\files\config.yaml
+2024-03-05 18:40:39,005 INFO    wandb-upload_3:39984 [upload_job.py:push():131] Uploaded file C:\Users\aplus\macbf\drones\drones\wandb\run-20240305_184023-pxxu3y4o\files\requirements.txt
+2024-03-05 18:40:39,027 INFO    wandb-upload_0:39984 [upload_job.py:push():131] Uploaded file C:\Users\aplus\macbf\drones\drones\wandb\run-20240305_184023-pxxu3y4o\files\output.log
+2024-03-05 18:40:39,882 DEBUG   HandlerThread:39984 [handler.py:handle_request():144] handle_request: keepalive
+2024-03-05 18:40:39,887 INFO    wandb-upload_4:39984 [upload_job.py:push():131] Uploaded file C:\Users\aplus\macbf\drones\drones\wandb\run-20240305_184023-pxxu3y4o\files\wandb-summary.json
+2024-03-05 18:40:40,100 INFO    Thread-15 :39984 [sender.py:transition_state():613] send defer: 11
+2024-03-05 18:40:40,100 DEBUG   HandlerThread:39984 [handler.py:handle_request():144] handle_request: defer
+2024-03-05 18:40:40,101 INFO    HandlerThread:39984 [handler.py:handle_request_defer():170] handle defer: 11
+2024-03-05 18:40:40,101 DEBUG   SenderThread:39984 [sender.py:send_request():407] send_request: defer
+2024-03-05 18:40:40,101 INFO    SenderThread:39984 [sender.py:send_request_defer():609] handle sender defer: 11
+2024-03-05 18:40:40,102 INFO    SenderThread:39984 [file_pusher.py:join():181] waiting for file pusher
+2024-03-05 18:40:40,102 INFO    SenderThread:39984 [sender.py:transition_state():613] send defer: 12
+2024-03-05 18:40:40,102 DEBUG   HandlerThread:39984 [handler.py:handle_request():144] handle_request: defer
+2024-03-05 18:40:40,102 INFO    HandlerThread:39984 [handler.py:handle_request_defer():170] handle defer: 12
+2024-03-05 18:40:40,102 DEBUG   HandlerThread:39984 [handler.py:handle_request():144] handle_request: status_report
+2024-03-05 18:40:40,102 DEBUG   SenderThread:39984 [sender.py:send_request():407] send_request: defer
+2024-03-05 18:40:40,103 INFO    SenderThread:39984 [sender.py:send_request_defer():609] handle sender defer: 12
+2024-03-05 18:40:40,103 INFO    SenderThread:39984 [file_stream.py:finish():595] file stream finish called
+2024-03-05 18:40:40,417 INFO    SenderThread:39984 [file_stream.py:finish():599] file stream finish is done
+2024-03-05 18:40:40,418 INFO    SenderThread:39984 [sender.py:transition_state():613] send defer: 13
+2024-03-05 18:40:40,418 DEBUG   HandlerThread:39984 [handler.py:handle_request():144] handle_request: defer
+2024-03-05 18:40:40,418 INFO    HandlerThread:39984 [handler.py:handle_request_defer():170] handle defer: 13
+2024-03-05 18:40:40,418 DEBUG   SenderThread:39984 [sender.py:send_request():407] send_request: defer
+2024-03-05 18:40:40,418 INFO    SenderThread:39984 [sender.py:send_request_defer():609] handle sender defer: 13
+2024-03-05 18:40:40,418 INFO    SenderThread:39984 [sender.py:transition_state():613] send defer: 14
+2024-03-05 18:40:40,419 DEBUG   HandlerThread:39984 [handler.py:handle_request():144] handle_request: defer
+2024-03-05 18:40:40,419 INFO    HandlerThread:39984 [handler.py:handle_request_defer():170] handle defer: 14
+2024-03-05 18:40:40,419 DEBUG   SenderThread:39984 [sender.py:send():380] send: final
+2024-03-05 18:40:40,419 DEBUG   SenderThread:39984 [sender.py:send():380] send: footer
+2024-03-05 18:40:40,419 DEBUG   SenderThread:39984 [sender.py:send_request():407] send_request: defer
+2024-03-05 18:40:40,419 INFO    SenderThread:39984 [sender.py:send_request_defer():609] handle sender defer: 14
+2024-03-05 18:40:40,420 DEBUG   HandlerThread:39984 [handler.py:handle_request():144] handle_request: poll_exit
+2024-03-05 18:40:40,421 DEBUG   HandlerThread:39984 [handler.py:handle_request():144] handle_request: server_info
+2024-03-05 18:40:40,421 DEBUG   HandlerThread:39984 [handler.py:handle_request():144] handle_request: get_summary
+2024-03-05 18:40:40,421 DEBUG   HandlerThread:39984 [handler.py:handle_request():144] handle_request: sampled_history
+2024-03-05 18:40:40,421 DEBUG   HandlerThread:39984 [handler.py:handle_request():144] handle_request: internal_messages
+2024-03-05 18:40:40,422 DEBUG   HandlerThread:39984 [handler.py:handle_request():144] handle_request: job_info
+2024-03-05 18:40:40,422 DEBUG   SenderThread:39984 [sender.py:send_request():407] send_request: poll_exit
+2024-03-05 18:40:40,422 DEBUG   SenderThread:39984 [sender.py:send_request():407] send_request: server_info
+2024-03-05 18:40:40,729 DEBUG   SenderThread:39984 [sender.py:send_request():407] send_request: job_info
+2024-03-05 18:40:40,730 INFO    MainThread:39984 [wandb_run.py:_footer_history_summary_info():3554] rendering history
+2024-03-05 18:40:40,730 INFO    MainThread:39984 [wandb_run.py:_footer_history_summary_info():3586] rendering summary
+2024-03-05 18:40:40,730 INFO    MainThread:39984 [wandb_run.py:_footer_sync_info():3513] logging synced files
+2024-03-05 18:40:40,733 DEBUG   HandlerThread:39984 [handler.py:handle_request():144] handle_request: shutdown
+2024-03-05 18:40:40,733 INFO    HandlerThread:39984 [handler.py:finish():844] shutting down handler
+2024-03-05 18:40:41,429 INFO    WriterThread:39984 [datastore.py:close():294] close: C:\Users\aplus\macbf\drones\drones\wandb\run-20240305_184023-pxxu3y4o\run-pxxu3y4o.wandb
+2024-03-05 18:40:41,740 INFO    SenderThread:39984 [sender.py:finish():1534] shutting down sender
+2024-03-05 18:40:41,740 INFO    SenderThread:39984 [file_pusher.py:finish():175] shutting down file pusher
+2024-03-05 18:40:41,741 INFO    SenderThread:39984 [file_pusher.py:join():181] waiting for file pusher

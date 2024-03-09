@@ -354,6 +354,8 @@ def main():
     
     #modified_control_inputs = [u_max_squared - (u_step[0, 0]**2 + u_step[0, 1]**2 + u_step[0, 2]**2) for u_step in u_values]
     modified_control_inputs = [u_max_squared - (u_step[:, 0]**2 + u_step[:, 1]**2 + u_step[:, 2]**2) for u_step in u_values]
+    a_values_np = [u_step[:, 2] for u_step in u_values]
+    a_values = np.array(a_values_np)
     #modified_control_inputs = [u_max_squared - (u_step[0]**2) for u_step in u_values]
     modified_control_inputs_array = np.array(modified_control_inputs)
     log_modified_control_inputs = np.log(1 + modified_control_inputs_array )
@@ -374,7 +376,8 @@ def main():
     })
 
     # Specify your desired path to save the CSV file
-    csv_file_path = 'csv_data/h_drone_function_agent_0.csv'
+    csv_file_path = 'csv_data/hu_time_umax_0.2_agile_weight_0.5.csv'
+    #csv_file_path = 'csv_data/hu_time_baseline.csv'
 
     # Save the DataFrame to a CSV file
     df.to_csv(csv_file_path, index=False)
@@ -387,15 +390,23 @@ def main():
     # plt.plot(time_steps, u_values_array[:,0,1], label='h_u for agent 0')
     # plt.plot(time_steps, u_values_array[:,0,2], label='h_u for agent 0')
     plt.xlabel('Time Steps')
-<<<<<<< HEAD:evaluate.py
     plt.ylabel('h(u)')
-    plt.title('h(u) for all agents (ours(0.6_1.0)_4 agents)')
-=======
-    plt.ylabel('Modified Control Input Value')
-    plt.title('h(u) for agent 0')
->>>>>>> origin/master:drones/evaluate.py
+    plt.title('h(u) for all agents (baseline)_4 agents)')
     plt.legend()
     plt.savefig('h(u)_baseline_all_agents_4.png', dpi=300)
+    plt.show()
+
+
+
+    plt.figure(figsize=(10, 6))
+    plt.plot(time_steps, a_values, label='acceleration')
+    # plt.plot(time_steps, u_values_array[:,0,1], label='h_u for agent 0')
+    # plt.plot(time_steps, u_values_array[:,0,2], label='h_u for agent 0')
+    plt.xlabel('Time Steps')
+    plt.ylabel('acceleration')
+    plt.title('acceleration for all agents (baseline)_4 agents)')
+    plt.legend()
+    plt.savefig('acc_baseline_all_agents_4.png', dpi=300)
     plt.show()
 
     #time_steps = list(range(len(u_values)))

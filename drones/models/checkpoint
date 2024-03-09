@@ -1,0 +1,2 @@
+model_checkpoint_path: "model_ours(1.0)_4_0.8_default_iter_0"
+all_model_checkpoint_paths: "model_ours(1.0)_4_0.8_default_iter_0"

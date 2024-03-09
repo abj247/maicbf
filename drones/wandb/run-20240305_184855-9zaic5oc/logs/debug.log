@@ -1,0 +1,29 @@
+2024-03-05 18:48:55,860 INFO    MainThread:38540 [wandb_setup.py:_flush():76] Current SDK version is 0.15.11
+2024-03-05 18:48:55,860 INFO    MainThread:38540 [wandb_setup.py:_flush():76] Configure stats pid to 38540
+2024-03-05 18:48:55,860 INFO    MainThread:38540 [wandb_setup.py:_flush():76] Loading settings from C:\Users\aplus\.config\wandb\settings
+2024-03-05 18:48:55,860 INFO    MainThread:38540 [wandb_setup.py:_flush():76] Loading settings from C:\Users\aplus\macbf\drones\drones\wandb\settings
+2024-03-05 18:48:55,860 INFO    MainThread:38540 [wandb_setup.py:_flush():76] Loading settings from environment variables: {}
+2024-03-05 18:48:55,860 INFO    MainThread:38540 [wandb_setup.py:_flush():76] Applying setup settings: {'_disable_service': False}
+2024-03-05 18:48:55,861 INFO    MainThread:38540 [wandb_setup.py:_flush():76] Inferring run settings from compute environment: {'program_relpath': 'train.py', 'program_abspath': 'C:\\Users\\aplus\\macbf\\drones\\drones\\train.py', 'program': 'train.py'}
+2024-03-05 18:48:55,861 INFO    MainThread:38540 [wandb_init.py:_log_setup():528] Logging user logs to C:\Users\aplus\macbf\drones\drones\wandb\run-20240305_184855-9zaic5oc\logs\debug.log
+2024-03-05 18:48:55,861 INFO    MainThread:38540 [wandb_init.py:_log_setup():529] Logging internal logs to C:\Users\aplus\macbf\drones\drones\wandb\run-20240305_184855-9zaic5oc\logs\debug-internal.log
+2024-03-05 18:48:55,861 INFO    MainThread:38540 [wandb_init.py:init():568] calling init triggers
+2024-03-05 18:48:55,861 INFO    MainThread:38540 [wandb_init.py:init():576] wandb.init called with sweep_config: {}
+config: {'num_agents': 4, 'model_path': None, 'gpu': '0', 'tag': 'default'}
+2024-03-05 18:48:55,861 INFO    MainThread:38540 [wandb_init.py:init():618] starting backend
+2024-03-05 18:48:55,861 INFO    MainThread:38540 [wandb_init.py:init():622] setting up manager
+2024-03-05 18:48:55,864 INFO    MainThread:38540 [backend.py:_multiprocessing_setup():107] multiprocessing start_methods=spawn, using: spawn
+2024-03-05 18:48:55,866 INFO    MainThread:38540 [wandb_init.py:init():628] backend started and connected
+2024-03-05 18:48:55,871 INFO    MainThread:38540 [wandb_init.py:init():720] updated telemetry
+2024-03-05 18:48:55,925 INFO    MainThread:38540 [wandb_init.py:init():753] communicating run to backend with 90.0 second timeout
+2024-03-05 18:48:57,028 INFO    MainThread:38540 [wandb_run.py:_on_init():2220] communicating current version
+2024-03-05 18:48:57,151 INFO    MainThread:38540 [wandb_run.py:_on_init():2229] got version response upgrade_message: "wandb version 0.16.3 is available!  To upgrade, please run:\n $ pip install wandb --upgrade"
+
+2024-03-05 18:48:57,151 INFO    MainThread:38540 [wandb_init.py:init():804] starting run threads in backend
+2024-03-05 18:49:00,911 INFO    MainThread:38540 [wandb_run.py:_console_start():2199] atexit reg
+2024-03-05 18:49:00,911 INFO    MainThread:38540 [wandb_run.py:_redirect():2054] redirect: wrap_raw
+2024-03-05 18:49:00,911 INFO    MainThread:38540 [wandb_run.py:_redirect():2119] Wrapping output streams.
+2024-03-05 18:49:00,911 INFO    MainThread:38540 [wandb_run.py:_redirect():2144] Redirects installed.
+2024-03-05 18:49:00,912 INFO    MainThread:38540 [wandb_init.py:init():845] run started, returning control to user process
+2024-03-05 18:49:00,912 INFO    MainThread:38540 [wandb_run.py:_config_callback():1324] config_cb None None {'num_agents': 4, 'model_path': None, 'gpu': '0', 'tag': 'default'}
+2024-03-05 18:49:15,049 WARNING MsgRouterThr:38540 [router.py:message_loop():77] message_loop has been closed

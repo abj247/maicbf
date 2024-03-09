@@ -1,0 +1,167 @@
+WARNING:tensorflow:From train.py:75: The name tf.placeholder is deprecated. Please use tf.compat.v1.placeholder instead.
+WARNING:tensorflow:
+The TensorFlow contrib module will not be included in TensorFlow 2.0.
+For more information, please see:
+  * https://github.com/tensorflow/community/blob/master/rfcs/20180907-contrib-sunset.md
+  * https://github.com/tensorflow/addons
+  * https://github.com/tensorflow/io (for I/O related ops)
+If you depend on functionality not listed there, please file an issue.
+WARNING:tensorflow:From C:\Users\aplus\macbf\drones\drones\core.py:278: The name tf.AUTO_REUSE is deprecated. Please use tf.compat.v1.AUTO_REUSE instead.
+WARNING:tensorflow:Entity <bound method Conv1D.call of <tensorflow.python.layers.convolutional.Conv1D object at 0x000001470841F588>> could not be transformed and will be executed as-is. Please report this to the AutgoGraph team. When filing the bug, set the verbosity to 10 (on Linux, `export AUTOGRAPH_VERBOSITY=10`) and attach the full output. Cause: converting <bound method Conv1D.call of <tensorflow.python.layers.convolutional.Conv1D object at 0x000001470841F588>>: AttributeError: module 'gast' has no attribute 'Str'
+WARNING:tensorflow:Entity <bound method Conv1D.call of <tensorflow.python.layers.convolutional.Conv1D object at 0x000001472C2C5DA0>> could not be transformed and will be executed as-is. Please report this to the AutgoGraph team. When filing the bug, set the verbosity to 10 (on Linux, `export AUTOGRAPH_VERBOSITY=10`) and attach the full output. Cause: converting <bound method Conv1D.call of <tensorflow.python.layers.convolutional.Conv1D object at 0x000001472C2C5DA0>>: AttributeError: module 'gast' has no attribute 'Str'
+WARNING:tensorflow:Entity <bound method Conv1D.call of <tensorflow.python.layers.convolutional.Conv1D object at 0x000001472C2C5F28>> could not be transformed and will be executed as-is. Please report this to the AutgoGraph team. When filing the bug, set the verbosity to 10 (on Linux, `export AUTOGRAPH_VERBOSITY=10`) and attach the full output. Cause: converting <bound method Conv1D.call of <tensorflow.python.layers.convolutional.Conv1D object at 0x000001472C2C5F28>>: AttributeError: module 'gast' has no attribute 'Str'
+WARNING:tensorflow:Entity <bound method Conv1D.call of <tensorflow.python.layers.convolutional.Conv1D object at 0x000001472C303D30>> could not be transformed and will be executed as-is. Please report this to the AutgoGraph team. When filing the bug, set the verbosity to 10 (on Linux, `export AUTOGRAPH_VERBOSITY=10`) and attach the full output. Cause: converting <bound method Conv1D.call of <tensorflow.python.layers.convolutional.Conv1D object at 0x000001472C303D30>>: AttributeError: module 'gast' has no attribute 'Str'
+WARNING:tensorflow:Entity <bound method Conv1D.call of <tensorflow.python.layers.convolutional.Conv1D object at 0x000001472C492CC0>> could not be transformed and will be executed as-is. Please report this to the AutgoGraph team. When filing the bug, set the verbosity to 10 (on Linux, `export AUTOGRAPH_VERBOSITY=10`) and attach the full output. Cause: converting <bound method Conv1D.call of <tensorflow.python.layers.convolutional.Conv1D object at 0x000001472C492CC0>>: AttributeError: module 'gast' has no attribute 'Str'
+WARNING:tensorflow:Entity <bound method Conv1D.call of <tensorflow.python.layers.convolutional.Conv1D object at 0x000001472C2D2EF0>> could not be transformed and will be executed as-is. Please report this to the AutgoGraph team. When filing the bug, set the verbosity to 10 (on Linux, `export AUTOGRAPH_VERBOSITY=10`) and attach the full output. Cause: converting <bound method Conv1D.call of <tensorflow.python.layers.convolutional.Conv1D object at 0x000001472C2D2EF0>>: AttributeError: module 'gast' has no attribute 'Str'
+WARNING:tensorflow:Entity <bound method Dense.call of <tensorflow.python.layers.core.Dense object at 0x000001472C4B0710>> could not be transformed and will be executed as-is. Please report this to the AutgoGraph team. When filing the bug, set the verbosity to 10 (on Linux, `export AUTOGRAPH_VERBOSITY=10`) and attach the full output. Cause: converting <bound method Dense.call of <tensorflow.python.layers.core.Dense object at 0x000001472C4B0710>>: AttributeError: module 'gast' has no attribute 'Index'
+WARNING:tensorflow:Entity <bound method Dense.call of <tensorflow.python.layers.core.Dense object at 0x000001472C4B0198>> could not be transformed and will be executed as-is. Please report this to the AutgoGraph team. When filing the bug, set the verbosity to 10 (on Linux, `export AUTOGRAPH_VERBOSITY=10`) and attach the full output. Cause: converting <bound method Dense.call of <tensorflow.python.layers.core.Dense object at 0x000001472C4B0198>>: AttributeError: module 'gast' has no attribute 'Index'
+WARNING:tensorflow:Entity <bound method Dense.call of <tensorflow.python.layers.core.Dense object at 0x000001472C4B0198>> could not be transformed and will be executed as-is. Please report this to the AutgoGraph team. When filing the bug, set the verbosity to 10 (on Linux, `export AUTOGRAPH_VERBOSITY=10`) and attach the full output. Cause: converting <bound method Dense.call of <tensorflow.python.layers.core.Dense object at 0x000001472C4B0198>>: AttributeError: module 'gast' has no attribute 'Index'
+WARNING:tensorflow:Entity <bound method Dense.call of <tensorflow.python.layers.core.Dense object at 0x000001472C4B0198>> could not be transformed and will be executed as-is. Please report this to the AutgoGraph team. When filing the bug, set the verbosity to 10 (on Linux, `export AUTOGRAPH_VERBOSITY=10`) and attach the full output. Cause: converting <bound method Dense.call of <tensorflow.python.layers.core.Dense object at 0x000001472C4B0198>>: AttributeError: module 'gast' has no attribute 'Index'
+WARNING:tensorflow:From D:\Anaconda\envs\macbf\lib\site-packages\tensorflow\python\ops\array_ops.py:1354: add_dispatch_support.<locals>.wrapper (from tensorflow.python.ops.array_ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use tf.where in 2.0, which has the same broadcast rule as np.where
+WARNING:tensorflow:Entity <bound method Conv1D.call of <tensorflow.python.layers.convolutional.Conv1D object at 0x000001472D69BEF0>> could not be transformed and will be executed as-is. Please report this to the AutgoGraph team. When filing the bug, set the verbosity to 10 (on Linux, `export AUTOGRAPH_VERBOSITY=10`) and attach the full output. Cause: converting <bound method Conv1D.call of <tensorflow.python.layers.convolutional.Conv1D object at 0x000001472D69BEF0>>: AttributeError: module 'gast' has no attribute 'Str'
+WARNING:tensorflow:Entity <bound method Conv1D.call of <tensorflow.python.layers.convolutional.Conv1D object at 0x000001472D6AEE80>> could not be transformed and will be executed as-is. Please report this to the AutgoGraph team. When filing the bug, set the verbosity to 10 (on Linux, `export AUTOGRAPH_VERBOSITY=10`) and attach the full output. Cause: converting <bound method Conv1D.call of <tensorflow.python.layers.convolutional.Conv1D object at 0x000001472D6AEE80>>: AttributeError: module 'gast' has no attribute 'Str'
+WARNING:tensorflow:Entity <bound method Conv1D.call of <tensorflow.python.layers.convolutional.Conv1D object at 0x000001472D6AE588>> could not be transformed and will be executed as-is. Please report this to the AutgoGraph team. When filing the bug, set the verbosity to 10 (on Linux, `export AUTOGRAPH_VERBOSITY=10`) and attach the full output. Cause: converting <bound method Conv1D.call of <tensorflow.python.layers.convolutional.Conv1D object at 0x000001472D6AE588>>: AttributeError: module 'gast' has no attribute 'Str'
+WARNING:tensorflow:Entity <bound method Conv1D.call of <tensorflow.python.layers.convolutional.Conv1D object at 0x000001472D6AEDA0>> could not be transformed and will be executed as-is. Please report this to the AutgoGraph team. When filing the bug, set the verbosity to 10 (on Linux, `export AUTOGRAPH_VERBOSITY=10`) and attach the full output. Cause: converting <bound method Conv1D.call of <tensorflow.python.layers.convolutional.Conv1D object at 0x000001472D6AEDA0>>: AttributeError: module 'gast' has no attribute 'Str'
+WARNING:tensorflow:From train.py:120: The name tf.trainable_variables is deprecated. Please use tf.compat.v1.trainable_variables instead.
+WARNING:tensorflow:From train.py:28: The name tf.train.AdamOptimizer is deprecated. Please use tf.compat.v1.train.AdamOptimizer instead.
+WARNING:tensorflow:From train.py:36: Variable.initialized_value (from tensorflow.python.ops.variables) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use Variable.read_value. Variables in 2.X are initialized automatically both in eager and graph (inside tf.defun) contexts.
+WARNING:tensorflow:From train.py:150: The name tf.Session is deprecated. Please use tf.compat.v1.Session instead.
+WARNING:tensorflow:From train.py:151: The name tf.global_variables_initializer is deprecated. Please use tf.compat.v1.global_variables_initializer instead.
+WARNING:tensorflow:From train.py:152: The name tf.train.Saver is deprecated. Please use tf.compat.v1.train.Saver instead.
+Step: 0, Time: 1.5, Loss: [4.690e-03 7.435e-04 1.035e-02 5.835e-05 2.550e-03 9.938e-03 2.651e+00
+ 5.067e-02], Dist: 0.614, Safety Rate: 1.000
+Step: 1, Time: 1.1, Loss: [0.000e+00 2.557e-03 0.000e+00 9.551e-05 7.500e-03 7.499e-03 2.512e+00
+ 8.052e-02], Dist: 0.737, Safety Rate: 1.000
+D:\Anaconda\envs\macbf\lib\site-packages\numpy\core\fromnumeric.py:3373: RuntimeWarning: Mean of empty slice.
+  out=out, **kwargs)
+D:\Anaconda\envs\macbf\lib\site-packages\numpy\core\_methods.py:170: RuntimeWarning: invalid value encountered in double_scalars
+  ret = ret.dtype.type(ret / rcount)
+Step: 2, Time: 1.0, Loss: [7.025e-03 7.541e-04 2.008e-02 2.896e-05 1.271e-03 9.210e-03 2.600e+00
+ 4.563e-02], Dist: 0.381, Safety Rate: 0.972
+Step: 3, Time: 1.0, Loss: [0.000e+00 7.340e-04 0.000e+00 2.106e-04 0.000e+00 8.929e-03 2.669e+00
+ 4.354e-02], Dist: 0.578, Safety Rate: 1.000
+Step: 4, Time: 1.3, Loss: [1.033e-03 7.398e-04 3.651e-03 2.008e-04 9.840e-03 9.943e-03 2.629e+00
+ 4.063e-02], Dist: 0.367, Safety Rate: 1.000
+Step: 5, Time: 1.3, Loss: [0.000e+00 7.257e-04 0.000e+00 1.290e-04 6.044e-03 1.236e-02 2.614e+00
+ 6.693e-02], Dist: 0.416, Safety Rate: 1.000
+Step: 6, Time: 0.8, Loss: [2.211e-02 6.807e-04 5.231e-02 2.586e-04 9.599e-03 1.050e-02 2.655e+00
+ 6.033e-02], Dist: 1.117, Safety Rate: 0.957
+Step: 7, Time: 1.2, Loss: [2.100e-02 7.305e-04 5.078e-02 1.423e-04 2.117e-03 8.609e-03 2.544e+00
+ 7.029e-02], Dist: 0.428, Safety Rate: 0.926
+Step: 8, Time: 1.2, Loss: [0.000e+00 7.298e-04 0.000e+00 0.000e+00 9.960e-03 9.243e-03 2.653e+00
+ 4.704e-02], Dist: 0.538, Safety Rate: 1.000
+Step: 9, Time: 1.1, Loss: [4.907e-03 7.292e-04 1.133e-02 1.014e-04 1.738e-03 1.246e-02 2.632e+00
+ 5.014e-02], Dist: 0.501, Safety Rate: 1.000
+Step: 10, Time: 1.0, Loss: [1.454e-02 6.708e-04 6.837e-02 9.343e-05 4.332e-03 9.888e-03 2.644e+00
+ 5.322e-02], Dist: 0.611, Safety Rate: 0.906
+Step: 11, Time: 0.9, Loss: [6.193e-04 7.403e-04 1.401e-02 1.548e-04 5.062e-03 1.054e-02 2.647e+00
+ 4.018e-02], Dist: 0.529, Safety Rate: 1.000
+Step: 12, Time: 0.9, Loss: [2.262e-03 7.239e-04 1.960e-02 1.558e-04 1.086e-02 1.649e-02 2.553e+00
+ 5.961e-02], Dist: 0.942, Safety Rate: 1.000
+Step: 13, Time: 1.0, Loss: [0.000e+00 7.500e-04 0.000e+00 0.000e+00 0.000e+00 1.229e-02 2.647e+00
+ 3.830e-02], Dist: 0.660, Safety Rate: 1.000
+Step: 14, Time: 0.7, Loss: [0.000e+00 7.396e-04 0.000e+00 1.846e-04 0.000e+00 2.488e-02 2.606e+00
+ 6.329e-02], Dist: 1.692, Safety Rate: 1.000
+Step: 15, Time: 1.0, Loss: [8.842e-03 7.398e-04 4.657e-02 1.600e-04 1.382e-02 2.476e-02 2.592e+00
+ 4.945e-02], Dist: 0.546, Safety Rate: 0.944
+Step: 16, Time: 0.9, Loss: [2.451e-03 7.349e-04 6.664e-03 2.144e-04 1.606e-02 2.593e-02 2.615e+00
+ 4.397e-02], Dist: 0.738, Safety Rate: 1.000
+Step: 17, Time: 0.9, Loss: [0.000e+00 7.500e-04 0.000e+00 0.000e+00 0.000e+00 3.236e-02 2.671e+00
+ 3.197e-02], Dist: 0.781, Safety Rate: 1.000
+Step: 18, Time: 1.0, Loss: [5.211e-03 7.174e-04 2.145e-02 2.065e-04 1.225e-03 3.506e-02 2.671e+00
+ 2.844e-02], Dist: 1.087, Safety Rate: 0.969
+Step: 19, Time: 1.0, Loss: [1.109e-02 5.998e-04 4.307e-02 2.545e-04 1.403e-02 2.409e-02 2.587e+00
+ 4.817e-02], Dist: 0.753, Safety Rate: 0.978
+Step: 20, Time: 1.0, Loss: [6.313e-03 7.740e-04 4.237e-02 2.194e-04 5.935e-03 4.274e-02 2.571e+00
+ 3.553e-02], Dist: 0.930, Safety Rate: 0.975
+Step: 21, Time: 1.0, Loss: [4.795e-03 1.944e-03 3.514e-02 1.667e-04 1.192e-02 4.614e-02 2.652e+00
+ 2.982e-02], Dist: 1.189, Safety Rate: 0.995
+Step: 22, Time: 1.1, Loss: [0.000e+00 7.173e-04 0.000e+00 2.102e-04 0.000e+00 3.973e-02 2.693e+00
+ 2.669e-02], Dist: 0.617, Safety Rate: 1.000
+Step: 23, Time: 0.9, Loss: [1.647e-03 1.410e-03 2.149e-02 1.469e-04 4.450e-03 4.530e-02 2.650e+00
+ 2.934e-02], Dist: 1.247, Safety Rate: 0.967
+Step: 24, Time: 0.9, Loss: [0.000e+00 1.437e-03 0.000e+00 6.792e-05 0.000e+00 4.214e-02 2.675e+00
+ 2.478e-02], Dist: 0.737, Safety Rate: 1.000
+Step: 25, Time: 0.9, Loss: [8.795e-05 7.367e-04 2.482e-02 1.689e-04 1.642e-02 3.299e-02 2.701e+00
+ 1.785e-02], Dist: 1.085, Safety Rate: 0.966
+Step: 26, Time: 1.0, Loss: [8.047e-06 9.194e-04 1.363e-02 9.549e-05 2.666e-03 4.875e-02 2.627e+00
+ 2.368e-02], Dist: 1.134, Safety Rate: 1.000
+Step: 27, Time: 0.9, Loss: [0.000e+00 9.752e-04 1.301e-02 6.460e-05 3.031e-03 5.060e-02 2.614e+00
+ 3.545e-02], Dist: 0.799, Safety Rate: 1.000
+Step: 28, Time: 1.0, Loss: [0.000e+00 7.660e-04 1.613e-02 4.882e-05 3.389e-03 4.609e-02 2.595e+00
+ 3.208e-02], Dist: 1.337, Safety Rate: 1.000
+Step: 29, Time: 0.9, Loss: [0.000e+00 1.222e-03 0.000e+00 9.583e-05 0.000e+00 3.523e-02 2.632e+00
+ 3.123e-02], Dist: 0.895, Safety Rate: 1.000
+Step: 30, Time: 0.8, Loss: [0.000e+00 3.293e-03 0.000e+00 1.961e-04 0.000e+00 4.523e-02 2.595e+00
+ 5.221e-02], Dist: 1.027, Safety Rate: 1.000
+Step: 31, Time: 1.0, Loss: [8.242e-04 9.201e-04 5.915e-02 9.209e-05 1.978e-02 5.694e-02 2.683e+00
+ 1.972e-02], Dist: 0.620, Safety Rate: 0.917
+Step: 32, Time: 1.0, Loss: [1.068e-05 2.626e-03 2.612e-02 2.314e-04 6.512e-03 3.601e-02 2.579e+00
+ 4.206e-02], Dist: 0.692, Safety Rate: 0.985
+Step: 33, Time: 1.1, Loss: [0.000e+00 8.295e-04 2.715e-02 1.131e-04 2.826e-03 4.124e-02 2.659e+00
+ 1.779e-02], Dist: 0.662, Safety Rate: 0.971
+Step: 34, Time: 1.0, Loss: [0.000e+00 7.500e-04 0.000e+00 0.000e+00 0.000e+00 3.769e-02 2.689e+00
+ 2.121e-02], Dist: 0.623, Safety Rate: 1.000
+Step: 35, Time: 1.0, Loss: [0.000e+00 1.045e-03 0.000e+00 3.964e-05 4.806e-03 4.535e-02 2.612e+00
+ 3.668e-02], Dist: 0.750, Safety Rate: 1.000
+Step: 36, Time: 0.9, Loss: [0.000e+00 1.969e-03 1.680e-02 1.259e-04 1.988e-03 4.484e-02 2.637e+00
+ 2.925e-02], Dist: 0.964, Safety Rate: 0.989
+Step: 37, Time: 0.9, Loss: [0.000e+00 1.442e-03 0.000e+00 1.567e-04 0.000e+00 5.487e-02 2.623e+00
+ 3.029e-02], Dist: 1.000, Safety Rate: 1.000
+Step: 38, Time: 0.8, Loss: [0.000e+00 8.020e-04 0.000e+00 2.314e-04 0.000e+00 4.517e-02 2.666e+00
+ 3.751e-02], Dist: 1.175, Safety Rate: 1.000
+Step: 39, Time: 1.0, Loss: [0.000e+00 8.226e-04 0.000e+00 1.075e-04 0.000e+00 4.608e-02 2.595e+00
+ 3.019e-02], Dist: 0.740, Safety Rate: 1.000
+Step: 40, Time: 1.0, Loss: [9.731e-06 1.022e-03 1.794e-02 1.074e-04 1.666e-02 3.958e-02 2.667e+00
+ 1.632e-02], Dist: 0.684, Safety Rate: 0.982
+Step: 41, Time: 1.1, Loss: [2.946e-04 1.071e-03 4.069e-02 1.549e-04 8.762e-03 3.891e-02 2.680e+00
+ 1.288e-02], Dist: 0.634, Safety Rate: 0.963
+Step: 42, Time: 1.2, Loss: [3.861e-04 7.763e-04 3.997e-02 3.992e-04 1.152e-02 3.939e-02 2.666e+00
+ 2.195e-02], Dist: 0.495, Safety Rate: 1.000
+Step: 43, Time: 1.1, Loss: [2.673e-03 8.119e-04 9.613e-02 1.478e-04 1.701e-02 4.860e-02 2.608e+00
+ 3.046e-02], Dist: 0.791, Safety Rate: 0.875
+Step: 44, Time: 1.0, Loss: [0.000e+00 7.500e-04 0.000e+00 0.000e+00 0.000e+00 4.619e-02 2.651e+00
+ 2.568e-02], Dist: 0.673, Safety Rate: 1.000
+Step: 45, Time: 1.2, Loss: [0.000e+00 7.522e-04 0.000e+00 3.031e-04 1.821e-02 3.377e-02 2.665e+00
+ 2.866e-02], Dist: 0.478, Safety Rate: 1.000
+Step: 46, Time: 1.0, Loss: [0.000e+00 7.500e-04 0.000e+00 0.000e+00 0.000e+00 4.276e-02 2.638e+00
+ 3.280e-02], Dist: 0.559, Safety Rate: 1.000
+Step: 47, Time: 1.0, Loss: [0.000e+00 7.762e-04 0.000e+00 7.882e-05 0.000e+00 5.013e-02 2.554e+00
+ 5.478e-02], Dist: 0.688, Safety Rate: 1.000
+Step: 48, Time: 0.8, Loss: [9.531e-03 6.168e-04 1.437e-01 1.222e-04 2.334e-02 4.249e-02 2.537e+00
+ 3.552e-02], Dist: 1.343, Safety Rate: 0.707
+Step: 49, Time: 0.9, Loss: [9.558e-04 7.494e-04 2.243e-02 5.967e-05 4.285e-03 5.568e-02 2.580e+00
+ 3.633e-02], Dist: 1.183, Safety Rate: 0.977
+Step: 50, Time: 0.9, Loss: [0.000e+00 8.323e-04 0.000e+00 6.263e-04 4.719e-03 4.991e-02 2.572e+00
+ 6.512e-02], Dist: 0.670, Safety Rate: 1.000
+Step: 51, Time: 0.9, Loss: [3.161e-03 7.756e-04 4.481e-02 1.608e-04 1.626e-02 3.900e-02 2.653e+00
+ 1.685e-02], Dist: 0.937, Safety Rate: 0.958
+Step: 52, Time: 1.1, Loss: [0.000e+00 6.984e-04 0.000e+00 4.880e-04 9.631e-03 4.279e-02 2.643e+00
+ 2.067e-02], Dist: 0.796, Safety Rate: 1.000
+Step: 53, Time: 0.9, Loss: [0.000e+00 7.500e-04 0.000e+00 0.000e+00 0.000e+00 4.988e-02 2.637e+00
+ 1.357e-02], Dist: 0.942, Safety Rate: 1.000
+Step: 54, Time: 0.9, Loss: [3.119e-03 7.603e-04 3.986e-02 2.558e-04 3.796e-03 4.673e-02 2.643e+00
+ 2.671e-02], Dist: 0.907, Safety Rate: 0.969
+Step: 55, Time: 0.9, Loss: [2.140e-03 7.144e-04 6.516e-02 2.680e-04 1.162e-02 5.534e-02 2.551e+00
+ 5.200e-02], Dist: 0.878, Safety Rate: 0.895
+Step: 56, Time: 0.9, Loss: [0.000e+00 7.158e-04 0.000e+00 6.410e-04 2.483e-02 3.879e-02 2.624e+00
+ 3.478e-02], Dist: 0.990, Safety Rate: 1.000
+Step: 57, Time: 0.9, Loss: [0.000e+00 7.176e-04 0.000e+00 3.634e-04 0.000e+00 3.746e-02 2.609e+00
+ 5.145e-02], Dist: 0.800, Safety Rate: 1.000
+Step: 58, Time: 0.9, Loss: [0.000e+00 6.852e-04 0.000e+00 3.184e-04 0.000e+00 4.319e-02 2.619e+00
+ 3.754e-02], Dist: 0.758, Safety Rate: 1.000
+Step: 59, Time: 0.9, Loss: [0.000e+00 9.048e-04 0.000e+00 1.504e-04 3.799e-03 3.470e-02 2.594e+00
+ 3.773e-02], Dist: 0.745, Safety Rate: 1.000
+Step: 60, Time: 0.9, Loss: [1.376e-03 7.061e-04 2.436e-02 3.793e-04 1.349e-02 4.529e-02 2.608e+00
+ 4.717e-02], Dist: 1.376, Safety Rate: 1.000
+Step: 61, Time: 0.9, Loss: [5.003e-05 7.286e-04 1.358e-02 1.164e-04 2.918e-03 4.197e-02 2.584e+00
+ 4.990e-02], Dist: 0.715, Safety Rate: 1.000
+Step: 62, Time: 0.9, Loss: [9.861e-04 8.423e-04 4.136e-02 3.120e-04 4.889e-03 3.377e-02 2.664e+00
+ 1.651e-02], Dist: 1.162, Safety Rate: 0.952
+Step: 63, Time: 1.2, Loss: [1.194e-03 7.082e-04 1.123e-01 4.035e-04 1.161e-02 3.954e-02 2.668e+00
+ 2.425e-02], Dist: 0.589, Safety Rate: 0.812
+Step: 64, Time: 1.0, Loss: [5.938e-05 7.068e-04 3.214e-02 2.566e-04 1.291e-02 4.077e-02 2.572e+00

@@ -1,0 +1,39 @@
+wandb_version: 1
+
+num_agents:
+  desc: null
+  value: 32
+model_path:
+  desc: null
+  value: null
+gpu:
+  desc: null
+  value: '0'
+tag:
+  desc: null
+  value: default
+_wandb:
+  desc: null
+  value:
+    python_version: 3.6.13
+    cli_version: 0.15.11
+    framework: tensorflow
+    is_jupyter_run: false
+    is_kaggle_kernel: false
+    start_time: 1709399530.341419
+    t:
+      1:
+      - 3
+      - 55
+      2:
+      - 3
+      - 55
+      3:
+      - 16
+      - 23
+      4: 3.6.13
+      5: 0.15.11
+      8:
+      - 3
+      - 5
+      13: windows-amd64

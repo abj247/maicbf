@@ -1,0 +1,58 @@
+WARNING:tensorflow:From train.py:75: The name tf.placeholder is deprecated. Please use tf.compat.v1.placeholder instead.
+WARNING:tensorflow:
+The TensorFlow contrib module will not be included in TensorFlow 2.0.
+For more information, please see:
+  * https://github.com/tensorflow/community/blob/master/rfcs/20180907-contrib-sunset.md
+  * https://github.com/tensorflow/addons
+  * https://github.com/tensorflow/io (for I/O related ops)
+If you depend on functionality not listed there, please file an issue.
+WARNING:tensorflow:From C:\Users\aplus\macbf\drones\drones\core.py:278: The name tf.AUTO_REUSE is deprecated. Please use tf.compat.v1.AUTO_REUSE instead.
+WARNING:tensorflow:Entity <bound method Conv1D.call of <tensorflow.python.layers.convolutional.Conv1D object at 0x000001D8071DE400>> could not be transformed and will be executed as-is. Please report this to the AutgoGraph team. When filing the bug, set the verbosity to 10 (on Linux, `export AUTOGRAPH_VERBOSITY=10`) and attach the full output. Cause: converting <bound method Conv1D.call of <tensorflow.python.layers.convolutional.Conv1D object at 0x000001D8071DE400>>: AttributeError: module 'gast' has no attribute 'Str'
+WARNING:tensorflow:Entity <bound method Conv1D.call of <tensorflow.python.layers.convolutional.Conv1D object at 0x000001D80528A588>> could not be transformed and will be executed as-is. Please report this to the AutgoGraph team. When filing the bug, set the verbosity to 10 (on Linux, `export AUTOGRAPH_VERBOSITY=10`) and attach the full output. Cause: converting <bound method Conv1D.call of <tensorflow.python.layers.convolutional.Conv1D object at 0x000001D80528A588>>: AttributeError: module 'gast' has no attribute 'Str'
+WARNING:tensorflow:Entity <bound method Conv1D.call of <tensorflow.python.layers.convolutional.Conv1D object at 0x000001D8071CBEB8>> could not be transformed and will be executed as-is. Please report this to the AutgoGraph team. When filing the bug, set the verbosity to 10 (on Linux, `export AUTOGRAPH_VERBOSITY=10`) and attach the full output. Cause: converting <bound method Conv1D.call of <tensorflow.python.layers.convolutional.Conv1D object at 0x000001D8071CBEB8>>: AttributeError: module 'gast' has no attribute 'Str'
+WARNING:tensorflow:Entity <bound method Conv1D.call of <tensorflow.python.layers.convolutional.Conv1D object at 0x000001D82B0CFA20>> could not be transformed and will be executed as-is. Please report this to the AutgoGraph team. When filing the bug, set the verbosity to 10 (on Linux, `export AUTOGRAPH_VERBOSITY=10`) and attach the full output. Cause: converting <bound method Conv1D.call of <tensorflow.python.layers.convolutional.Conv1D object at 0x000001D82B0CFA20>>: AttributeError: module 'gast' has no attribute 'Str'
+WARNING:tensorflow:Entity <bound method Conv1D.call of <tensorflow.python.layers.convolutional.Conv1D object at 0x000001D82B256BE0>> could not be transformed and will be executed as-is. Please report this to the AutgoGraph team. When filing the bug, set the verbosity to 10 (on Linux, `export AUTOGRAPH_VERBOSITY=10`) and attach the full output. Cause: converting <bound method Conv1D.call of <tensorflow.python.layers.convolutional.Conv1D object at 0x000001D82B256BE0>>: AttributeError: module 'gast' has no attribute 'Str'
+WARNING:tensorflow:Entity <bound method Conv1D.call of <tensorflow.python.layers.convolutional.Conv1D object at 0x000001D82B26F4A8>> could not be transformed and will be executed as-is. Please report this to the AutgoGraph team. When filing the bug, set the verbosity to 10 (on Linux, `export AUTOGRAPH_VERBOSITY=10`) and attach the full output. Cause: converting <bound method Conv1D.call of <tensorflow.python.layers.convolutional.Conv1D object at 0x000001D82B26F4A8>>: AttributeError: module 'gast' has no attribute 'Str'
+WARNING:tensorflow:Entity <bound method Dense.call of <tensorflow.python.layers.core.Dense object at 0x000001D82B26FC88>> could not be transformed and will be executed as-is. Please report this to the AutgoGraph team. When filing the bug, set the verbosity to 10 (on Linux, `export AUTOGRAPH_VERBOSITY=10`) and attach the full output. Cause: converting <bound method Dense.call of <tensorflow.python.layers.core.Dense object at 0x000001D82B26FC88>>: AttributeError: module 'gast' has no attribute 'Index'
+WARNING:tensorflow:Entity <bound method Dense.call of <tensorflow.python.layers.core.Dense object at 0x000001D82B26F470>> could not be transformed and will be executed as-is. Please report this to the AutgoGraph team. When filing the bug, set the verbosity to 10 (on Linux, `export AUTOGRAPH_VERBOSITY=10`) and attach the full output. Cause: converting <bound method Dense.call of <tensorflow.python.layers.core.Dense object at 0x000001D82B26F470>>: AttributeError: module 'gast' has no attribute 'Index'
+WARNING:tensorflow:Entity <bound method Dense.call of <tensorflow.python.layers.core.Dense object at 0x000001D82B26F2E8>> could not be transformed and will be executed as-is. Please report this to the AutgoGraph team. When filing the bug, set the verbosity to 10 (on Linux, `export AUTOGRAPH_VERBOSITY=10`) and attach the full output. Cause: converting <bound method Dense.call of <tensorflow.python.layers.core.Dense object at 0x000001D82B26F2E8>>: AttributeError: module 'gast' has no attribute 'Index'
+WARNING:tensorflow:Entity <bound method Dense.call of <tensorflow.python.layers.core.Dense object at 0x000001D82B26F2E8>> could not be transformed and will be executed as-is. Please report this to the AutgoGraph team. When filing the bug, set the verbosity to 10 (on Linux, `export AUTOGRAPH_VERBOSITY=10`) and attach the full output. Cause: converting <bound method Dense.call of <tensorflow.python.layers.core.Dense object at 0x000001D82B26F2E8>>: AttributeError: module 'gast' has no attribute 'Index'
+WARNING:tensorflow:From D:\Anaconda\envs\macbf\lib\site-packages\tensorflow\python\ops\array_ops.py:1354: add_dispatch_support.<locals>.wrapper (from tensorflow.python.ops.array_ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use tf.where in 2.0, which has the same broadcast rule as np.where
+WARNING:tensorflow:Entity <bound method Conv1D.call of <tensorflow.python.layers.convolutional.Conv1D object at 0x000001D82C4795C0>> could not be transformed and will be executed as-is. Please report this to the AutgoGraph team. When filing the bug, set the verbosity to 10 (on Linux, `export AUTOGRAPH_VERBOSITY=10`) and attach the full output. Cause: converting <bound method Conv1D.call of <tensorflow.python.layers.convolutional.Conv1D object at 0x000001D82C4795C0>>: AttributeError: module 'gast' has no attribute 'Str'
+WARNING:tensorflow:Entity <bound method Conv1D.call of <tensorflow.python.layers.convolutional.Conv1D object at 0x000001D82C479C50>> could not be transformed and will be executed as-is. Please report this to the AutgoGraph team. When filing the bug, set the verbosity to 10 (on Linux, `export AUTOGRAPH_VERBOSITY=10`) and attach the full output. Cause: converting <bound method Conv1D.call of <tensorflow.python.layers.convolutional.Conv1D object at 0x000001D82C479C50>>: AttributeError: module 'gast' has no attribute 'Str'
+WARNING:tensorflow:Entity <bound method Conv1D.call of <tensorflow.python.layers.convolutional.Conv1D object at 0x000001D82C4ADC18>> could not be transformed and will be executed as-is. Please report this to the AutgoGraph team. When filing the bug, set the verbosity to 10 (on Linux, `export AUTOGRAPH_VERBOSITY=10`) and attach the full output. Cause: converting <bound method Conv1D.call of <tensorflow.python.layers.convolutional.Conv1D object at 0x000001D82C4ADC18>>: AttributeError: module 'gast' has no attribute 'Str'
+WARNING:tensorflow:Entity <bound method Conv1D.call of <tensorflow.python.layers.convolutional.Conv1D object at 0x000001D82C4AD390>> could not be transformed and will be executed as-is. Please report this to the AutgoGraph team. When filing the bug, set the verbosity to 10 (on Linux, `export AUTOGRAPH_VERBOSITY=10`) and attach the full output. Cause: converting <bound method Conv1D.call of <tensorflow.python.layers.convolutional.Conv1D object at 0x000001D82C4AD390>>: AttributeError: module 'gast' has no attribute 'Str'
+WARNING:tensorflow:From train.py:119: The name tf.trainable_variables is deprecated. Please use tf.compat.v1.trainable_variables instead.
+Traceback (most recent call last):
+  File "D:\Anaconda\envs\macbf\lib\site-packages\tensorflow\python\framework\ops.py", line 1864, in _create_c_op
+    c_op = c_api.TF_FinishOperation(op_desc)
+tensorflow.python.framework.errors_impl.InvalidArgumentError: Shapes must be equal rank, but are 1 and 0
+	From merging shape 8 with other shapes. for 'AddN' (op: 'AddN') with input shapes: [], [], [], [], [], [], [], [], [4], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [].
+During handling of the above exception, another exception occurred:
+Traceback (most recent call last):
+  File "train.py", line 249, in <module>
+    main()
+  File "train.py", line 141, in main
+    args.num_agents)
+  File "train.py", line 120, in build_training_graph
+    loss = 10 * tf.math.add_n(loss_list + weight_loss)
+  File "D:\Anaconda\envs\macbf\lib\site-packages\tensorflow\python\util\dispatch.py", line 180, in wrapper
+    return target(*args, **kwargs)
+  File "D:\Anaconda\envs\macbf\lib\site-packages\tensorflow\python\ops\math_ops.py", line 2884, in add_n
+    return gen_math_ops.add_n(inputs, name=name)
+  File "D:\Anaconda\envs\macbf\lib\site-packages\tensorflow\python\ops\gen_math_ops.py", line 472, in add_n
+    "AddN", inputs=inputs, name=name)
+  File "D:\Anaconda\envs\macbf\lib\site-packages\tensorflow\python\framework\op_def_library.py", line 788, in _apply_op_helper
+    op_def=op_def)
+  File "D:\Anaconda\envs\macbf\lib\site-packages\tensorflow\python\util\deprecation.py", line 507, in new_func
+    return func(*args, **kwargs)
+  File "D:\Anaconda\envs\macbf\lib\site-packages\tensorflow\python\framework\ops.py", line 3616, in create_op
+    op_def=op_def)
+  File "D:\Anaconda\envs\macbf\lib\site-packages\tensorflow\python\framework\ops.py", line 2027, in __init__
+    control_input_ops)
+  File "D:\Anaconda\envs\macbf\lib\site-packages\tensorflow\python\framework\ops.py", line 1867, in _create_c_op
+    raise ValueError(str(e))
+ValueError: Shapes must be equal rank, but are 1 and 0
+	From merging shape 8 with other shapes. for 'AddN' (op: 'AddN') with input shapes: [], [], [], [], [], [], [], [], [4], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [].
