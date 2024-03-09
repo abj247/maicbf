@@ -12,6 +12,7 @@ import pickle
 import pandas as pd
 import core
 import config
+from plot import PlotHelper
 
 
 def parse_args():
@@ -375,16 +376,25 @@ def main():
         'h': modified_control_inputs
     })
 
+    #csv logging
+
+    
+
     # Specify your desired path to save the CSV file
     csv_file_path = 'csv_data/hu_time_umax_0.2_agile_weight_0.5.csv'
     #csv_file_path = 'csv_data/hu_time_baseline.csv'
 
     # Save the DataFrame to a CSV file
+    #PlotHelper.save_to_csv(time_steps, modified_control_inputs, csv_file_path)
     df.to_csv(csv_file_path, index=False)
 
     print(f"CSV file has been saved to {csv_file_path}")
 
     # Plotting
+
+    #PlotHelper.plot_data(time_steps, modified_control_inputs_array, 'Time Steps', 'h(u)', 'h(u) for all agents (baseline)_4 agents)', 'agents', 'h(u)_baseline_all_agents_4.png')
+
+
     plt.figure(figsize=(10, 6))
     plt.plot(time_steps, modified_control_inputs_array, label='agents')
     # plt.plot(time_steps, u_values_array[:,0,1], label='h_u for agent 0')
@@ -397,6 +407,8 @@ def main():
     plt.show()
 
 
+   #Plot Acceleration
+    #PlotHelper.plot_data(time_steps, a_values, 'Time Steps', 'acceleration', 'acceleration for all agents (baseline)_4 agents)', 'acceleration', 'acc_baseline_all_agents_4.png')
 
     plt.figure(figsize=(10, 6))
     plt.plot(time_steps, a_values, label='acceleration')
@@ -408,6 +420,9 @@ def main():
     plt.legend()
     plt.savefig('acc_baseline_all_agents_4.png', dpi=300)
     plt.show()
+
+
+    # using plot.py
 
     #time_steps = list(range(len(u_values)))
 

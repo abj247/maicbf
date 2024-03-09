@@ -139,11 +139,9 @@ def count_accuracy(accuracy_lists):
 
 def main():
     args = parse_args()
-<<<<<<< HEAD
+
     wandb.init(project="maicbf", name = 'run_3_agile_4', config=args)
-=======
-    wandb.init(project="maicbf", config=args)
->>>>>>> origin/master
+
     wandb.config.update(args)
 
     os.environ["CUDA_VISIBLE_DEVICES"] = args.gpu
@@ -161,21 +159,8 @@ def main():
         sess.run(tf.global_variables_initializer())
         saver = tf.train.Saver()
 
-<<<<<<< HEAD
         # Keep the file operations within the context manager scope
         with open('train_logs/training_log.txt', 'w') as log_file, open('csv_data/losses.csv', 'w', newline='') as csvfile:
-=======
-        csv_dir = './csv_data'
-        if not os.path.exists(csv_dir):
-            os.makedirs(csv_dir)
-
-        # Paths for the text and CSV files
-        csv_file_path = os.path.join(csv_dir, 'train_log.csv')
-
-
-        # Open a text file for logging training progress
-        with open('training_log.txt', 'w') as log_file, open('train_log.csv', 'w', newline='') as csvfile:
->>>>>>> origin/master
             loss_writer = csv.writer(csvfile)
             loss_writer.writerow(['Step', 'Loss', 'Accuracy', 'Dist Error', 'Safety Ratio'])  
 
