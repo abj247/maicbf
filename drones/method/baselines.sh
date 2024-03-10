@@ -43,7 +43,7 @@ run_off_policy() {
     read -p "Use reward normalization? (yes/no): " use_reward_normalization
     read -p "Use wandb? (yes/no): " use_wandb
 
-    # Convert yes/no answers to boolean flags
+    
     if [[ $use_reward_normalization == "yes" ]]; then
         use_reward_normalization="--use_reward_normalization"
     else
