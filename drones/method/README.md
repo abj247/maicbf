@@ -68,24 +68,33 @@ Follow the interactive prompts to input the required parameters for the selected
     ```
 - **Off-Policy Method**: 
     ```
-    python off-policy/train/train_mpe.py --env_name MPE --algorithm_name rmappo --experiment_name debug --scenario_name simple_spread \
-    --num_agents 2 --num_landmarks 2 --seed 1 --n_rollout_threads 128 --episode_length 25 --actor_train_interval_step 1 --tau 0.005 --lr 7e-4 \
+    python off-policy/train/train_mpe.py --env_name MPE --algorithm_name rmappo \
+    --experiment_name debug --scenario_name simple_spread \
+    --num_agents 2 --num_landmarks 2 --seed 1 --n_rollout_threads 128\
+     --episode_length 25 --actor_train_interval_step 1 --tau 0.005 --lr 7e-4 \
     --num_env_steps 10000000 --batch_size 1000 --buffer_size 500000 --use_reward_normalization --use_wandb
     
     ```
 - **On-Policy Method**: 
     ```
-    python on-policy/onpolicy/scripts/train/train_mpe.py --env_name MPE --algorithm_name rmappo --experiment_name check --scenario_name simple_spread \
-     --num_agents 2 --num_landmarks 3 --seed 1  --n_training_threads 1 --n_rollout_threads 128 --num_mini_batch 1 --episode_length 25 --num_env_steps 20000000 \
-     --ppo_epoch 10 --use_ReLU --gain 0.01 --lr 7e-4 --critic_lr 7e-4 --wandb_name "xxx" --user_name "yyy"
+    python on-policy/onpolicy/scripts/train/train_mpe.py --env_name MPE --algorithm_name rmappo\
+     --experiment_name check --scenario_name simple_spread \
+     --num_agents 2 --num_landmarks 3 --seed 1  --n_training_threads 1 \
+    --n_rollout_threads 128 --num_mini_batch 1 --episode_length 25 --num_env_steps 20000000 \
+     --ppo_epoch 10 --use_ReLU --gain 0.01 --lr 7e-4 \
+    --critic_lr 7e-4 --wandb_name "xxx" --user_name "yyy"
     
     ```
 - **InfoMARL**: 
     ```
-    python -u InfoMARL/onpolicy/scripts/train_mpe.py --use_valuenorm --use_popart --project_name "informarl" --env_name "GraphMPE" \
-     --algorithm_name "rmappo" --seed 0 --experiment_name "informarl" --scenario_name "navigation_graph" --num_agents 3 --collision_rew 5 \
-    --n_training_threads 1 --n_rollout_threads 128 --num_mini_batch 1 --episode_length 25 --num_env_steps 2000000 --ppo_epoch 10 --use_ReLU \
-    --gain 0.01 --lr 7e-4 --critic_lr 7e-4 --user_name "marl" --use_cent_obs "False" --graph_feat_type "relative" --auto_mini_batch_size --target_mini_batch_size 128
+    python -u InfoMARL/onpolicy/scripts/train_mpe.py --use_valuenorm --use_popart \
+     --project_name "informarl" --env_name "GraphMPE" \
+     --algorithm_name "rmappo" --seed 0 --experiment_name "informarl" \
+    --scenario_name "navigation_graph" --num_agents 3 --collision_rew 5 \
+    --n_training_threads 1 --n_rollout_threads 128 --num_mini_batch 1 \
+    --episode_length 25 --num_env_steps 2000000 --ppo_epoch 10 --use_ReLU \
+    --gain 0.01 --lr 7e-4 --critic_lr 7e-4 --user_name "marl" --use_cent_obs "False" \
+    --graph_feat_type "relative" --auto_mini_batch_size --target_mini_batch_size 128
     
     ```
 
