@@ -22,7 +22,7 @@ This repository contains a collection of baseline methods for multi-agent reinfo
 
 ## Running the Baseline Methods
 
-To run all the baseline methods, execute the provided shell script. This scripts interactively asks for parameters required by each method and runs them sequentially. 
+To bulk run all the baseline methods, execute the provided shell script. This scripts interactively asks for parameters required by each method and runs them sequentially. 
 
 ### Running All Methods Sequentially
 
