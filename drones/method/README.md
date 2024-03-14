@@ -10,9 +10,10 @@ This repository contains a collection of baseline methods for multi-agent reinfo
     cd MA-ICBF/baselines
     ```
 2. **Create a Conda Environment**: It is recommended to create a virtual environment for managing the dependencies.
+3. 
     ``` conda create -n baselines python=3.6```
     
-3. **Install Dependencies**: Install the required Python packages using the `requirements.txt` file.
+4. **Install Dependencies**: Install the required Python packages using the `requirements.txt` file.
     ```
     pip install -r requirements.txt```
 
