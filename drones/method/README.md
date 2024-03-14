@@ -11,12 +11,10 @@ This repository contains a collection of baseline methods for multi-agent reinfo
     ```
 2. **Create a Conda Environment**: It is recommended to create a virtual environment for managing the dependencies.
     ```
-    conda create -n baselines python=3.6
-    ```
+    conda create -n baselines python=3.6```
 3. **Install Dependencies**: Install the required Python packages using the `requirements.txt` file.
     ```
-    pip install -r requirements.txt
-    ```
+    pip install -r requirements.txt```
 
 ## Running the Baseline Methods
 
@@ -26,12 +24,10 @@ To run all the baseline methods, execute the provided shell script. This scripts
 
 1. Make sure the script is executable. If not, you can make it executable by running:
     ```
-    chmod +x baselines_run_all.sh
-    ```
+    chmod +x baselines_run_all.sh```
 2. Run the script by executing:
     ```
-    ./baselines_run_all.sh
-    ```
+    ./baselines_run_all.sh```
 
 ### Running Individual Methods
 
@@ -39,11 +35,10 @@ You can also run individual methods by invoking their respective functions withi
 
 1. Make sure the script is executable. If not, you can make it executable by running:
     ```
-    chmod +x baselines.sh
-    ```
+    chmod +x baselines.sh```
 2. Run the script by executing:
     ```
-    ./baselines.sh
+    ./baselines.sh```
 
 3. When prompted, enter the number corresponding to the method you wish to run. The options are:
     - `1` for PIC
