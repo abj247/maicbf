@@ -63,7 +63,7 @@ You can also run individual methods by invoking their respective functions withi
 
 Follow the interactive prompts to input the required parameters for the selected method.
 
-4. Example commands for running individual methods
+4. Example commands for running each  individual baseline methods
 
 - **PIC**: 
     ```
