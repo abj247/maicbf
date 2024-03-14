@@ -12,7 +12,7 @@ This repository contains a collection of baseline methods for multi-agent reinfo
 2. **Create a Conda Environment**: It is recommended to create a virtual environment for managing the dependencies.
 3. 
     ```
-    conda create -n baselines python=3.6
+    conda create -n baselines python=3.8
     conda activate baselines
    ```
     
