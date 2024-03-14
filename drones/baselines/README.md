@@ -125,7 +125,7 @@ Follow the interactive prompts to input the required parameters for the selected
     --gain 0.01 \
     --lr 7e-4 \
     --critic_lr 7e-4 \
-    --wandb_name "xxx"\
+    --wandb_name "xxx" \
      --user_name "yyy"
     
     ```
@@ -154,7 +154,7 @@ Follow the interactive prompts to input the required parameters for the selected
     --critic_lr 7e-4 \
     --user_name "marl" \
     --use_cent_obs "False" \
-    --graph_feat_type "relative"\
+    --graph_feat_type "relative" \
     --auto_mini_batch_size \
     --target_mini_batch_size 128
     
