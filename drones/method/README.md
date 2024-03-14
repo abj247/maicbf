@@ -25,11 +25,15 @@ To run all the baseline methods, execute the provided shell script. This scripts
 
 1. Make sure the script is executable. If not, you can make it executable by running:
    
-    ```chmod +x baselines_run_all.sh```
+    ```
+    chmod +x baselines_run_all.sh
+   ```
    
 2. Run the script by executing:
    
-    ```./baselines_run_all.sh```
+    ```
+   ./baselines_run_all.sh
+    ```
 
 ### Running Individual Methods
 
@@ -37,11 +41,15 @@ You can also run individual methods by invoking their respective functions withi
 
 1. Make sure the script is executable. If not, you can make it executable by running:
    
-    ```chmod +x baselines.sh```
+    ```
+   chmod +x baselines.sh
+   ```
    
 2. Run the script by executing:
    
-    ```./baselines.sh```
+    ```
+    ./baselines.sh
+    ```
 
 3. When prompted, enter the number corresponding to the method you wish to run. The options are:
     - `1` for PIC
