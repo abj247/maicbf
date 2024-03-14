@@ -74,7 +74,8 @@ Follow the interactive prompts to input the required parameters for the selected
 - **gcbf-pytorch**: 
     ```
     python gcbf-pytorch/train.py \
-    --algo gcbf --env DubinsCar \
+    --algo gcbf \
+    --env DubinsCar \
     -n 16 \
     --steps 500000
     
