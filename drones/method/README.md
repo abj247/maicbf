@@ -79,7 +79,7 @@ Follow the interactive prompts to input the required parameters for the selected
 - **On-Policy Method**: 
     ```
     python on-policy/onpolicy/scripts/train/train_mpe.py \
-    --env_name MPE --algorithm_name rmappo\
+     --env_name MPE --algorithm_name rmappo\
      --experiment_name check --scenario_name simple_spread \
      --num_agents 2 --num_landmarks 3 --seed 1  --n_training_threads 1 \
     --n_rollout_threads 128 --num_mini_batch 1 --episode_length 25 --num_env_steps 20000000 \
@@ -90,7 +90,7 @@ Follow the interactive prompts to input the required parameters for the selected
 - **InfoMARL**: 
     ```
     python -u InfoMARL/onpolicy/scripts/train_mpe.py \
-    --use_valuenorm --use_popart \
+     --use_valuenorm --use_popart \
      --project_name "informarl" --env_name "GraphMPE" \
      --algorithm_name "rmappo" --seed 0 --experiment_name "informarl" \
     --scenario_name "navigation_graph" --num_agents 3 --collision_rew 5 \
