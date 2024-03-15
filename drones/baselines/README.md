@@ -1,4 +1,4 @@
-# Baseline Methods for Multi-Agent Reinforcement Learning
+# Baseline Methods for Multi-Agent Navigation
 
 This repository contains a collection of baseline methods for multi-agent reinforcement learning (MARL) experiments. It includes scripts to run different algorithms like PIC, gcbf-pytorch, off-policy, on-policy, and InfoMARL across various scenarios.
 
