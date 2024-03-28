@@ -1,0 +1,7 @@
+Metadata-Version: 2.1
+Name: gcbf
+Version: 0.0.0
+Summary: PyTorch Official Implementation of CoRL 2023 Paper: : S Zhang, K Garg, C Fan: "Neural Graph Control Barrier Functions Guided Distributed Collision-avoidance Multi-agent Control"
+Home-page: https://github.com/MIT-REALM/gcbf
+Author: Songyuan Zhang
+Author-email: szhang21@mit.edu

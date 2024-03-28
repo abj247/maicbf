@@ -1,0 +1,22 @@
+env: DubinsCar
+num_agents: 16
+steps: 500000
+area_size: None
+obs: 0
+algo: gcbf
+gpu: 0
+seed: 0
+cus: False
+h_dot_coef: None
+action_coef: None
+cpu: False
+log_path: ./logs
+batch_size: 512
+hyper_params:
+  alpha: 1.0
+  eps: 0.02
+  inner_iter: 10
+  loss_action_coef: 0.0001
+  loss_unsafe_coef: 1.0
+  loss_safe_coef: 1.0
+  loss_h_dot_coef: 0.2
