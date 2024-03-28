@@ -339,7 +339,8 @@ def main():
         os.makedirs(directory_path)
 
     # Define the full path to the CSV file within the subdirectory
-    csv_file_path = os.path.join(directory_path, 'hu_time_umax_0.2_agile_weight_0.5_64_agents.csv')
+    #csv_file_path = os.path.join(directory_path, 'hu_time_umax_0.2_agile_weight_0.5_64_agents.csv')
+    csv_file_path = os.path.join(directory_path, 'hu_time_baseline_64_agents.csv')
 
     ## Export to CSV, taking into account the new shape of collision_tracking
     column_names = ['Agent {}'.format(i+1) for i in range(args.num_agents)]
@@ -409,8 +410,8 @@ def main():
     
 
     # Specify your desired path to save the CSV file
-    csv_file_path = 'csv_data/hu_data/hu_time_umax_0.2_agile_weight_0.5_64_agents.csv'
-    #csv_file_path = 'csv_data/hu_time_baseline.csv'
+    #csv_file_path = 'csv_data/hu_data/hu_time_umax_0.2_agile_weight_0.5_64_agents.csv'
+    csv_file_path = 'csv_data/hu_time_baseline.csv'
 
     # Save the DataFrame to a CSV file
     #PlotHelper.save_to_csv(time_steps, modified_control_inputs, csv_file_path)
@@ -459,7 +460,7 @@ def main():
     plt.ylabel('velocity')
     plt.title('velocity for all agents agents)')
     plt.legend()
-    plt.savefig('velocity_all_agents.png', dpi=300)
+    plt.savefig('velocity_baseline_all_agents.png', dpi=300)
     plt.show()
 
     print(max_v_values_all_agents)
