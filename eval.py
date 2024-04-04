@@ -340,7 +340,7 @@ def main():
 
     # Define the full path to the CSV file within the subdirectory
     #csv_file_path = os.path.join(directory_path, 'hu_time_umax_0.2_agile_weight_0.5_64_agents.csv')
-    csv_file_path = os.path.join(directory_path, 'hu_time_baseline_64_agents.csv')
+    csv_file_path = os.path.join(directory_path, 'hu_time_baseline_4_agents_itr_03.csv')
 
     ## Export to CSV, taking into account the new shape of collision_tracking
     column_names = ['Agent {}'.format(i+1) for i in range(args.num_agents)]
@@ -381,10 +381,27 @@ def main():
     
     #modified_control_inputs = [u_max_squared - (u_step[0, 0]**2 + u_step[0, 1]**2 + u_step[0, 2]**2) for u_step in u_values]
     modified_control_inputs = [u_max_squared - (u_step[:, 0]**2 + u_step[:, 1]**2 + u_step[:, 2]**2) for u_step in u_values]
-    a_values_np = [u_step[:, 2] for u_step in u_values]
-    v_values_np = [np.sqrt(u_step[:, 0]**2 + u_step[:, 1]**2)for u_step in u_values]
+    exceed_threshold_count_v = 0
+    exceed_threshold_count_a = 0
+
+    a_values_np = []
+    v_values_np = []
+
+    for u_step in u_values:
+        a_value = u_step[:, 2]
+        v_value = np.sqrt(u_step[:, 0]**2 + u_step[:, 1]**2)
+        if np.any(np.abs(a_value) > 2):
+            exceed_threshold_count_a += 1
+            a_value[np.abs(a_value) > 2] = 0
+        if np.any(v_value > 2):
+            exceed_threshold_count_v += 1
+            v_value[v_value > 2] = 0
+
+        a_values_np.append(a_value)
+        v_values_np.append(v_value)
+
     v_values = np.array(v_values_np)
-    max_v_values_all_agents = np.max(v_values_np, axis=0)
+    max_v_values_all_agents = np.max(v_values, axis=0)
     a_values = np.array(a_values_np)
     #modified_control_inputs = [u_max_squared - (u_step[0]**2) for u_step in u_values]
     modified_control_inputs_array = np.array(modified_control_inputs)
@@ -411,7 +428,7 @@ def main():
 
     # Specify your desired path to save the CSV file
     #csv_file_path = 'csv_data/hu_data/hu_time_umax_0.2_agile_weight_0.5_64_agents.csv'
-    csv_file_path = 'csv_data/hu_time_baseline.csv'
+    csv_file_path = 'csv_data/hu_time_baseline_itr_03_4_agents.csv'
 
     # Save the DataFrame to a CSV file
     #PlotHelper.save_to_csv(time_steps, modified_control_inputs, csv_file_path)
@@ -432,7 +449,7 @@ def main():
     plt.ylabel('h(u)')
     plt.title('h(u) for all agents (baseline)_4 agents)')
     plt.legend()
-    plt.savefig('h(u)_baseline_all_agents_4.png', dpi=300)
+    plt.savefig('h(u)_baseline_all_agents_4_itr_03.png', dpi=300)
     plt.show()
 
 
@@ -447,23 +464,23 @@ def main():
     plt.ylabel('acceleration')
     plt.title('acceleration for all agents (baseline)_4 agents)')
     plt.legend()
-    plt.savefig('acc_baseline_all_agents_4.png', dpi=300)
+    plt.savefig('acc_baseline_all_agents_4_itr_03.png', dpi=300)
     plt.show()
 
 
     
     plt.figure(figsize=(10, 6))
     plt.plot(time_steps, v_values, label='velocity')
-    # plt.plot(time_steps, u_values_array[:,0,1], label='h_u for agent 0')
-    # plt.plot(time_steps, u_values_array[:,0,2], label='h_u for agent 0')
     plt.xlabel('Time Steps')
     plt.ylabel('velocity')
-    plt.title('velocity for all agents agents)')
+    plt.title('velocity for all agents_baseline')
     plt.legend()
-    plt.savefig('velocity_baseline_all_agents.png', dpi=300)
+    plt.savefig('velocity_baseline_all_agents_itr_03.png', dpi=300)
     plt.show()
 
     print(max_v_values_all_agents)
+    print(exceed_threshold_count_a)
+    print( exceed_threshold_count_v)
 
     # using plot.py
 

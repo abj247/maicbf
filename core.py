@@ -68,14 +68,14 @@ class Cityscape(object):
             random_start = np.random.randint(
                 low=1, high=self.area_size-1, size=(1, 2))
             dist = min(np.amin(np.linalg.norm(
-                start_points[:, :2] - random_start, axis=1)), 
+                start_points[:, :2] - random_start, axis=1)),
                 np.amin(np.linalg.norm(
                     self.obstacle_points - random_start, axis=1)))
             while dist < 1:
                 random_start = np.random.randint(
                     low=1, high=self.area_size-1, size=(1, 2))
                 dist = min(np.amin(np.linalg.norm(
-                    start_points[:, :2] - random_start, axis=1)), 
+                    start_points[:, :2] - random_start, axis=1)),
                     np.amin(np.linalg.norm(
                         self.obstacle_points - random_start, axis=1)))
             start_points[i, :2] = random_start
@@ -140,6 +140,155 @@ class Cityscape(object):
         self.waypoints = np.transpose(waypoints, [1, 0, 2])
         self.max_time = max_time
         self.steps = min(self.max_steps, max_time)
+
+class EmptyCityscapes(object):
+    def __init__(self, num_agents, area_size=10, max_steps=12, show=False):
+        self.num_agents = num_agents
+        self.area_size = area_size
+        self.show = show
+        self.max_steps = max_steps
+        
+    def reset(self):
+        self.init_broadlines()
+        self.reset_starting_points()
+        self.reset_end_points()
+        self.reset_reference_paths()
+
+    def init_broadlines(self):
+        area_size = self.area_size
+        bx, by = [], []
+        bx.append(np.linspace(-1, area_size + 1, int(area_size * 2)))
+        by.append(-np.ones(int(area_size * 2)))
+        bx.append(np.linspace(-1, area_size + 1, int(area_size * 2)))
+        by.append(np.ones(int(area_size * 2)) + area_size)
+        by.append(np.linspace(-1, area_size + 1, int(area_size * 2)))
+        bx.append(-np.ones(int(area_size * 2)))
+        by.append(np.linspace(-1, area_size + 1, int(area_size * 2)))
+        bx.append(np.ones(int(area_size * 2)) + area_size)
+        bx = np.concatenate(bx, axis=0)[:, np.newaxis]
+        by = np.concatenate(by, axis=0)[:, np.newaxis]
+        self.broadline_points = np.concatenate([bx, by], axis=1)
+
+    def reset_starting_points(self):
+        start_points = np.zeros((self.num_agents, 3), dtype=np.float32)
+        for i in range(self.num_agents):
+            random_start = np.random.randint(
+                low=1, high=self.area_size-1, size=(1, 2))
+            start_points[i, :2] = random_start
+        self.start_points = start_points
+
+    def reset_end_points(self):
+        end_points = np.zeros((self.num_agents, 3), dtype=np.float32)
+        for i in range(self.num_agents):
+            random_end = np.random.randint(
+                low=1, high=self.area_size-1, size=(1, 3))
+            random_end[0, 2] = min(6, random_end[0, 2])
+            end_points[i] = random_end
+        self.end_points = end_points
+
+    def reset_reference_paths(self):
+        max_time = 0
+        reference_paths = []
+        o = self.broadline_points
+        dijkstra = Dijkstra(o[:, 0], o[:, 1], 1.0, 0.5)
+        if self.show:
+            plt.ion()
+            fig = plt.figure()
+        for i in range(self.num_agents):
+            sx, sy, sz = self.start_points[i]
+            gx, gy, gz = self.end_points[i]
+            rx, ry = dijkstra.planning(sx, sy, gx, gy)
+            rx, ry = np.reshape(rx[::-1], (-1, 1)), np.reshape(ry[::-1], (-1, 1))
+            rz = np.reshape(np.linspace(sz, gz, rx.shape[0]), (-1, 1))
+            path = np.concatenate([rx, ry, rz], axis=1)
+            reference_paths.append(path)
+            max_time = max(max_time, rx.shape[0])
+            if self.show:
+                plt.clf()
+                plt.scatter(o[:, 0], o[:, 1], color='red', alpha=0.2)
+                plt.scatter(sx, sy, color='orange', s=100)
+                plt.scatter(gx, gy, color='darkred', s=100)
+                plt.scatter(rx, ry, color='grey')
+                fig.canvas.draw()
+                time.sleep(1)
+         
+        waypoints = []
+        for i in range(self.num_agents):
+            path = reference_paths[i]
+            path_extend = np.zeros(shape=(max_time, 3), dtype=np.float32)
+            path_extend[:path.shape[0]] = path
+            path_extend[path.shape[0]:] = path[-1]
+            waypoints.append(path_extend[np.newaxis])
+        waypoints = np.concatenate(waypoints, axis=0)
+        self.waypoints = np.transpose(waypoints, [1, 0, 2])
+        self.max_time = max_time
+        self.steps = min(self.max_steps, max_time)
+
+class Empty(EmptyCityscapes):
+    def __init__(self, num_agents=64, max_steps=12, show=False):
+        super().__init__(num_agents=num_agents, area_size=20, max_steps=max_steps, show=show)
+        self.external_traj = False
+
+    def write(self, data_path, num_episodes):
+        start_points = []
+        end_points = []
+        for _ in range(num_episodes):
+            self.reset()
+            start_points.append(self.start_points[np.newaxis])
+            end_points.append(self.end_points[np.newaxis])
+        write_dict = {}
+        write_dict['start_points'] = np.concatenate(start_points, axis=0)
+        write_dict['end_points'] = np.concatenate(end_points, axis=0)
+        pickle.dump(write_dict, open(data_path, 'wb'))
+
+    def write_trajectory(self, data_path, traj):
+        write_dict = {}
+        write_dict['trajectory'] = traj
+        write_dict['start_points'] = np.array([t[0, :, :3] for t in traj])
+        write_dict['end_points'] = np.array([t[-1, :, :3] for t in traj])
+        pickle.dump(write_dict, open(data_path, 'wb'))
+
+    def read(self, traj_dir):
+        traj_files = os.listdir(traj_dir)
+        self.episodes = []
+        for traj_file in traj_files:
+            self.episodes.append(
+                pickle.load(open(os.path.join(traj_dir, traj_file), 'rb')))
+        self.external_traj = True
+
+    def reset(self):
+        if not self.external_traj:
+            super().reset()
+        else:
+            self.init_broadlines()
+            episode = np.random.choice(self.episodes)
+            agents = list(episode.keys())[:self.num_agents]
+            self.start_points = np.zeros((self.num_agents, 3), dtype=np.float32)
+            self.end_points = np.zeros((self.num_agents, 3), dtype=np.float32)
+            max_time = 0
+            for i, agent in enumerate(agents):
+                episode_agent = np.array(episode[agent])
+                self.start_points[i] = episode_agent[0, 1:]
+                self.end_points[i] = episode_agent[-1, 1:]
+                max_time = max(max_time, episode_agent[-1, 0])
+            max_time = int(np.rint(max_time))
+
+            waypoints = []
+            for agent in agents:
+                path = np.array(episode[agent])
+                ts, path = path[:, 0], path[:, 1:]
+                ts_extend = np.arange(max_time)
+
+                xs = np.interp(ts_extend, ts, path[:, 0])[:, np.newaxis]
+                ys = np.interp(ts_extend, ts, path[:, 1])[:, np.newaxis]
+                zs = np.interp(ts_extend, ts, path[:, 2])[:, np.newaxis]
+
+                path_extend = np.concatenate([xs, ys, zs], axis=1)
+                waypoints.append(path_extend[np.newaxis])
+            waypoints = np.concatenate(waypoints, axis=0)
+            self.waypoints = np.transpose(waypoints, [1, 0, 2])
+            self.steps = min(self.max_steps, max_time)
+
 
 
 class Maze(Cityscape):
@@ -227,6 +376,8 @@ class Maze(Cityscape):
         waypoints = np.concatenate(waypoints, axis=0)
         self.waypoints = np.transpose(waypoints, [1, 0, 2])
         self.steps = min(self.max_steps, max_time)
+
+
 
 
 def quadrotor_dynamics_np(s, u):

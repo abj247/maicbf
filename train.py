@@ -140,7 +140,7 @@ def count_accuracy(accuracy_lists):
 def main():
     args = parse_args()
 
-    wandb.init(project="maicbf_new", name = 'run_1', config=args)
+    wandb.init(project="ma-icbf", name = 'run_1', config=args)
 
     wandb.config.update(args)
 
@@ -159,10 +159,17 @@ def main():
         sess.run(tf.global_variables_initializer())
         saver = tf.train.Saver()
 
+
+        header = []
+        for i in range(1, args.num_agents + 1):
+            header.extend([f'Agent_{i}_x', f'Agent_{i}_y'])
+
         # Keep the file operations within the context manager scope
-        with open('train_logs/training_log.txt', 'w') as log_file, open('csv_data/losses/losses.csv', 'w', newline='') as csvfile:
+        with open('train_logs/training_log.txt', 'w') as log_file, open('csv_data/losses/losses.csv', 'w', newline='') as csvfile, open('csv_data/trajectory/trajectory.csv', 'w', newline='') as traj_file:
             loss_writer = csv.writer(csvfile)
-            loss_writer.writerow(['Step', 'Loss', 'Accuracy', 'Dist Error', 'Safety Ratio', 's', 's_ref', 'u'])  
+            traj_writer = csv.writer(traj_file)
+            traj_writer.writerow(header)
+            loss_writer.writerow(['Step', 'Loss', 'Accuracy', 'Dist Error', 'Safety Ratio', 's_a1_x', 's_a1_y', 's_a2_x', 's_a2_y', 's_a3_x', 's_a3_y', 's_a4_x', 's_a4_y', 's_ref', 'u'])  
 
             if args.model_path:
                 saver.restore(sess, args.model_path)
@@ -212,6 +219,8 @@ def main():
                         istep, time.time() - start_time, np.mean(loss_lists_np, axis=0),
                         np.mean(dist_errors_np), np.mean(safety_ratios_epoch)))
                     start_time = time.time()
+                
+
 
                     
                 # Log training metrics to wandb
@@ -221,7 +230,14 @@ def main():
                             "Accuracy": float(np.mean(acc_lists_np[1])),
                             "Dist Error": float(np.mean(dist_errors_np)),
                             "Safety Ratio": float(np.mean(safety_ratios_epoch)),
-                            "s": float(s_np[0, 0]),
+                            "s_a1_x": float(s_np[0, 0]),
+                            "s_a1_y": float(s_np[0, 1]),
+                            "s_a2_x": float(s_np[1, 0]),
+                            "s_a2_y": float(s_np[1, 1]),
+                            "s_a3_x": float(s_np[2, 0]),
+                            "s_a3_y": float(s_np[2, 1]),
+                            "s_a4_x": float(s_np[3, 0]),
+                            "s_a4_y": float(s_np[3, 1]),
                             "s_ref": float(s_ref_np[0, 0]),
                             "u": float(u_np[0, 0]),
                             "Step": istep})
@@ -230,8 +246,11 @@ def main():
                     # Write training progress to text file and save losses to CSV within the with block
                     log_message = f'Step: {istep}, Time: {time.time() - start_time:.1f}, Loss: {np.mean(loss_lists_np, axis=0)}, Dist: {np.mean(dist_errors_np):.3f}, Safety Rate: {np.mean(safety_ratios_epoch):.3f}\n'
                     log_file.write(log_message)
-                    loss_writer.writerow([istep, np.mean(loss_lists_np, axis=0), np.mean(acc_lists_np), np.mean(dist_errors_np), np.mean(safety_ratios_epoch), s_np[0, 0], s_ref_np[0, 0], u_np[0, 0]])
-
+                    loss_writer.writerow([istep, np.mean(loss_lists_np, axis=0), np.mean(acc_lists_np), np.mean(dist_errors_np), np.mean(safety_ratios_epoch), s_np[0, 0], s_np[0, 1],s_np[1, 0],s_np[1, 1], s_np[2, 0], s_np[2, 1], s_np[3, 0], s_np[3, 1], s_ref_np[0, 0], u_np[0, 0]])
+                    current_step_data = []
+                    for agent_coords in s_np:
+                        current_step_data.extend(agent_coords[:2])
+                    traj_writer.writerow(current_step_data)
                     # print(np.mean(loss_lists_np))
                     # print(loss_lists_np)
                     (loss_lists_np, acc_lists_np, dist_errors_np, dist_errors_baseline_np, safety_ratios_epoch,
@@ -239,7 +258,7 @@ def main():
                 
 
                 if np.mod(istep, config.SAVE_STEPS) == 0 or istep + 1 == config.TRAIN_STEPS:
-                    saver.save(sess, 'models/agile_u_max_0.2/model_ours_weight_1.0_agents_4_v_max_0.2_u_max_0.2_sigma_0.05_{}_iter_{}'.format(args.tag, istep))
+                    saver.save(sess, 'models/test_runs/model_ours_weight_1.0_agents_4_v_max_0.2_u_max_0.2_sigma_0.05_{}_iter_{}'.format(args.tag, istep))
 
 if __name__ == '__main__':
     main()
