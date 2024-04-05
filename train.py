@@ -140,7 +140,7 @@ def count_accuracy(accuracy_lists):
 def main():
     args = parse_args()
 
-    wandb.init(project="ma-icbf", name = 'run_1', config=args)
+    wandb.init(project="ma-icbf", name = 'run_0', config=args)
 
     wandb.config.update(args)
 
@@ -251,6 +251,8 @@ def main():
                     for agent_coords in s_np:
                         current_step_data.extend(agent_coords[:2])
                     traj_writer.writerow(current_step_data)
+                    print("Start positions: ", s_np[:,:2])
+                    print("Goal positions: ",s_ref_np[:,:2])
                     # print(np.mean(loss_lists_np))
                     # print(loss_lists_np)
                     (loss_lists_np, acc_lists_np, dist_errors_np, dist_errors_baseline_np, safety_ratios_epoch,
@@ -258,7 +260,7 @@ def main():
                 
 
                 if np.mod(istep, config.SAVE_STEPS) == 0 or istep + 1 == config.TRAIN_STEPS:
-                    saver.save(sess, 'models/test_runs/model_ours_weight_1.0_agents_4_v_max_0.2_u_max_0.2_sigma_0.05_{}_iter_{}'.format(args.tag, istep))
+                    saver.save(sess, 'models/dev/model_ours_weight_1.0_agents_4_v_max_0.2_u_max_0.2_sigma_0.05_{}_iter_{}'.format(args.tag, istep))
 
 if __name__ == '__main__':
     main()

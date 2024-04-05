@@ -1,0 +1,665 @@
+
+WARNING:tensorflow:From train.py:78: The name tf.placeholder is deprecated. Please use tf.compat.v1.placeholder instead.
+WARNING:tensorflow:
+The TensorFlow contrib module will not be included in TensorFlow 2.0.
+For more information, please see:
+  * https://github.com/tensorflow/community/blob/master/rfcs/20180907-contrib-sunset.md
+  * https://github.com/tensorflow/addons
+  * https://github.com/tensorflow/io (for I/O related ops)
+If you depend on functionality not listed there, please file an issue.
+WARNING:tensorflow:From C:\Users\aplus\macbf\drones\drones\core.py:429: The name tf.AUTO_REUSE is deprecated. Please use tf.compat.v1.AUTO_REUSE instead.
+WARNING:tensorflow:Entity <bound method Conv1D.call of <tensorflow.python.layers.convolutional.Conv1D object at 0x0000020EB11D6E10>> could not be transformed and will be executed as-is. Please report this to the AutgoGraph team. When filing the bug, set the verbosity to 10 (on Linux, `export AUTOGRAPH_VERBOSITY=10`) and attach the full output. Cause: converting <bound method Conv1D.call of <tensorflow.python.layers.convolutional.Conv1D object at 0x0000020EB11D6E10>>: AttributeError: module 'gast' has no attribute 'Str'
+WARNING:tensorflow:Entity <bound method Conv1D.call of <tensorflow.python.layers.convolutional.Conv1D object at 0x0000020E8C794CC0>> could not be transformed and will be executed as-is. Please report this to the AutgoGraph team. When filing the bug, set the verbosity to 10 (on Linux, `export AUTOGRAPH_VERBOSITY=10`) and attach the full output. Cause: converting <bound method Conv1D.call of <tensorflow.python.layers.convolutional.Conv1D object at 0x0000020E8C794CC0>>: AttributeError: module 'gast' has no attribute 'Str'
+WARNING:tensorflow:Entity <bound method Conv1D.call of <tensorflow.python.layers.convolutional.Conv1D object at 0x0000020EB11EF128>> could not be transformed and will be executed as-is. Please report this to the AutgoGraph team. When filing the bug, set the verbosity to 10 (on Linux, `export AUTOGRAPH_VERBOSITY=10`) and attach the full output. Cause: converting <bound method Conv1D.call of <tensorflow.python.layers.convolutional.Conv1D object at 0x0000020EB11EF128>>: AttributeError: module 'gast' has no attribute 'Str'
+WARNING:tensorflow:Entity <bound method Conv1D.call of <tensorflow.python.layers.convolutional.Conv1D object at 0x0000020EB2CA6F28>> could not be transformed and will be executed as-is. Please report this to the AutgoGraph team. When filing the bug, set the verbosity to 10 (on Linux, `export AUTOGRAPH_VERBOSITY=10`) and attach the full output. Cause: converting <bound method Conv1D.call of <tensorflow.python.layers.convolutional.Conv1D object at 0x0000020EB2CA6F28>>: AttributeError: module 'gast' has no attribute 'Str'
+WARNING:tensorflow:Entity <bound method Conv1D.call of <tensorflow.python.layers.convolutional.Conv1D object at 0x0000020EB2E33B38>> could not be transformed and will be executed as-is. Please report this to the AutgoGraph team. When filing the bug, set the verbosity to 10 (on Linux, `export AUTOGRAPH_VERBOSITY=10`) and attach the full output. Cause: converting <bound method Conv1D.call of <tensorflow.python.layers.convolutional.Conv1D object at 0x0000020EB2E33B38>>: AttributeError: module 'gast' has no attribute 'Str'
+WARNING:tensorflow:Entity <bound method Conv1D.call of <tensorflow.python.layers.convolutional.Conv1D object at 0x0000020EB2E54E48>> could not be transformed and will be executed as-is. Please report this to the AutgoGraph team. When filing the bug, set the verbosity to 10 (on Linux, `export AUTOGRAPH_VERBOSITY=10`) and attach the full output. Cause: converting <bound method Conv1D.call of <tensorflow.python.layers.convolutional.Conv1D object at 0x0000020EB2E54E48>>: AttributeError: module 'gast' has no attribute 'Str'
+WARNING:tensorflow:Entity <bound method Dense.call of <tensorflow.python.layers.core.Dense object at 0x0000020EB2E54EB8>> could not be transformed and will be executed as-is. Please report this to the AutgoGraph team. When filing the bug, set the verbosity to 10 (on Linux, `export AUTOGRAPH_VERBOSITY=10`) and attach the full output. Cause: converting <bound method Dense.call of <tensorflow.python.layers.core.Dense object at 0x0000020EB2E54EB8>>: AttributeError: module 'gast' has no attribute 'Index'
+WARNING:tensorflow:Entity <bound method Dense.call of <tensorflow.python.layers.core.Dense object at 0x0000020EB2E54EB8>> could not be transformed and will be executed as-is. Please report this to the AutgoGraph team. When filing the bug, set the verbosity to 10 (on Linux, `export AUTOGRAPH_VERBOSITY=10`) and attach the full output. Cause: converting <bound method Dense.call of <tensorflow.python.layers.core.Dense object at 0x0000020EB2E54EB8>>: AttributeError: module 'gast' has no attribute 'Index'
+WARNING:tensorflow:Entity <bound method Dense.call of <tensorflow.python.layers.core.Dense object at 0x0000020EB2E14D68>> could not be transformed and will be executed as-is. Please report this to the AutgoGraph team. When filing the bug, set the verbosity to 10 (on Linux, `export AUTOGRAPH_VERBOSITY=10`) and attach the full output. Cause: converting <bound method Dense.call of <tensorflow.python.layers.core.Dense object at 0x0000020EB2E14D68>>: AttributeError: module 'gast' has no attribute 'Index'
+WARNING:tensorflow:Entity <bound method Dense.call of <tensorflow.python.layers.core.Dense object at 0x0000020EB2E33908>> could not be transformed and will be executed as-is. Please report this to the AutgoGraph team. When filing the bug, set the verbosity to 10 (on Linux, `export AUTOGRAPH_VERBOSITY=10`) and attach the full output. Cause: converting <bound method Dense.call of <tensorflow.python.layers.core.Dense object at 0x0000020EB2E33908>>: AttributeError: module 'gast' has no attribute 'Index'
+WARNING:tensorflow:From D:\Anaconda\envs\macbf\lib\site-packages\tensorflow\python\ops\array_ops.py:1354: add_dispatch_support.<locals>.wrapper (from tensorflow.python.ops.array_ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use tf.where in 2.0, which has the same broadcast rule as np.where
+WARNING:tensorflow:Entity <bound method Conv1D.call of <tensorflow.python.layers.convolutional.Conv1D object at 0x0000020EB30AFA20>> could not be transformed and will be executed as-is. Please report this to the AutgoGraph team. When filing the bug, set the verbosity to 10 (on Linux, `export AUTOGRAPH_VERBOSITY=10`) and attach the full output. Cause: converting <bound method Conv1D.call of <tensorflow.python.layers.convolutional.Conv1D object at 0x0000020EB30AFA20>>: AttributeError: module 'gast' has no attribute 'Str'
+WARNING:tensorflow:Entity <bound method Conv1D.call of <tensorflow.python.layers.convolutional.Conv1D object at 0x0000020EB2CB6DD8>> could not be transformed and will be executed as-is. Please report this to the AutgoGraph team. When filing the bug, set the verbosity to 10 (on Linux, `export AUTOGRAPH_VERBOSITY=10`) and attach the full output. Cause: converting <bound method Conv1D.call of <tensorflow.python.layers.convolutional.Conv1D object at 0x0000020EB2CB6DD8>>: AttributeError: module 'gast' has no attribute 'Str'
+WARNING:tensorflow:Entity <bound method Conv1D.call of <tensorflow.python.layers.convolutional.Conv1D object at 0x0000020EB2CB6F98>> could not be transformed and will be executed as-is. Please report this to the AutgoGraph team. When filing the bug, set the verbosity to 10 (on Linux, `export AUTOGRAPH_VERBOSITY=10`) and attach the full output. Cause: converting <bound method Conv1D.call of <tensorflow.python.layers.convolutional.Conv1D object at 0x0000020EB2CB6F98>>: AttributeError: module 'gast' has no attribute 'Str'
+WARNING:tensorflow:Entity <bound method Conv1D.call of <tensorflow.python.layers.convolutional.Conv1D object at 0x0000020EB2E8A978>> could not be transformed and will be executed as-is. Please report this to the AutgoGraph team. When filing the bug, set the verbosity to 10 (on Linux, `export AUTOGRAPH_VERBOSITY=10`) and attach the full output. Cause: converting <bound method Conv1D.call of <tensorflow.python.layers.convolutional.Conv1D object at 0x0000020EB2E8A978>>: AttributeError: module 'gast' has no attribute 'Str'
+WARNING:tensorflow:From train.py:126: The name tf.trainable_variables is deprecated. Please use tf.compat.v1.trainable_variables instead.
+WARNING:tensorflow:From train.py:28: The name tf.train.AdamOptimizer is deprecated. Please use tf.compat.v1.train.AdamOptimizer instead.
+WARNING:tensorflow:From train.py:36: Variable.initialized_value (from tensorflow.python.ops.variables) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use Variable.read_value. Variables in 2.X are initialized automatically both in eager and graph (inside tf.defun) contexts.
+WARNING:tensorflow:From train.py:158: The name tf.Session is deprecated. Please use tf.compat.v1.Session instead.
+WARNING:tensorflow:From train.py:159: The name tf.global_variables_initializer is deprecated. Please use tf.compat.v1.global_variables_initializer instead.
+WARNING:tensorflow:From train.py:160: The name tf.train.Saver is deprecated. Please use tf.compat.v1.train.Saver instead.
+Step: 0, Time: 1.7, Loss: [0.000e+00 4.980e-03 0.000e+00 2.920e-04 0.000e+00 8.615e-03 3.371e-01
+ 1.254e-01 3.329e-01], Dist: 0.503, Safety Rate: 1.000
+Start positions:  [[7.006 5.872]
+ [7.955 7.002]
+ [1.917 6.886]
+ [3.957 7.599]]
+Goal positions:  [[7. 6.]
+ [8. 7.]
+ [1. 7.]
+ [4. 8.]]
+Step: 1, Time: 1.7, Loss: [6.000e-03 4.907e-03 1.214e-02 3.160e-04 1.340e-03 4.713e-03 3.625e-01
+ 1.072e-01 3.549e-01], Dist: 0.298, Safety Rate: 0.984
+Start positions:  [[1.913 0.898]
+ [2.994 6.968]
+ [2.002 0.989]
+ [2.998 6.978]]
+Goal positions:  [[1. 1.]
+ [3. 7.]
+ [2. 1.]
+ [3. 7.]]
+Step: 2, Time: 1.2, Loss: [0.000e+00 7.395e-04 0.000e+00 4.676e-05 1.402e-03 3.384e-03 3.560e-01
+ 1.166e-01 3.335e-01], Dist: 0.416, Safety Rate: 1.000
+Start positions:  [[5.048 6.877]
+ [7.998 0.998]
+ [6.955 8.   ]
+ [1.999 2.052]]
+Goal positions:  [[6. 7.]
+ [8. 1.]
+ [7. 8.]
+ [2. 2.]]
+Step: 3, Time: 1.0, Loss: [8.881e-03 7.273e-04 1.914e-02 1.695e-04 2.086e-02 8.576e-03 2.617e-01
+ 1.894e-01 3.531e-01], Dist: 1.000, Safety Rate: 1.000
+Start positions:  [[3.789 6.618]
+ [6.958 4.929]
+ [6.991 5.917]
+ [4.09  6.586]]
+Goal positions:  [[4. 7.]
+ [7. 6.]
+ [7. 7.]
+ [5. 7.]]
+Step: 4, Time: 1.2, Loss: [1.512e-02 6.930e-04 2.509e-02 2.153e-04 2.976e-03 6.406e-03 3.316e-01
+ 1.672e-01 3.079e-01], Dist: 0.724, Safety Rate: 0.958
+Start positions:  [[7.022 5.945]
+ [2.203 6.917]
+ [6.947 1.009]
+ [7.006 0.996]]
+Goal positions:  [[7. 7.]
+ [2. 8.]
+ [7. 1.]
+ [7. 1.]]
+Step: 5, Time: 1.0, Loss: [2.026e-02 7.395e-04 2.490e-02 1.477e-04 4.097e-03 4.514e-03 3.301e-01
+ 1.809e-01 2.589e-01], Dist: 0.995, Safety Rate: 0.986
+Start positions:  [[6.208 3.289]
+ [7.72  7.975]
+ [2.628 3.958]
+ [2.666 5.929]]
+Goal positions:  [[6. 3.]
+ [8. 8.]
+ [2. 3.]
+ [2. 7.]]
+Step: 6, Time: 1.0, Loss: [0.    0.001 0.    0.    0.009 0.003 0.246 0.289 0.252], Dist: 0.904, Safety Rate: 1.000
+Start positions:  [[5.714 2.069]
+ [5.046 3.082]
+ [2.957 3.312]
+ [5.875 3.293]]
+Goal positions:  [[6. 2.]
+ [6. 3.]
+ [3. 3.]
+ [5. 3.]]
+Step: 7, Time: 1.0, Loss: [0.    0.001 0.    0.    0.    0.007 0.355 0.13  0.311], Dist: 0.693, Safety Rate: 1.000
+Start positions:  [[1.917 1.898]
+ [3.78  6.901]
+ [3.982 2.084]
+ [6.955 2.997]]
+Goal positions:  [[1. 2.]
+ [4. 8.]
+ [4. 2.]
+ [7. 3.]]
+Step: 8, Time: 1.1, Loss: [0.000e+00 7.321e-04 0.000e+00 1.513e-04 0.000e+00 5.269e-03 3.479e-01
+ 1.415e-01 2.840e-01], Dist: 1.177, Safety Rate: 1.000
+Start positions:  [[1.955 6.938]
+ [4.105 6.915]
+ [3.769 2.973]
+ [6.032 7.591]]
+Goal positions:  [[1. 7.]
+ [5. 8.]
+ [4. 2.]
+ [6. 8.]]
+Step: 9, Time: 1.0, Loss: [8.145e-03 7.441e-04 2.849e-02 4.888e-05 1.558e-03 3.905e-03 2.873e-01
+ 2.277e-01 2.442e-01], Dist: 0.752, Safety Rate: 0.957
+Start positions:  [[5.723 1.998]
+ [6.169 2.967]
+ [7.721 1.001]
+ [3.026 5.27 ]]
+Goal positions:  [[6. 2.]
+ [6. 2.]
+ [8. 1.]
+ [3. 5.]]
+Step: 10, Time: 1.4, Loss: [1.408e-03 7.119e-04 9.999e-03 2.268e-04 3.973e-03 7.660e-03 3.588e-01
+ 1.375e-01 3.715e-01], Dist: 0.643, Safety Rate: 0.999
+Start positions:  [[1.874 3.272]
+ [1.871 6.551]
+ [7.71  1.979]
+ [4.997 1.062]]
+Goal positions:  [[1. 3.]
+ [1. 7.]
+ [8. 2.]
+ [5. 1.]]
+Step: 11, Time: 1.1, Loss: [0.000e+00 6.525e-04 0.000e+00 8.871e-07 1.125e-03 4.202e-03 3.729e-01
+ 1.644e-01 3.067e-01], Dist: 0.822, Safety Rate: 1.000
+Start positions:  [[3.002 1.   ]
+ [7.751 3.338]
+ [2.232 6.949]
+ [2.221 6.907]]
+Goal positions:  [[3. 1.]
+ [8. 3.]
+ [2. 8.]
+ [2. 8.]]
+Step: 12, Time: 1.2, Loss: [4.737e-03 7.162e-04 1.765e-02 2.119e-04 1.017e-02 2.022e-03 2.921e-01
+ 2.052e-01 2.858e-01], Dist: 0.395, Safety Rate: 1.000
+Start positions:  [[2.008 7.962]
+ [2.029 1.996]
+ [1.047 7.869]
+ [1.064 0.979]]
+Goal positions:  [[2. 8.]
+ [2. 1.]
+ [1. 8.]
+ [1. 1.]]
+Step: 13, Time: 1.1, Loss: [0.000e+00 8.068e-04 0.000e+00 7.966e-05 1.007e-02 2.402e-03 3.422e-01
+ 1.303e-01 3.101e-01], Dist: 0.419, Safety Rate: 1.000
+Start positions:  [[7.075 2.997]
+ [2.061 2.957]
+ [6.966 0.991]
+ [6.09  6.878]]
+Goal positions:  [[8. 3.]
+ [2. 3.]
+ [7. 1.]
+ [6. 7.]]
+Step: 14, Time: 1.1, Loss: [0.000e+00 7.438e-04 0.000e+00 6.509e-05 0.000e+00 4.281e-03 3.911e-01
+ 1.160e-01 3.326e-01], Dist: 0.670, Safety Rate: 1.000
+Start positions:  [[7.981 2.991]
+ [1.981 1.926]
+ [6.728 3.983]
+ [1.351 0.986]]
+Goal positions:  [[8. 3.]
+ [1. 2.]
+ [7. 5.]
+ [1. 1.]]
+Step: 15, Time: 1.1, Loss: [2.051e-02 8.174e-04 6.504e-02 1.085e-04 4.916e-03 1.158e-02 3.221e-01
+ 1.880e-01 2.667e-01], Dist: 0.990, Safety Rate: 0.870
+Start positions:  [[3.117 6.924]
+ [5.047 1.102]
+ [4.747 2.05 ]
+ [1.301 2.028]]
+Goal positions:  [[3. 8.]
+ [5. 1.]
+ [5. 1.]
+ [1. 1.]]
+Step: 16, Time: 1.2, Loss: [7.817e-03 7.331e-04 1.570e-02 1.273e-04 1.000e-03 1.307e-02 3.473e-01
+ 1.440e-01 2.953e-01], Dist: 0.498, Safety Rate: 0.978
+Start positions:  [[1.393 7.625]
+ [7.078 7.879]
+ [7.08  2.022]
+ [4.989 2.108]]
+Goal positions:  [[1. 8.]
+ [7. 8.]
+ [8. 2.]
+ [5. 2.]]
+Step: 17, Time: 1.1, Loss: [1.404e-02 6.619e-04 4.401e-02 1.733e-06 1.573e-02 1.647e-02 2.916e-01
+ 1.614e-01 3.087e-01], Dist: 0.512, Safety Rate: 1.000
+Start positions:  [[4.041 7.584]
+ [7.09  6.982]
+ [3.089 7.591]
+ [7.001 7.972]]
+Goal positions:  [[4. 8.]
+ [8. 7.]
+ [3. 8.]
+ [7. 8.]]
+Step: 18, Time: 1.2, Loss: [0.000e+00 7.182e-04 0.000e+00 3.979e-05 1.000e-03 2.230e-02 2.999e-01
+ 1.881e-01 3.008e-01], Dist: 0.357, Safety Rate: 1.000
+Start positions:  [[1.152 7.861]
+ [5.137 2.137]
+ [7.056 6.03 ]
+ [7.049 6.932]]
+Goal positions:  [[1. 8.]
+ [5. 2.]
+ [7. 6.]
+ [8. 7.]]
+Step: 19, Time: 1.1, Loss: [1.318e-02 7.226e-04 2.813e-02 2.581e-04 1.160e-02 2.959e-02 3.062e-01
+ 1.494e-01 2.980e-01], Dist: 0.700, Safety Rate: 0.969
+Start positions:  [[5.059 3.123]
+ [7.055 5.553]
+ [3.09  4.877]
+ [4.065 3.01 ]]
+Goal positions:  [[4. 3.]
+ [7. 6.]
+ [3. 5.]
+ [3. 3.]]
+Step: 20, Time: 1.4, Loss: [8.532e-03 7.327e-04 1.925e-02 2.533e-04 7.252e-03 3.149e-02 3.192e-01
+ 1.432e-01 3.484e-01], Dist: 0.375, Safety Rate: 1.000
+Start positions:  [[8.027 0.98 ]
+ [6.053 2.035]
+ [3.076 1.096]
+ [7.052 6.824]]
+Goal positions:  [[8. 1.]
+ [6. 2.]
+ [2. 1.]
+ [7. 7.]]
+Step: 21, Time: 1.3, Loss: [0.000e+00 7.253e-04 0.000e+00 1.621e-04 0.000e+00 2.938e-02 3.192e-01
+ 1.388e-01 3.225e-01], Dist: 0.401, Safety Rate: 1.000
+Start positions:  [[6.039 1.997]
+ [7.788 6.784]
+ [3.04  0.991]
+ [7.061 4.138]]
+Goal positions:  [[6. 2.]
+ [8. 8.]
+ [3. 1.]
+ [7. 4.]]
+Step: 22, Time: 1.1, Loss: [6.873e-03 7.896e-04 3.752e-02 7.139e-05 3.674e-03 2.789e-02 3.592e-01
+ 9.310e-02 3.583e-01], Dist: 0.552, Safety Rate: 0.956
+Start positions:  [[2.399 7.956]
+ [4.051 2.132]
+ [5.968 2.957]
+ [2.025 6.852]]
+Goal positions:  [[2. 8.]
+ [4. 2.]
+ [6. 3.]
+ [1. 8.]]
+Step: 23, Time: 1.1, Loss: [2.678e-03 1.100e-03 2.517e-02 1.177e-04 1.651e-02 3.597e-02 3.245e-01
+ 1.562e-01 2.943e-01], Dist: 0.764, Safety Rate: 1.000
+Start positions:  [[7.064 7.831]
+ [7.071 6.84 ]
+ [5.769 1.402]
+ [3.083 5.86 ]]
+Goal positions:  [[7. 8.]
+ [7. 8.]
+ [6. 1.]
+ [3. 7.]]
+Step: 24, Time: 1.2, Loss: [0.    0.001 0.    0.    0.    0.038 0.312 0.187 0.258], Dist: 0.561, Safety Rate: 1.000
+Start positions:  [[7.05  4.427]
+ [5.694 7.763]
+ [3.093 1.128]
+ [2.164 3.009]]
+Goal positions:  [[7. 4.]
+ [6. 8.]
+ [2. 1.]
+ [2. 3.]]
+Step: 25, Time: 1.4, Loss: [8.091e-03 1.029e-03 6.256e-02 2.643e-04 5.474e-03 3.544e-02 3.114e-01
+ 1.781e-01 2.780e-01], Dist: 0.661, Safety Rate: 0.914
+Start positions:  [[4.409 2.15 ]
+ [6.134 7.573]
+ [2.786 5.881]
+ [5.759 2.118]]
+Goal positions:  [[4. 2.]
+ [6. 8.]
+ [2. 7.]
+ [6. 2.]]
+Step: 26, Time: 1.6, Loss: [0.000e+00 1.064e-03 0.000e+00 7.554e-05 6.451e-03 3.210e-02 3.452e-01
+ 1.134e-01 3.798e-01], Dist: 0.394, Safety Rate: 1.000
+Start positions:  [[1.134 7.825]
+ [8.021 6.912]
+ [6.065 1.142]
+ [6.99  7.857]]
+Goal positions:  [[1. 8.]
+ [8. 7.]
+ [6. 1.]
+ [8. 8.]]
+Step: 27, Time: 1.0, Loss: [2.370e-03 9.621e-04 2.396e-02 1.064e-04 2.106e-03 3.441e-02 2.882e-01
+ 2.170e-01 2.329e-01], Dist: 0.692, Safety Rate: 0.968
+Start positions:  [[1.419 6.892]
+ [5.407 7.583]
+ [5.726 1.943]
+ [2.117 2.132]]
+Goal positions:  [[1. 7.]
+ [5. 8.]
+ [6. 2.]
+ [2. 1.]]
+Step: 28, Time: 1.2, Loss: [0.    0.001 0.    0.    0.008 0.028 0.255 0.227 0.298], Dist: 0.908, Safety Rate: 1.000
+Start positions:  [[6.08  1.419]
+ [7.066 1.11 ]
+ [5.368 3.113]
+ [7.038 6.935]]
+Goal positions:  [[7. 1.]
+ [8. 1.]
+ [5. 3.]
+ [8. 7.]]
+Step: 29, Time: 1.4, Loss: [0.    0.004 0.005 0.    0.006 0.032 0.312 0.192 0.306], Dist: 0.421, Safety Rate: 1.000
+Start positions:  [[2.049 3.006]
+ [3.046 7.532]
+ [7.066 1.11 ]
+ [6.049 3.006]]
+Goal positions:  [[2. 3.]
+ [3. 8.]
+ [8. 1.]
+ [6. 3.]]
+Step: 30, Time: 1.1, Loss: [0.000e+00 2.048e-03 0.000e+00 6.206e-05 1.383e-02 3.377e-02 3.398e-01
+ 1.306e-01 3.245e-01], Dist: 0.589, Safety Rate: 1.000
+Start positions:  [[5.759 2.115]
+ [7.055 6.823]
+ [2.398 1.982]
+ [6.142 7.585]]
+Goal positions:  [[6. 2.]
+ [7. 8.]
+ [2. 2.]
+ [6. 8.]]
+Step: 31, Time: 1.1, Loss: [0.000e+00 2.610e-03 1.839e-02 1.302e-04 2.509e-02 4.802e-02 2.424e-01
+ 2.703e-01 2.676e-01], Dist: 0.516, Safety Rate: 1.000
+Start positions:  [[4.153 1.125]
+ [1.172 7.005]
+ [4.403 2.117]
+ [2.13  6.999]]
+Goal positions:  [[4. 1.]
+ [1. 7.]
+ [4. 2.]
+ [1. 7.]]
+Step: 32, Time: 1.0, Loss: [0.000e+00 2.246e-03 3.848e-02 3.112e-04 6.163e-03 5.124e-02 3.476e-01
+ 1.533e-01 2.963e-01], Dist: 1.111, Safety Rate: 0.970
+Start positions:  [[2.467 7.971]
+ [6.762 4.159]
+ [6.915 4.738]
+ [2.352 3.1  ]]
+Goal positions:  [[2. 8.]
+ [6. 3.]
+ [7. 6.]
+ [2. 2.]]
+Step: 33, Time: 1.3, Loss: [0.    0.001 0.    0.    0.    0.049 0.323 0.114 0.337], Dist: 0.511, Safety Rate: 1.000
+Start positions:  [[7.957 2.934]
+ [6.91  4.771]
+ [3.085 5.033]
+ [7.036 7.477]]
+Goal positions:  [[8. 3.]
+ [7. 6.]
+ [3. 5.]
+ [7. 8.]]
+Step: 34, Time: 1.0, Loss: [0.    0.003 0.016 0.    0.017 0.058 0.25  0.283 0.21 ], Dist: 0.739, Safety Rate: 1.000
+Start positions:  [[2.41  3.5  ]
+ [3.346 5.735]
+ [7.694 7.904]
+ [7.725 0.99 ]]
+Goal positions:  [[2. 3.]
+ [4. 7.]
+ [8. 8.]
+ [8. 1.]]
+Step: 35, Time: 1.4, Loss: [0.000e+00 3.033e-03 0.000e+00 2.316e-04 6.300e-03 5.804e-02 3.131e-01
+ 1.357e-01 3.403e-01], Dist: 0.464, Safety Rate: 1.000
+Start positions:  [[2.508 1.037]
+ [4.058 1.025]
+ [4.094 7.972]
+ [7.016 1.107]]
+Goal positions:  [[2. 1.]
+ [4. 1.]
+ [4. 8.]
+ [8. 1.]]
+Step: 36, Time: 1.1, Loss: [0.    0.004 0.015 0.    0.003 0.057 0.307 0.148 0.282], Dist: 0.522, Safety Rate: 1.000
+Start positions:  [[3.123 2.177]
+ [7.886 1.926]
+ [2.106 1.189]
+ [2.073 7.495]]
+Goal positions:  [[3. 1.]
+ [8. 2.]
+ [2. 1.]
+ [2. 8.]]
+Step: 37, Time: 1.1, Loss: [4.801e-05 6.679e-03 2.731e-02 5.985e-04 9.127e-03 5.889e-02 3.146e-01
+ 1.427e-01 3.107e-01], Dist: 0.813, Safety Rate: 0.988
+Start positions:  [[2.925 6.738]
+ [4.947 2.168]
+ [2.413 3.176]
+ [2.921 7.452]]
+Goal positions:  [[3. 8.]
+ [5. 2.]
+ [2. 2.]
+ [3. 8.]]
+Step: 38, Time: 1.2, Loss: [0.000e+00 1.422e-03 0.000e+00 5.011e-05 0.000e+00 4.789e-02 3.644e-01
+ 9.765e-02 3.532e-01], Dist: 0.652, Safety Rate: 1.000
+Start positions:  [[1.996 6.924]
+ [7.065 3.169]
+ [3.186 3.022]
+ [1.994 6.514]]
+Goal positions:  [[2. 7.]
+ [7. 2.]
+ [3. 3.]
+ [1. 7.]]
+Step: 39, Time: 1.2, Loss: [1.838e-04 7.340e-04 9.835e-02 5.008e-05 3.875e-03 5.379e-02 2.522e-01
+ 2.453e-01 2.818e-01], Dist: 0.387, Safety Rate: 0.836
+Start positions:  [[7.014 3.079]
+ [5.896 3.048]
+ [7.021 1.092]
+ [3.022 3.086]]
+Goal positions:  [[7. 3.]
+ [7. 3.]
+ [7. 1.]
+ [3. 3.]]
+Step: 40, Time: 1.4, Loss: [1.273e-04 7.865e-03 1.829e-02 6.809e-04 1.435e-02 6.844e-02 3.238e-01
+ 1.345e-01 3.184e-01], Dist: 0.687, Safety Rate: 0.976
+Start positions:  [[4.733 7.741]
+ [2.031 7.497]
+ [2.092 1.557]
+ [5.789 6.866]]
+Goal positions:  [[5. 8.]
+ [2. 8.]
+ [2. 1.]
+ [7. 7.]]
+Step: 41, Time: 1.1, Loss: [0.001 0.003 0.053 0.    0.021 0.071 0.322 0.139 0.317], Dist: 0.818, Safety Rate: 0.966
+Start positions:  [[5.963 6.488]
+ [4.893 2.206]
+ [4.5   3.068]
+ [4.19  1.588]]
+Goal positions:  [[5. 7.]
+ [5. 2.]
+ [4. 3.]
+ [3. 1.]]
+Step: 42, Time: 1.0, Loss: [7.620e-07 8.759e-04 2.856e-02 1.200e-04 1.941e-03 5.669e-02 2.693e-01
+ 2.180e-01 2.267e-01], Dist: 0.737, Safety Rate: 0.957
+Start positions:  [[6.157 2.538]
+ [6.57  2.081]
+ [5.821 1.969]
+ [1.525 3.099]]
+Goal positions:  [[6. 2.]
+ [7. 2.]
+ [7. 2.]
+ [1. 3.]]
+Step: 43, Time: 1.1, Loss: [0.    0.001 0.    0.    0.    0.076 0.303 0.159 0.266], Dist: 0.869, Safety Rate: 1.000
+Start positions:  [[6.866 7.445]
+ [6.82  5.732]
+ [2.135 3.224]
+ [2.07  3.589]]
+Goal positions:  [[7. 8.]
+ [7. 7.]
+ [2. 3.]
+ [1. 3.]]
+Step: 44, Time: 1.2, Loss: [5.578e-04 1.602e-03 2.572e-02 1.562e-04 1.775e-02 6.148e-02 2.742e-01
+ 1.762e-01 2.975e-01], Dist: 0.475, Safety Rate: 0.968
+Start positions:  [[4.893 2.209]
+ [2.232 1.119]
+ [5.843 2.061]
+ [7.804 6.973]]
+Goal positions:  [[5. 2.]
+ [1. 1.]
+ [6. 2.]
+ [8. 7.]]
+Step: 45, Time: 1.3, Loss: [1.532e-04 8.107e-04 1.944e-02 8.380e-05 1.414e-03 5.627e-02 2.664e-01
+ 2.333e-01 2.435e-01], Dist: 0.444, Safety Rate: 0.971
+Start positions:  [[3.231 7.989]
+ [2.197 1.055]
+ [1.013 7.956]
+ [7.804 6.972]]
+Goal positions:  [[2. 8.]
+ [2. 1.]
+ [1. 8.]
+ [8. 7.]]
+Step: 46, Time: 1.3, Loss: [3.319e-03 8.335e-04 1.947e-02 1.328e-04 3.976e-03 6.500e-02 3.104e-01
+ 1.479e-01 3.080e-01], Dist: 0.725, Safety Rate: 0.978
+Start positions:  [[2.232 1.119]
+ [2.258 7.006]
+ [7.892 2.978]
+ [1.171 3.137]]
+Goal positions:  [[1. 1.]
+ [1. 7.]
+ [8. 3.]
+ [1. 3.]]
+Step: 47, Time: 1.2, Loss: [1.556e-03 7.956e-04 2.522e-02 3.165e-04 1.964e-03 7.669e-02 3.386e-01
+ 1.579e-01 2.647e-01], Dist: 1.231, Safety Rate: 0.971
+Start positions:  [[2.343 3.301]
+ [3.188 5.255]
+ [6.461 3.608]
+ [2.67  5.775]]
+Goal positions:  [[2. 2.]
+ [3. 4.]
+ [7. 4.]
+ [2. 7.]]
+Step: 48, Time: 1.4, Loss: [0.    0.001 0.    0.    0.    0.055 0.326 0.122 0.317], Dist: 0.559, Safety Rate: 1.000
+Start positions:  [[1.112 7.805]
+ [1.536 2.013]
+ [2.918 6.791]
+ [6.857 2.06 ]]
+Goal positions:  [[1. 8.]
+ [1. 2.]
+ [3. 7.]
+ [8. 2.]]
+Step: 49, Time: 1.3, Loss: [5.972e-03 7.482e-04 8.683e-02 1.485e-05 5.127e-03 5.567e-02 3.075e-01
+ 1.444e-01 3.037e-01], Dist: 0.553, Safety Rate: 0.865
+Start positions:  [[6.924 5.899]
+ [6.852 2.053]
+ [7.526 0.974]
+ [7.766 6.741]]
+Goal positions:  [[7. 6.]
+ [8. 2.]
+ [8. 1.]
+ [8. 7.]]
+Step: 50, Time: 1.0, Loss: [7.328e-03 7.567e-04 4.381e-02 1.094e-04 1.340e-02 6.839e-02 3.702e-01
+ 1.118e-01 3.150e-01], Dist: 0.946, Safety Rate: 0.921
+Start positions:  [[2.879 7.453]
+ [3.868 6.413]
+ [5.154 2.525]
+ [2.382 3.531]]
+Goal positions:  [[3. 8.]
+ [5. 7.]
+ [4. 2.]
+ [2. 3.]]
+Step: 51, Time: 1.1, Loss: [0.011 0.001 0.065 0.    0.019 0.053 0.319 0.108 0.325], Dist: 0.596, Safety Rate: 0.931
+Start positions:  [[4.844 3.091]
+ [2.88  6.759]
+ [2.912 6.752]
+ [6.442 3.624]]
+Goal positions:  [[5. 3.]
+ [3. 7.]
+ [3. 8.]
+ [7. 4.]]
+Step: 52, Time: 1.3, Loss: [0.    0.001 0.    0.    0.016 0.073 0.257 0.241 0.227], Dist: 0.698, Safety Rate: 1.000
+Start positions:  [[2.061 1.625]
+ [3.925 2.614]
+ [1.136 6.942]
+ [4.224 7.002]]
+Goal positions:  [[2. 1.]
+ [4. 2.]
+ [1. 7.]
+ [3. 7.]]
+Step: 53, Time: 1.8, Loss: [4.327e-03 7.417e-04 1.167e-02 2.855e-04 1.217e-03 7.034e-02 3.351e-01
+ 1.054e-01 3.467e-01], Dist: 0.448, Safety Rate: 0.995
+Start positions:  [[7.836 6.892]
+ [4.834 6.951]
+ [6.83  1.255]
+ [1.023 6.978]]
+Goal positions:  [[8. 7.]
+ [5. 7.]
+ [8. 1.]
+ [1. 7.]]
+Step: 54, Time: 1.5, Loss: [0.    0.001 0.    0.    0.    0.087 0.327 0.126 0.285], Dist: 0.608, Safety Rate: 1.000
+Start positions:  [[7.72  6.975]
+ [2.051 3.003]
+ [5.369 7.717]
+ [3.236 1.289]]
+Goal positions:  [[8. 7.]
+ [2. 3.]
+ [6. 8.]
+ [2. 1.]]
+Step: 55, Time: 1.2, Loss: [3.180e-03 7.196e-04 4.001e-02 2.402e-04 7.892e-03 8.699e-02 2.562e-01
+ 2.439e-01 2.020e-01], Dist: 0.863, Safety Rate: 0.946
+Start positions:  [[6.746 5.409]
+ [3.537 6.671]
+ [1.989 7.437]
+ [7.002 3.628]]
+Goal positions:  [[7. 6.]
+ [4. 8.]
+ [2. 8.]
+ [7. 3.]]
+Step: 56, Time: 1.6, Loss: [8.841e-03 7.268e-04 2.721e-02 2.068e-04 4.697e-03 7.239e-02 3.379e-01
+ 1.008e-01 3.231e-01], Dist: 0.714, Safety Rate: 1.000
+Start positions:  [[1.231 2.023]
+ [7.002 1.568]
+ [4.38  6.689]
+ [2.904 6.672]]
+Goal positions:  [[1. 2.]
+ [7. 1.]
+ [5. 7.]
+ [3. 8.]]
+Step: 57, Time: 1.8, Loss: [0.001 0.001 0.009 0.    0.009 0.08  0.285 0.152 0.27 ], Dist: 0.577, Safety Rate: 1.000
+Start positions:  [[4.669 6.69 ]
+ [2.966 4.885]
+ [2.97  4.103]
+ [6.745 5.4  ]]
+Goal positions:  [[6. 7.]
+ [3. 5.]
+ [3. 4.]
+ [7. 6.]]
+Step: 58, Time: 1.3, Loss: [0.    0.001 0.    0.    0.    0.083 0.285 0.119 0.334], Dist: 1.072, Safety Rate: 1.000
+Start positions:  [[6.439 6.007]
+ [7.511 6.334]
+ [3.464 6.337]
+ [6.747 5.631]]
+Goal positions:  [[7. 5.]
+ [8. 7.]
+ [4. 7.]
+ [7. 7.]]
+Step: 59, Time: 1.6, Loss: [0.    0.001 0.    0.    0.    0.063 0.291 0.171 0.262], Dist: 0.468, Safety Rate: 1.000
+Start positions:  [[4.653 6.628]
+ [2.981 2.193]
+ [4.887 2.049]
+ [2.098 7.958]]
+Goal positions:  [[6. 7.]
+ [3. 2.]
+ [5. 2.]
+ [2. 8.]]
+Step: 60, Time: 1.6, Loss: [6.211e-04 7.588e-04 4.383e-02 1.113e-04 2.108e-03 7.657e-02 3.134e-01
+ 1.231e-01 2.972e-01], Dist: 0.518, Safety Rate: 0.934
+Start positions:  [[3.13  7.886]
+ [7.817 1.912]
+ [2.897 7.767]
+ [2.41  1.906]]
+Goal positions:  [[3. 8.]
+ [8. 2.]
+ [3. 8.]
+ [1. 2.]]
+Step: 61, Time: 1.3, Loss: [0.000e+00 6.938e-04 0.000e+00 1.476e-04 7.875e-03 1.041e-01 2.571e-01
+ 2.250e-01 2.419e-01], Dist: 0.853, Safety Rate: 1.000
+Start positions:  [[7.677 7.255]
+ [1.953 7.65 ]
+ [2.658 6.93 ]
+ [6.612 7.763]]
+Goal positions:  [[8. 8.]
+ [2. 8.]
+ [2. 7.]
+ [8. 8.]]
+Step: 62, Time: 1.3, Loss: [0.    0.001 0.    0.    0.002 0.097 0.298 0.142 0.277], Dist: 0.929, Safety Rate: 1.000
+Start positions:  [[5.639 7.767]
+ [2.388 6.558]
+ [1.429 2.22 ]
+ [2.04  6.639]]
+Goal positions:  [[6. 8.]
+ [2. 8.]
+ [1. 1.]
+ [2. 7.]]
+Step: 63, Time: 1.5, Loss: [4.004e-03 8.440e-04 2.025e-02 2.154e-04 3.787e-03 6.924e-02 3.390e-01
+ 1.077e-01 3.130e-01], Dist: 1.003, Safety Rate: 0.970
+Start positions:  [[3.012 2.497]
+ [2.026 6.249]
+ [3.318 1.131]
+ [2.367 6.288]]
+Goal positions:  [[3. 2.]
+ [1. 7.]
+ [2. 1.]
+ [2. 7.]]
+Step: 64, Time: 2.5, Loss: [0.    0.001 0.    0.    0.    0.091 0.305 0.13  0.299], Dist: 0.580, Safety Rate: 1.000
+Start positions:  [[7.829 0.921]
+ [2.951 6.56 ]
+ [2.292 7.844]
+ [1.182 6.795]]
+Goal positions:  [[8. 1.]
+ [3. 8.]
+ [2. 8.]

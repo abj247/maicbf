@@ -96,10 +96,13 @@ def build_evaluation_graph(num_agents):
         s=s, u=u_opt, h=h, x=x, indices=indices)
     # the distance between the u_opt and the nominal u
     loss_action = core.loss_actions(s=s, u=u_opt, s_ref=s_ref, indices=indices)
+    loss_dang_ic, loss_safe_ic, acc_dang_ic, acc_safe_ic = core.loss_barrier_ic(
+        u=u, indices=indices)
+    loss_agile = core.loss_agile(s=s, s_ref=s_ref, u=u, v_max=0.2, sigma_tight=0.05)
 
     loss_list = [loss_dang, loss_safe, loss_dang_deriv, 
-                 loss_safe_deriv, loss_medium_deriv, loss_action]
-    acc_list = [acc_dang, acc_safe, acc_dang_deriv, acc_safe_deriv, acc_medium_deriv]
+                 loss_safe_deriv, loss_medium_deriv, loss_action, loss_dang_ic, loss_safe_ic, loss_agile]
+    acc_list = [acc_dang, acc_safe, acc_dang_deriv, acc_safe_deriv, acc_medium_deriv, acc_dang_ic, acc_safe_ic]
 
     return s, s_ref, u_opt, loss_list, acc_list
 

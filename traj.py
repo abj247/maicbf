@@ -23,6 +23,10 @@ for agent_index in range(4):  # Assuming 4 agents
 
     # Plotting the trajectory for each agent
     plt.plot(xn, yn, color=colors[agent_index], marker='o', linestyle='-', label=f'Agent_{agent_index + 1}')
+    
+    # Marking the start and end points
+    plt.plot(xn[0], yn[0], 'g^', markersize=10, label='Start' if agent_index == 0 else "")
+    plt.plot(xn[-1], yn[-1], 'rs', markersize=10, label='End' if agent_index == 0 else "")
 
 plt.title('Agent Trajectories for Evaluation')
 plt.xlabel('X Coordinate')
