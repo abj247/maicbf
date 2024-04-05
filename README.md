@@ -2,11 +2,11 @@
 ### Installation
 Create a virtual environment with Anaconda:
 ```bash
-conda create -n maicbf python=3.6
+conda create -n maicbf python=3.10
 ```
 Activate the virtual environment:
 ```bash
-source activate maicbf
+conda activate maicbf
 ```
 Clone this repository:
 ```bash
