@@ -173,10 +173,15 @@ def main():
 
     safety_ratios_epoch = []
     safety_ratios_epoch_baseline = []
+    deadlock_ratios_epoch = []  # For tracking deadlock ratios
+    deadlock_ratios_epoch_baseline = []
 
     dist_errors = []
     dist_errors_baseline = []
     accuracy_lists = []
+
+    # Initialize a list to track time taken by each agent to reach the goal for each evaluation step
+    time_taken_by_agents = np.zeros((config.EVALUATE_STEPS, args.num_agents))
 
     if args.vis > 0:
         plt.ion()
@@ -192,6 +197,7 @@ def main():
     traj_dict = {'ours': [], 'baseline': [], 'obstacles': [np.array(scene.OBSTACLES)]}
     total_steps = config.EVALUATE_STEPS * args.max_steps  # This should correctly reflect the product
     collision_tracking = np.zeros((total_steps, args.num_agents), dtype=int)
+    deadlock_tracking = np.zeros((total_steps, args.num_agents), dtype=int)  # For tracking deadlocks
 
     safety_reward = []
     dist_reward = []
@@ -204,6 +210,8 @@ def main():
             ax_2 = fig.add_subplot(122, projection='3d')
         safety_ours = []
         safety_baseline = []
+        deadlock_ours = []  # For tracking deadlocks
+        deadlock_baseline = []  # For tracking deadlocks in baseline
 
         scene.reset()
         start_time = time.time()
@@ -211,15 +219,14 @@ def main():
             [scene.start_points, np.zeros((args.num_agents, 5))], axis=1)
         s_traj = []
         safety_info = np.zeros(args.num_agents, dtype=np.float32)
+        deadlock_info = np.zeros(args.num_agents, dtype=np.float32)  # For tracking deadlocks
+        deadlock_info_baseline = np.zeros(args.num_agents, dtype=np.float32)  # For tracking deadlocks in baseline
         # a scene has a sequence of goal states for each agent. in each scene.step,
         # we move to a new goal state
         print(scene.steps)
         for t in range(scene.steps):
-            # the goal states
             s_ref_np = np.concatenate(
                 [scene.waypoints[t], np.zeros((args.num_agents, 5))], axis=1)
-            # run INNER_LOOPS_EVAL steps to reach the goal state
-            
             for i in range(config.INNER_LOOPS_EVAL):
                 u_np, acc_list_np = sess.run(
                     [u, acc_list], feed_dict={s:s_np, s_ref: s_ref_np})
@@ -237,15 +244,31 @@ def main():
                 safety_ratio = np.mean(individual_safety)
                 safety_ratios_epoch.append(safety_ratio)
                 accuracy_lists.append(acc_list_np)
+                
+                # Modified deadlock detection logic for sliding window
+                window_size = 6  # Define the window size for deadlock detection
+                d = np.sqrt(u_np[:, 0]**2 + u_np[:, 1]**2)
+                deadlock_mask = d < 0.01
+                deadlock_ours.append(deadlock_mask)
+                if len(deadlock_ours) > window_size:
+                    # Only keep the recent 'window_size' elements for sliding window
+                    deadlock_ours = deadlock_ours[-window_size:]
+                # Calculate deadlock detection over the sliding window
+                deadlock_window = np.array(deadlock_ours)
+                deadlock_info_window = np.all(deadlock_window, axis=0).astype(np.float32)
+                deadlock_info += deadlock_info_window
+                deadlock_ratio = np.mean(deadlock_info / min(t+1, window_size))  # Adjust calculation for sliding window
+                deadlock_ratios_epoch.append(min(deadlock_ratio, 1))  # Ensure values are <= 1
+                
                 if np.mean(
                     np.linalg.norm(s_np[:, :3] - s_ref_np[:, :3], axis=1)
                     ) < config.DIST_TOLERATE:
                     break
             
-                #print(u_values)
                 s_traj.append(np.expand_dims(s_np[:, [0, 1, 2, 6, 7]], axis=0))
             collisions = core.dangerous_mask_np(s_np, config.DIST_MIN_CHECK)
             collision_tracking[current_step_index] = np.any(collisions, axis=1).astype(int)
+            deadlock_tracking[current_step_index] = deadlock_mask.astype(int)  # Track deadlocks
 
             current_step_index += 1  # Move to the next global step
             u_values.append(u_np.copy())
@@ -255,14 +278,23 @@ def main():
         dist_errors.append(
             np.mean(np.linalg.norm(s_np[:, :3] - s_ref_np[:, :3], axis=1)))
         
+        # Record the time taken by each agent to reach the goal for this evaluation step
+        time_taken_by_agents[istep, :] = time.time() - start_time
 
         traj_dict['ours'].append(np.concatenate(s_traj, axis=0))
         end_time = time.time()
 
-        # reach the same goals using LQR controller without considering the collision
+        # Save the time taken by each agent to reach the goal into a CSV file
+        time_taken_df = pd.DataFrame(time_taken_by_agents, columns=['Agent {}'.format(i+1) for i in range(args.num_agents)])
+        time_taken_df.to_csv('csv_data/ttg/time_taken_by_agents.csv', index_label="Evaluation Step")
+        print("Time taken by agents saved to 'time_taken_by_agents.csv'")
+
+       # LQR 
+
         s_np = np.concatenate(
             [scene.start_points, np.zeros((args.num_agents, 5))], axis=1)
         s_traj = []
+        deadlock_info_baseline = np.zeros(args.num_agents, dtype=np.float32)  # Reset deadlock info at the start
         for t in range(scene.steps):
             s_ref_np = np.concatenate(
                 [scene.waypoints[t], np.zeros((args.num_agents, 5))], axis=1)
@@ -277,8 +309,24 @@ def main():
                 safety_ratio = np.mean(individual_safety)
                 safety_ratios_epoch_baseline.append(safety_ratio)
                 s_traj.append(np.expand_dims(s_np[:, [0, 1, 2, 6, 7]], axis=0))
+                
+                # Deadlock detection logic for baseline
+                window_size = 6  # Define the window size for deadlock detection
+                d = np.sqrt(u_np[:, 0]**2 + u_np[:, 1]**2)
+                deadlock_mask = d < 0.01
+                deadlock_baseline.append(deadlock_mask)
+                if len(deadlock_baseline) > window_size:
+                    # Only keep the recent 'window_size' elements for sliding window
+                    deadlock_baseline = deadlock_baseline[-window_size:]
+                # Calculate deadlock detection over the sliding window
+                deadlock_window = np.array(deadlock_baseline)
+                deadlock_info_window = np.all(deadlock_window, axis=0).astype(np.float32)
+                deadlock_info_baseline += deadlock_info_window
+                deadlock_ratio_baseline = np.mean(deadlock_info_baseline / min(t+1, window_size))  # Adjust calculation for sliding window
+                deadlock_ratios_epoch_baseline.append(min(deadlock_ratio_baseline, 1))  # Ensure values are <= 1
         dist_errors_baseline.append(np.mean(np.linalg.norm(s_np[:, :3] - s_ref_np[:, :3], axis=1)))
         traj_dict['baseline'].append(np.concatenate(s_traj, axis=0))
+        
         
         if args.vis > 0:
             # visualize the trajectories
@@ -290,9 +338,10 @@ def main():
                 ax_1.view_init(elev=80, azim=-45)
                 ax_1.axis('off')
                 show_obstacles(scene.OBSTACLES, ax_1)
-                j_ours = min(j, s_traj_ours.shape[0]-1)
-                s_np = s_traj_ours[j_ours]
-                safety = safety_ours[j_ours]
+                j_ours = min(j // 10, len(deadlock_ours) - 1)  # Adjust index for deadlock_ours list
+                s_np = s_traj_ours[min(j, s_traj_ours.shape[0]-1)]
+                safety = safety_ours[min(j, s_traj_ours.shape[0]-1)]
+                deadlock = deadlock_ours[j_ours]  # Get deadlock status with adjusted index
 
                 ax_1.set_xlim(0, 20)
                 ax_1.set_ylim(0, 20)
@@ -301,16 +350,21 @@ def main():
                              color='darkorange', label='Agent')
                 ax_1.scatter(s_np[safety<1, 0], s_np[safety<1, 1], s_np[safety<1, 2], 
                              color='red', label='Collision')
-                ax_1.set_title('Ours: Safety Rate = {:.4f}'.format(
-                    np.mean(safety_ratios_epoch)), fontsize=16)
+                ax_1.scatter(s_np[deadlock, 0], s_np[deadlock, 1], s_np[deadlock, 2], 
+                             color='green', label='Deadlock')  # Visualize deadlocks
+                ax_1.set_title('Ours: Safety Rate = {:.4f}, Deadlock Rate = {:.4f}'.format(
+                    np.mean(safety_ratios_epoch), np.mean(deadlock_ratios_epoch)), fontsize=10)
+                #plt.legend(loc='lower right')
 
                 ax_2.clear()
                 ax_2.view_init(elev=80, azim=-45)
                 ax_2.axis('off')
                 show_obstacles(scene.OBSTACLES, ax_2)
                 j_baseline = min(j, s_traj_baseline.shape[0]-1)
+                j_base = min(j // 10, len(deadlock_baseline)-1)
                 s_np = s_traj_baseline[j_baseline]
                 safety = safety_baseline[j_baseline]
+                deadlock = deadlock_baseline[j_base]  # Get deadlock status for baseline
 
                 ax_2.set_xlim(0, 20)
                 ax_2.set_ylim(0, 20)
@@ -319,8 +373,10 @@ def main():
                              color='darkorange', label='Agent')
                 ax_2.scatter(s_np[safety<1, 0], s_np[safety<1, 1], s_np[safety<1, 2], 
                              color='red', label='Collision')
-                ax_2.set_title('LQR: Safety Rate = {:.4f}'.format(
-                    np.mean(safety_ratios_epoch_baseline)), fontsize=16)
+                ax_2.scatter(s_np[deadlock, 0], s_np[deadlock, 1], s_np[deadlock, 2], 
+                             color='green', label='Deadlock')  # Visualize deadlocks for baseline
+                ax_2.set_title('LQR: Safety Rate = {:.4f}, Deadlock Rate = {:.4f}'.format(
+                    np.mean(safety_ratios_epoch_baseline), np.mean(deadlock_ratios_epoch_baseline)), fontsize=10)
                 plt.legend(loc='lower right')
 
                 fig.canvas.draw()
@@ -328,11 +384,13 @@ def main():
                 
        
         
-        print('Evaluation Step: {} | {}, Time: {:.4f}'.format(
-            istep + 1, config.EVALUATE_STEPS, end_time - start_time))
+        print('Evaluation Step: {} | {}, Time: {:.4f}, Deadlock Rate: {:.4f}'.format(
+            istep + 1, config.EVALUATE_STEPS, end_time - start_time, np.mean(deadlock_ratios_epoch)))
     
 
     collision_tracking = np.clip(collision_tracking, 0, 1)
+    total_collisions = np.sum(collision_tracking)/2
+    print('Total Number of Collisions :', total_collisions)
     base_directory = 'csv_data'
     sub_directory = 'collision_tracking'
     directory_path = os.path.join(base_directory, sub_directory)
@@ -342,7 +400,6 @@ def main():
         os.makedirs(directory_path)
 
     # Define the full path to the CSV file within the subdirectory
-    #csv_file_path = os.path.join(directory_path, 'hu_time_umax_0.2_agile_weight_0.5_64_agents.csv')
     csv_file_path = os.path.join(directory_path, 'hu_time_baseline_4_agents_itr_03.csv')
 
     ## Export to CSV, taking into account the new shape of collision_tracking
@@ -356,6 +413,7 @@ def main():
           np.mean(dist_errors), np.mean(dist_errors_baseline)))
     print('Mean Safety Ratio (Learning | Baseline): {:.4f} | {:.4f}'.format(
           np.mean(safety_ratios_epoch), np.mean(safety_ratios_epoch_baseline)))
+    print('Mean Deadlock Ratio (Learning): {:.4f}'.format(np.mean(deadlock_ratios_epoch)))  # Print deadlock ratio
 
     safety_reward = np.mean(safety_reward)
     dist_reward = np.mean(dist_reward)
@@ -593,3 +651,4 @@ def main():
 
 if __name__ == '__main__':
     main()
+

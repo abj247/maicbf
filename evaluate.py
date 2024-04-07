@@ -183,7 +183,7 @@ def main():
         plt.close()
         fig = render_init(args.num_agents)
     # initialize the environment
-    scene = core.Empty(args.num_agents, max_steps=args.max_steps)
+    scene = core.Maze(args.num_agents, max_steps=args.max_steps)
 
     if isinstance(scene, core.Empty):
         flag = False
