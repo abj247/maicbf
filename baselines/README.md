@@ -58,7 +58,7 @@ You can also run individual methods by invoking their respective functions withi
     - `2` for gcbf-pytorch
     - `3` for off-policy
     - `4` for on-policy
-    - `5` for InfoMARL
+    - `5` for InforMARL
 
 Follow the interactive prompts to input the required parameters for the selected method.
 
@@ -128,9 +128,9 @@ Follow the interactive prompts to input the required parameters for the selected
      --user_name "yyy"
     
     ```
-- **InfoMARL**: 
+- **InforMARL**: 
     ```
-    python -u InfoMARL/onpolicy/scripts/train_mpe.py \
+    python -u InforMARL/onpolicy/scripts/train_mpe.py \
      --use_valuenorm \
      --use_popart \
      --project_name "informarl" \
