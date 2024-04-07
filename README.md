@@ -48,5 +48,5 @@ To plot the trajectory for each agent for further visualization use this command
 ```bash
 python plot_traj.py
 ```
-This script will plot the trajectory for each agent and it will required the ``pkl`` file for trajectory data which will be saved after evaluation completes see [trajectory](https://github.com/abj247/MA-ICBF/tree/master/trajectory). wandb logs could be found at [wandb](https://github.com/abj247/MA-ICBF/tree/master/wandb).
+This script will plot the trajectory for each agent and it will required the ``.pkl`` file for trajectory data which will be saved after evaluation completes see [trajectory](https://github.com/abj247/MA-ICBF/tree/master/trajectory). wandb logs could be found at [wandb](https://github.com/abj247/MA-ICBF/tree/master/wandb).
 
