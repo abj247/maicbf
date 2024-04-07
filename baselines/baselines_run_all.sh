@@ -97,7 +97,7 @@ run_on_policy() {
     
 }
 
-run_infomarl() {
+run_informarl() {
     echo "Configuring InfoMARL method..."
     read -p "Use value normalization? (yes/no): " use_valuenorm
     read -p "Use POPART? (yes/no): " use_popart
@@ -132,7 +132,7 @@ run_infomarl() {
     auto_mini_batch_size=$( [[ $auto_mini_batch_size == "yes" ]] && echo "--auto_mini_batch_size" || echo "" )
 
     echo "Running InfoMARL method..."
-    python -u InfoMARL/onpolicy/scripts/train_mpe.py $use_valuenorm $use_popart --project_name "$project_name" --env_name "$env_name" --algorithm_name "$algorithm_name" --seed "$seed" --experiment_name "$experiment_name" --scenario_name "$scenario_name" --num_agents "$num_agents" --collision_rew "$collision_rew" --n_training_threads "$n_training_threads" --n_rollout_threads "$n_rollout_threads" --num_mini_batch "$num_mini_batch" --episode_length "$episode_length" --num_env_steps "$num_env_steps" --ppo_epoch "$ppo_epoch" $use_ReLU --gain "$gain" --lr "$lr" --critic_lr "$critic_lr" --user_name "$user_name" --use_cent_obs "$use_cent_obs" --graph_feat_type "$graph_feat_type" $auto_mini_batch_size --target_mini_batch_size "$target_mini_batch_size"
+    python -u InforMARL/onpolicy/scripts/train_mpe.py $use_valuenorm $use_popart --project_name "$project_name" --env_name "$env_name" --algorithm_name "$algorithm_name" --seed "$seed" --experiment_name "$experiment_name" --scenario_name "$scenario_name" --num_agents "$num_agents" --collision_rew "$collision_rew" --n_training_threads "$n_training_threads" --n_rollout_threads "$n_rollout_threads" --num_mini_batch "$num_mini_batch" --episode_length "$episode_length" --num_env_steps "$num_env_steps" --ppo_epoch "$ppo_epoch" $use_ReLU --gain "$gain" --lr "$lr" --critic_lr "$critic_lr" --user_name "$user_name" --use_cent_obs "$use_cent_obs" --graph_feat_type "$graph_feat_type" $auto_mini_batch_size --target_mini_batch_size "$target_mini_batch_size"
     #python -u InfoMARL/onpolicy/scripts/train_mpe.py --use_valuenorm --use_popart --project_name "informarl" --env_name "GraphMPE" --algorithm_name "rmappo" --seed 0 --experiment_name "informarl" --scenario_name "navigation_graph" --num_agents 3 --collision_rew 5 --n_training_threads 1 --n_rollout_threads 128 --num_mini_batch 1 --episode_length 25 --num_env_steps 2000000 --ppo_epoch 10 --use_ReLU --gain 0.01 --lr 7e-4 --critic_lr 7e-4 --user_name "marl" --use_cent_obs "False" --graph_feat_type "relative" --auto_mini_batch_size --target_mini_batch_size 128
 }
 
@@ -151,7 +151,7 @@ run_all_methods() {
     run_on_policy
     echo "--------------------------------------"
     
-    run_infomarl
+    run_informarl
     echo "--------------------------------------"
 
     echo "All methods have been executed."
