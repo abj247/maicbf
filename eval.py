@@ -414,8 +414,8 @@ def main():
                 A = config.A_MAT
                 B = config.B_MAT
                 dxdt = cs.mtimes(cs.DM(A), model.x['x']) + cs.mtimes(cs.DM(B), model.u['u'])
-                #s_np_dxdt = s_np.reshape(8,1)
-                x_next = model.x['x'] + dxdt * config.TIME_STEP
+                s_np_dxdt = s_np.reshape(8,1)
+                x_next = s_np_dxdt + dxdt * config.TIME_STEP
                 h_s_np = barrier_function(x_next, s_np_i, config.DIST_MIN_THRES)
                 gamma = 0.8
                 h_dot = h_s_np - h_x
