@@ -13,6 +13,9 @@ import pandas as pd
 import core
 import config
 from plot import PlotHelper
+import cvxpy as cp
+import do_mpc
+import casadi as cs
 
 
 def parse_args():
@@ -224,6 +227,11 @@ def main():
         # a scene has a sequence of goal states for each agent. in each scene.step,
         # we move to a new goal state
         print(scene.steps)
+
+
+        
+        
+
         for t in range(scene.steps):
             s_ref_np = np.concatenate(
                 [scene.waypoints[t], np.zeros((args.num_agents, 5))], axis=1)
@@ -235,37 +243,328 @@ def main():
                     u_ref_np = core.quadrotor_controller_np(s_np, s_ref_np)
                     u_np = clip_norm(u_np - u_ref_np, 100.0) + u_ref_np
                 dsdt = core.quadrotor_dynamics_np(s_np, u_np)
-                s_np = s_np + dsdt * config.TIME_STEP_EVAL
-                safety_ratio = 1 - np.mean(
-                    core.dangerous_mask_np(s_np, config.DIST_MIN_CHECK), axis=1)
-                individual_safety = safety_ratio == 1
-                safety_ours.append(individual_safety)
-                safety_info = safety_info + individual_safety - 1
-                safety_ratio = np.mean(individual_safety)
-                safety_ratios_epoch.append(safety_ratio)
-                accuracy_lists.append(acc_list_np)
+                u_ref_np = core.quadrotor_controller_np(s_np, s_ref_np)
+                print("s_ref_np", s_ref_np)
+                print("u_ref_np", u_ref_np)
+                print("u_np", u_np)
                 
-                # Modified deadlock detection logic for sliding window
-                window_size = 6  # Define the window size for deadlock detection
-                d = np.sqrt(u_np[:, 0]**2 + u_np[:, 1]**2)
-                deadlock_mask = d < 0.01
-                deadlock_ours.append(deadlock_mask)
-                if len(deadlock_ours) > window_size:
-                    # Only keep the recent 'window_size' elements for sliding window
-                    deadlock_ours = deadlock_ours[-window_size:]
-                # Calculate deadlock detection over the sliding window
-                deadlock_window = np.array(deadlock_ours)
-                deadlock_info_window = np.all(deadlock_window, axis=0).astype(np.float32)
-                deadlock_info += deadlock_info_window
-                deadlock_ratio = np.mean(deadlock_info / min(t+1, window_size))  # Adjust calculation for sliding window
-                deadlock_ratios_epoch.append(min(deadlock_ratio, 1))  # Ensure values are <= 1
-                
-                if np.mean(
-                    np.linalg.norm(s_np[:, :3] - s_ref_np[:, :3], axis=1)
-                    ) < config.DIST_TOLERATE:
-                    break
+
+                #Printing shapes
+
+            def predict_collision(s_np, dsdt):
+                s_np_next = s_np + dsdt * config.TIME_STEP_EVAL
+                # Compute the pairwise differences between agents' positions
+                pairwise_diff = s_np_next[:, :3].reshape(-1, 1, 3) - s_np_next[:, :3].reshape(1, -1, 3)
+                # Calculate the norm distances between agents, resulting in a 3D tensor (i, j, norm_distances_two_agents)
+                safety_distances = np.linalg.norm(pairwise_diff, axis=2)
+                # Generate a collision mask where distances are less than the minimum check distance
+                collision_mask = safety_distances > config.DIST_MIN_CHECK
+                # Collision prediction tensor of size (bool_value, i, j)
+                collision_prediction = collision_mask.astype(int)
+                return collision_prediction
             
-                s_traj.append(np.expand_dims(s_np[:, [0, 1, 2, 6, 7]], axis=0))
+            def model_setup(s_np,s_ref, u_ref):
+                """
+                Setup the do_mpc model that describes the system dynamics, the cost function, and the barrier function.
+                """
+                model = do_mpc.model.Model('discrete')
+
+                # Define states and control inputs
+                _x = model.set_variable(var_type='_x', var_name='x', shape=(8, 1))
+                _u = model.set_variable(var_type='_u', var_name='u', shape=(3, 1))
+                #x_next = model.set_variable(var_type='_x', var_name='x_next', shape=(8, 1))
+
+                # Dynamics function as described
+                A = config.A_MAT
+                B = config.B_MAT
+                dxdt = cs.mtimes(cs.DM(A), _x) + cs.mtimes(cs.DM(B), _u)
+                s_np = s_np.reshape(8,1)
+                #s_np = s_np.T
+                x_next = s_np + dxdt * config.TIME_STEP
+                model.set_rhs('x', x_next)
+
+
+                # Cost function weights
+                P = np.diag([100] * 8)
+                Q = np.diag([1] * 3)
+
+                # Reference state and control input (need to be updated per timestep if variable)
+                # s_ref = model.set_variable(var_type='_tvp', var_name='s_ref', shape=(1, 8))
+                # u_ref = model.set_variable(var_type='_tvp', var_name='u_ref', shape=(1, 3))
+                #s_np_i = model.set_variable(var_type='_tvp', var_name='s_np_i', shape=(3, 8))
+
+                # Define stage cost (lterm)
+                # print("s_ref_shpae", s_ref.shape)
+                # print("u_ref_shpae", u_ref.shape)
+                s_ref_T = s_ref.reshape(8,1)
+                u_ref_T = u_ref.reshape(3,1)
+                # print("s_ref_T", s_ref_T.shape)
+                # print("u_ref_T", u_ref_T.shape)
+                # s_ref_T = s_ref_T.T
+                # u_ref_T = u_ref_T.T
+                # print("s_ref_T", s_ref_T.shape)
+                # print("u_ref_T", u_ref_T.shape)
+                cost_state = (_x - s_ref_T).T @ P @ (_x - s_ref_T)
+                #cost_control = (_u - u_ref_T).T @ Q @ (_u - u_ref_T)
+                cost_control = (_u).T @ Q @ (_u)
+                model.set_expression(expr_name='stage_cost', expr=cost_state + cost_control)
+                model.set_expression(expr_name='terminal_cost', expr=cost_state)
+
+                model.setup()
+                return model
+            
+
+
+
+
+            def setup_mpc(model,s_np_i, s_np):
+                """
+                Setup MPC controller using do_mpc library.
+
+                """
+                s_np_i = s_np_i.T
+                print("Debugging shapes:")
+                print("Shape of s_np_i:", s_np_i.shape)
+                print("Shape of s_np:", s_np.shape)  
+                mpc = do_mpc.controller.MPC(model)
+                setup_mpc = {
+                    'n_horizon': 1,
+                    't_step': config.TIME_STEP,
+                    'n_robust': 0,
+                    'store_full_solution': True,
+                }
+                mpc.set_param(**setup_mpc)
+
+                #mterm = model.aux['cost']  # Terminal cost
+                mterm = model.aux['terminal_cost']  # Terminal cost
+                lterm = model.aux['stage_cost']  # Stage cost
+
+                mpc.set_objective(mterm=mterm, lterm=lterm)
+                mpc.set_rterm(u=1e-2)  # Control regularization term
+
+                # Add constraints for each control input
+                omega_x_limit = 0.2
+                omega_y_limit = 0.2
+                a_limit = 0.2
+                max_u = np.array([omega_x_limit, omega_y_limit, a_limit])
+                mpc.bounds['lower','_u', 'u'] = 0.1*max_u
+                mpc.bounds['upper','_u', 'u'] = max_u
+
+                s_np_new = s_np.reshape(8,1)[:3]
+                # s_np_new = s_np.reshape((1, 8))[:3]  
+                print("Shape of s_np_new:", s_np_new.shape)
+
+                # # Add barrier constraints to the MPC
+                # for i in range(3):  # Assuming there are 3 other agents
+                #     mpc.set_nl_cons(f'h_{i}', model.alg[f'h_{i}'], ub=0)
+
+                # Safety barrier function
+                def barrier_function(x, s_np_i, r=config.DIST_MIN_THRES):
+                    """
+                    x: The state of the current agent (shape [1, 8])
+                    s_np_i: States of other agents (shape [3, 8])
+                    r: Safety distance threshold
+                    """
+                    # Repeat the first three states of x to match s_np_i dimensions for subtraction
+                    print("x_shape", x.shape)
+                    x = x[:3,:]
+                    print("x_shape", x.shape)
+                    x_rep = cs.repmat(x, 1, s_np_i.shape[1])
+                    print("x_rep_x", x_rep.shape)
+                    # Calculate the difference between the state vectors
+                    diff = x_rep - s_np_i[:3, :]
+                    print("diff_x", diff.shape)
+                    # Calculate the Euclidean distance for each row
+                    distances = cs.sqrt(cs.sum1(cs.power(diff, 2)))
+                    print("distances_x", distances.shape)
+                    # Calculate the barrier based on the safety threshold
+                    h = distances - r
+                    print("h", h.shape)
+                    return h
+                
+                def barrier_function_s(x, s_np_i, r=config.DIST_MIN_THRES):
+                    """
+                    x: The state of the current agent (shape [1, 8])
+                    s_np_i: States of other agents (shape [3, 8])
+                    r: Safety distance threshold
+                    """
+                    # Repeat the first three states of x to match s_np_i dimensions for subtraction
+                    x = x[:3,:]
+                    #print("x_shape", x.shape)
+                    x_rep = cs.repmat(x, s_np_i.shape[1], 1)
+                    #print("x_rep", x_rep.shape)
+                    # Calculate the difference between the state vectors
+                    diff = x_rep - s_np_i[:3, :]
+                    print("diff.shape_s_np", diff.shape)
+                    # Calculate the Euclidean distance for each row
+                    distances = cs.sqrt(cs.sum1(cs.power(diff, 1)))
+                    print("distances.shape_s_np", distances.shape)
+                    # Calculate the barrier based on the safety threshold
+                    h = distances - r
+                    print("h", h)
+                    return h
+
+
+                # Set the expression for the barrier function in the model
+                h_x = barrier_function(model.x['x'], s_np_i, config.DIST_MIN_THRES)
+                #print(model.x['x'].shape)
+                
+                
+                #print(s_np.shape)
+                A = config.A_MAT
+                B = config.B_MAT
+                dxdt = cs.mtimes(cs.DM(A), model.x['x']) + cs.mtimes(cs.DM(B), model.u['u'])
+                #s_np_dxdt = s_np.reshape(8,1)
+                x_next = model.x['x'] + dxdt * config.TIME_STEP
+                h_s_np = barrier_function(x_next, s_np_i, config.DIST_MIN_THRES)
+                gamma = 0.8
+                h_dot = h_s_np - h_x
+                h_cons = -h_dot - gamma*h_s_np
+                # Split h into individual constraints if h is a vector
+                constraints = cs.horzsplit(h_cons)
+                #print("constraints", constraints)
+                # print("Number of constraints:", len(constraints))
+                # Iterate over each constraint and add it to the MPC setup
+                for idx, cons in enumerate(constraints):
+                    mpc.set_nl_cons(f'cbf_constraint_{idx}', cons, ub=0)
+
+
+                mpc.setup()
+                return mpc
+            
+            # def setup_tvp_function(model, current_agent_index, s_ref_np, u_ref_np):
+            #     """
+            #     Returns a function that do_mpc can use to update TVPs for the current agent at each timestep.
+            #     """
+            #     def tvp_function(t_now):
+            #         tvp = model.get_tvp_template()  # Obtain the correct structure for the TVP
+
+            #         # Fill the template with current data:
+            #         tvp['s_ref'] = s_ref_np[current_agent_index, :]
+            #         tvp['u_ref'] = u_ref_np[current_agent_index, :]
+
+            #         return tvp
+
+            #     return tvp_function
+
+
+            # def update_tvp(mpc, current_agent_index, s_np):
+            #         """
+            #         Update the time-varying parameters (positions of other agents) and references for the MPC of a specific agent.
+                    
+            #         :param mpc: The MPC controller object.
+            #         :param current_agent_index: The index of the current agent.
+            #         :param s_np: Array of all agents' states.
+            #         :param s_ref_np: Array of all agents' reference states.
+            #         :param u_ref_np: Array of all agents' reference control inputs.
+            #         """
+            #         # Update positions of other agents
+            #         for j in range(s_np.shape[0]):
+            #             if current_agent_index != j:
+            #                 mpc.set_tvp(f's_np_i_{j}', s_np[j, :3])
+
+                    # Update reference state and control for the current agent
+                    # mpc.set_tvp('s_ref', s_ref_np[current_agent_index, :])
+                    # mpc.set_tvp('u_ref', u_ref_np[current_agent_index, :])
+                    
+
+            def run_mpc_control(mpc, model, initial_state, s_np_i):
+                """
+                Run MPC control step and retrieve optimized control actions.
+
+                :param mpc: The MPC controller object.
+                :param model: The MPC model object.
+                :param initial_state: The initial state vector for the agent.
+                :param s_np: The state array of all agents, used to update TVP settings.
+                """
+                # Set the initial state of the model and controller:
+                model.x0 = initial_state
+                mpc.x0 = initial_state
+                #update_tvp(mpc, s_np_i)  # Update the positions of other agents as TVP
+
+                mpc.set_initial_guess()
+                
+                # Execute the optimization step to compute control:
+                u_opt = mpc.make_step(initial_state)
+                print("u_opt", u_opt)
+
+                return u_opt
+
+
+            
+
+        
+            
+            
+            # Setup the model and MPC controller
+            
+            #model.setup()  # Ensure the model is properly set up before initializing the MPC controller
+            
+
+            # Main loop to handle collisions and control updates
+            print("predicting collision")
+            dsdt = core.quadrotor_dynamics_np(s_np, u_np)  # Initial dynamics calculation
+            iscollision = predict_collision(s_np, dsdt)
+            print(iscollision)
+
+            while np.any(iscollision):
+                print("Collision detected!, now using mpc-cbf to update controls")
+                for i in range(iscollision.shape[0]):
+                    for j in range(i + 1, iscollision.shape[1]):  # Only check upper triangle to avoid redundancy
+                        if iscollision[i, j] == 1:
+                            print(f"Collision detected between agent {i} and agent {j}, updating controls.")
+                            
+                            # Prepare TVP for agent i by excluding agent i's state and control
+                            s_np_i = np.vstack([s_np[:i], s_np[i+1:]])  # Stack all other agents' states
+                            model = model_setup(s_np[i,:], s_ref_np[i,:], u_ref_np[i,:])
+                            mpc_controller = setup_mpc(model, s_np_i,  s_np[i, :])
+                            #update_tvp(mpc_controller, i, s_np_i)  # Update TVPs for MPC controller for agent i
+                            u_np[i, :] = run_mpc_control(mpc_controller, model, s_np[i, :], s_np_i).flatten()
+
+                            # Prepare TVP for agent j in a similar fashion
+                            s_np_j = np.vstack([s_np[:j], s_np[j+1:]])  # Stack all other agents' states
+                            model = model_setup(s_np[j,:], s_ref_np[j,:], u_ref_np[j,:])
+                            mpc_controller = setup_mpc(model, s_np_j, s_np[j, :])
+                            #update_tvp(mpc_controller, j, s_np_j)  # Update TVPs for MPC controller for agent j
+                            u_np[j, :] = run_mpc_control(mpc_controller, model, s_np[j, :], s_np_j).flatten()
+
+                            print(f"Controls updated for agents {i} and {j} using mpc-cbf.")
+
+                # Update the dynamics based on the new controls and check for collisions again
+                #dsdt = core.quadrotor_dynamics_np(s_np, u_np)
+                #iscollision = predict_collision(s_np, dsdt)
+            print("Dynamics updated, now predicting collision again")
+            s_np = s_np + dsdt * config.TIME_STEP_EVAL
+            safety_ratio = 1 - np.mean(
+                core.dangerous_mask_np(s_np, config.DIST_MIN_CHECK), axis=1)
+            individual_safety = safety_ratio == 1
+            safety_ours.append(individual_safety)
+            safety_info = safety_info + individual_safety - 1
+            safety_ratio = np.mean(individual_safety)
+            safety_ratios_epoch.append(safety_ratio)
+            accuracy_lists.append(acc_list_np)
+            
+            # Modified deadlock detection logic for sliding window
+            window_size = 6  # Define the window size for deadlock detection
+            d = np.sqrt(u_np[:, 0]**2 + u_np[:, 1]**2)
+            deadlock_mask = d < 0.01
+            deadlock_ours.append(deadlock_mask)
+            if len(deadlock_ours) > window_size:
+                # Only keep the recent 'window_size' elements for sliding window
+                deadlock_ours = deadlock_ours[-window_size:]
+            # Calculate deadlock detection over the sliding window
+            deadlock_window = np.array(deadlock_ours)
+            deadlock_info_window = np.all(deadlock_window, axis=0).astype(np.float32)
+            deadlock_info += deadlock_info_window
+            deadlock_ratio = np.mean(deadlock_info / min(t+1, window_size))  # Adjust calculation for sliding window
+            deadlock_ratios_epoch.append(min(deadlock_ratio, 1))  # Ensure values are <= 1
+            
+            if np.mean(
+                np.linalg.norm(s_np[:, :3] - s_ref_np[:, :3], axis=1)
+                ) < config.DIST_TOLERATE:
+                break
+        
+            s_traj.append(np.expand_dims(s_np[:, [0, 1, 2, 6, 7]], axis=0))
             collisions = core.dangerous_mask_np(s_np, config.DIST_MIN_CHECK)
             collision_tracking[current_step_index] = np.any(collisions, axis=1).astype(int)
             deadlock_tracking[current_step_index] = deadlock_mask.astype(int)  # Track deadlocks
@@ -309,6 +608,9 @@ def main():
                 safety_ratio = np.mean(individual_safety)
                 safety_ratios_epoch_baseline.append(safety_ratio)
                 s_traj.append(np.expand_dims(s_np[:, [0, 1, 2, 6, 7]], axis=0))
+
+                
+
                 
                 # Deadlock detection logic for baseline
                 window_size = 6  # Define the window size for deadlock detection
@@ -649,6 +951,11 @@ def main():
 # plt.tight_layout()
 # plt.show()
 
+
+
+
 if __name__ == '__main__':
     main()
+
+
 
