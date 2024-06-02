@@ -1,4 +1,4 @@
-# MA-ICBF
+# maicbf
 ### Installation
 Create a virtual environment with Anaconda:
 ```bash
