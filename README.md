@@ -10,7 +10,7 @@ conda activate maicbf
 ```
 Clone this repository:
 ```bash
-git clone https://github.com/abj247/MA-ICBF.git
+git clone https://github.com/abj247/maicbf.git
 ```
 Enter the main folder and install the dependencies:
 ```bash
