@@ -6,8 +6,8 @@ This repository contains a collection of baseline methods for multi-agent reinfo
 
 1. **Clone the Repository**: First, clone this repository to your local machine and navigate to baselines folder.
     ```
-    git clone https://github.com/abj247/MA-ICBF.git
-    cd MA-ICBF/baselines
+    git clone https://github.com/abj247/maicbf.git
+    cd maicbf/baselines
     ```
 2. **Create a Conda Environment**: It is recommended to create a virtual environment for managing the dependencies.
     ```
