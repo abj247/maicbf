@@ -259,20 +259,52 @@ def main():
                 safety_ratios_epoch.append(safety_ratio)
                 accuracy_lists.append(acc_list_np)
                 
-                # Modified deadlock detection logic for sliding window
+                # Deadlock prevention logic
+                gamma = 0.9
+                lambda_ = 0.001
                 window_size = 6  # Define the window size for deadlock detection
                 d = np.sqrt(u_np[:, 0]**2 + u_np[:, 1]**2)
                 deadlock_mask = d < 0.01
+                
+                # Initialize v_t if not already done
+                if 'v_t' not in locals():
+                    v_t = np.zeros_like(u_np)
+                
+                for i in range(args.num_agents):
+                    if deadlock_mask[i]:
+                        # Calculate the weighted sum of previous 5 time steps
+                        v_t[i] = np.zeros_like(u_np[i])
+                        for j in range(1, 11):
+                            if t - j >= 0:
+                                v_t[i] += (gamma ** j) * u_values[t - j][i]
+                        # Add the gradient term
+                        grad = np.gradient(u_np[i] - u_ref_np[i])**2
+                        v_t[i] += lambda_ * grad
+                        # Update the control for the agent
+                        u_np[i, :] += v_t[i]
+                
                 deadlock_ours.append(deadlock_mask)
                 if len(deadlock_ours) > window_size:
                     # Only keep the recent 'window_size' elements for sliding window
-                    deadlock_ours = deadlock_ours[window_size:]
+                    deadlock_ours = deadlock_ours[-window_size:]
                 # Calculate deadlock detection over the sliding window
                 deadlock_window = np.array(deadlock_ours)
                 deadlock_info_window = np.all(deadlock_window, axis=0).astype(np.float32)
-                deadlock_info += deadlock_info_window
-                deadlock_ratio = np.mean(deadlock_info / min(t+1, window_size))  # Adjust calculation for sliding window
-                deadlock_ratios_epoch.append(min(deadlock_ratio, 1))  # Ensure values are <= 1
+                #print("deadlock_info_window", deadlock_info_window.shape)
+        
+                deadlock_info = np.sum(deadlock_info_window)
+                print("deadlock_info", deadlock_info)
+             
+                deadlock_ratio = deadlock_info / args.num_agents  # Adjust calculation for percentage of deadlock
+                print("deadlock_ratio", deadlock_ratio)
+              
+                deadlock_ratios_epoch.append(deadlock_ratio)  # Ensure values are <= 1
+                deadlock_rate = np.sum(deadlock_ratios_epoch)
+                leng = len(deadlock_ratios_epoch)
+                print("length", leng)
+                print("deadlock_rate", deadlock_rate)
+                #print("deadlock_ratios_epoch", len(deadlock_ratios_epoch))
+               
                 
                 if np.mean(
                     np.linalg.norm(s_np[:, :3] - s_ref_np[:, :3], axis=1)
@@ -661,20 +693,20 @@ def main():
 
                 print(f"Controls updated for agents {i} and {j} using mpc-cbf.")
                 
-            # Predict collision again after updating controls
-            dsdt = core.quadrotor_dynamics_np(s_np, u_np)
-            iscollision = predict_collision(s_np, dsdt)
-            print(iscollision)
-    
-            # Update collision pairs
-            new_collision_pairs = set((i, j) for i in range(iscollision.shape[0]) for j in range(i + 1, iscollision.shape[1]) if iscollision[i, j] == 1)
-            
-            if not np.array_equal(previous_iscollision, iscollision):
-                collision_resolved_count += 1
-                print(f"Collision resolved count: {collision_resolved_count}")
+                # Predict collision again after updating controls
+                dsdt = core.quadrotor_dynamics_np(s_np, u_np)
+                iscollision = predict_collision(s_np, dsdt)
+                print(iscollision)
+        
+                # Update collision pairs
+                new_collision_pairs = set((i, j) for i in range(iscollision.shape[0]) for j in range(i + 1, iscollision.shape[1]) if iscollision[i, j] == 1)
                 
-            previous_iscollision = iscollision.copy()
-            collision_pairs = new_collision_pairs
+                if not np.array_equal(previous_iscollision, iscollision):
+                    collision_resolved_count += 1
+                    print(f"Collision resolved count: {collision_resolved_count}")
+                    
+                previous_iscollision = iscollision.copy()
+                collision_pairs = new_collision_pairs
 
         print("All collisions resolved.")
 
