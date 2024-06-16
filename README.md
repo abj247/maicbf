@@ -42,7 +42,7 @@ For evaluation with more advanced capabilities use this command,
 ```bash
 python eval.py --num_agents 16 --model_path models/agile_u_max_0.2/model_ours_weight_1.0_agents_4_v_max_0.2_u_max_0.2_sigma_0.05_default_iter_69999 --vis 1
 ```
-This will evaluate the pretrained model of 4 agents for 16 agents and will detect deadlock, track collision, save cbf data and time to goal for each agents in a csv file, for all csv data see [csv_data](https://github.com/abj247/MA-ICBF/tree/master/csv_data). The evaluation will give the h(u), velocity and acceleration plots for each agent and all plots will be saved in [plots](https://github.com/abj247/MA-ICBF/tree/master/plots). 
+This will evaluate the pretrained model of 4 agents for 16 agents and will detect deadlock, resolve deadlock track collision, resolve collision for all agents using mpc-cbf controller save cbf data and time to goal for each agents in a csv file, for all csv data see [csv_data](https://github.com/abj247/MA-ICBF/tree/master/csv_data). The evaluation will give the h(u), velocity and acceleration plots for each agent and all plots will be saved in [plots](https://github.com/abj247/MA-ICBF/tree/master/plots). 
 
 To plot the trajectory for each agent for further visualization use this command,
 ```bash
