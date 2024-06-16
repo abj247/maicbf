@@ -239,12 +239,7 @@ def main():
                     u_np = clip_norm(u_np - u_ref_np, 100.0) + u_ref_np
                 dsdt = core.quadrotor_dynamics_np(s_np, u_np)
                 u_ref_np = core.quadrotor_controller_np(s_np, s_ref_np)
-                #print("u_ref_np", u_ref_np)
-                # print("s_ref_np", s_ref_np)
-                # print("u_ref_np", u_ref_np)
-                # print("u_np", u_np)
-                #print("s_np", s_np)
-                
+
 
                 #Printing shapes
 
@@ -261,10 +256,10 @@ def main():
                 
                 # Deadlock prevention logic
                 gamma = 0.9
-                lambda_ = 0.001
+                lambda_ = 0.1
                 window_size = 6  # Define the window size for deadlock detection
                 d = np.sqrt(u_np[:, 0]**2 + u_np[:, 1]**2)
-                deadlock_mask = d < 0.01
+                deadlock_mask = d < 0.001
                 
                 # Initialize v_t if not already done
                 if 'v_t' not in locals():
@@ -274,14 +269,14 @@ def main():
                     if deadlock_mask[i]:
                         # Calculate the weighted sum of previous 5 time steps
                         v_t[i] = np.zeros_like(u_np[i])
-                        for j in range(1, 11):
+                        for j in range(1, 19):
                             if t - j >= 0:
                                 v_t[i] += (gamma ** j) * u_values[t - j][i]
                         # Add the gradient term
                         grad = np.gradient(u_np[i] - u_ref_np[i])**2
                         v_t[i] += lambda_ * grad
                         # Update the control for the agent
-                        u_np[i, :] += v_t[i]
+                        u_np[i, :] -= v_t[i]
                 
                 deadlock_ours.append(deadlock_mask)
                 if len(deadlock_ours) > window_size:
@@ -293,17 +288,15 @@ def main():
                 #print("deadlock_info_window", deadlock_info_window.shape)
         
                 deadlock_info = np.sum(deadlock_info_window)
-                print("deadlock_info", deadlock_info)
+                #print("deadlock_info", deadlock_info)
              
                 deadlock_ratio = deadlock_info / args.num_agents  # Adjust calculation for percentage of deadlock
-                print("deadlock_ratio", deadlock_ratio)
+                #print("deadlock_ratio", deadlock_ratio)
               
                 deadlock_ratios_epoch.append(deadlock_ratio)  # Ensure values are <= 1
                 deadlock_rate = np.sum(deadlock_ratios_epoch)
                 leng = len(deadlock_ratios_epoch)
-                print("length", leng)
-                print("deadlock_rate", deadlock_rate)
-                #print("deadlock_ratios_epoch", len(deadlock_ratios_epoch))
+
                
                 
                 if np.mean(
@@ -332,17 +325,16 @@ def main():
                 #print("s_np_next", s_np_next)
                 # Compute the pairwise differences between agents' positions
                 pairwise_diff = s_np_next[:, :3].reshape(-1, 1, 3) - s_np_next[:, :3].reshape(1, -1, 3)
-                #print("pairwise_diff", pairwise_diff)
                 # Calculate the norm distances between agents, resulting in a 3D tensor (i, j, norm_distances_two_agents)
                 safety_distances = np.linalg.norm(pairwise_diff, axis=2)
-                #print("safety_distances", safety_distances)
+                
                 # Generate a collision mask where distances are less than the minimum check distance
                 collision_mask = safety_distances < config.DIST_MIN_CHECK
-                #print("collision_mask", collision_mask.shape)
+               
                 # Collision prediction tensor of size (bool_value, i, j)
                 collision_prediction = collision_mask.astype(int)
                 np.fill_diagonal(collision_prediction, 0)
-                #print("collision_prediction", collision_prediction)
+                
                 return collision_prediction
             
         def model_setup(s_np,s_ref, u_ref):
@@ -354,7 +346,6 @@ def main():
             # Define states and control inputs
             _x = model.set_variable(var_type='_x', var_name='x', shape=(8, 1))
             _u = model.set_variable(var_type='_u', var_name='u', shape=(3, 1))
-            #x_next = model.set_variable(var_type='_x', var_name='x_next', shape=(8, 1))
 
             # Dynamics function as described
             A = config.A_MAT
@@ -370,23 +361,9 @@ def main():
             P = np.diag([100] * 8)
             Q = np.diag([1] * 3)
 
-            # Reference state and control input (need to be updated per timestep if variable)
-            # s_ref = model.set_variable(var_type='_tvp', var_name='s_ref', shape=(1, 8))
-            # u_ref = model.set_variable(var_type='_tvp', var_name='u_ref', shape=(1, 3))
-            #s_np_i = model.set_variable(var_type='_tvp', var_name='s_np_i', shape=(3, 8))
-
-            # Define stage cost (lterm)
-            # print("s_ref_shpae", s_ref.shape)
-            # print("u_ref_shpae", u_ref.shape)
-            #print("s_np", s_np)
             s_ref_T = s_ref.reshape(8,1)
             u_ref_T = u_ref.reshape(3,1)
-            # print("s_ref_T", s_ref_T.shape)
-            # print("u_ref_T", u_ref_T.shape)
-            # s_ref_T = s_ref_T.T
-            # u_ref_T = u_ref_T.T
-            # print("s_ref_T", s_ref_T.shape)
-            # print("u_ref_T", u_ref_T.shape)
+
             cost_state = (_x - s_ref_T).T @ P @ (_x - s_ref_T)
             cost_control = (_u - u_ref_T).T @ Q @ (_u - u_ref_T)
             #cost_control = (_u).T @ Q @ (_u)
@@ -406,9 +383,6 @@ def main():
 
             """
             s_np_i = s_np_i.T
-            #print("Debugging shapes:")
-            #print("Shape of s_np_i:", s_np_i.shape)
-            #print("Shape of s_np:", s_np.shape)  
             mpc = do_mpc.controller.MPC(model)
             setup_mpc = {
                 'n_horizon': 1,
@@ -433,13 +407,6 @@ def main():
             mpc.bounds['lower','_u', 'u'] = 0.1*max_u
             mpc.bounds['upper','_u', 'u'] = max_u
 
-            s_np_new = s_np.reshape(8,1)[:3]
-            # s_np_new = s_np.reshape((1, 8))[:3]  
-            #print("Shape of s_np_new:", s_np_new.shape)
-
-            # # Add barrier constraints to the MPC
-            # for i in range(3):  # Assuming there are 3 other agents
-            #     mpc.set_nl_cons(f'h_{i}', model.alg[f'h_{i}'], ub=0)
 
             # Safety barrier function
             def barrier_function(x, s_np_i, r=config.DIST_MIN_THRES):
@@ -516,78 +483,11 @@ def main():
             # Compute the combined CBF constraint
             kappa = 10
             h_combined = combined_cbf_constraint(constraints, kappa)
-            #print("constraints", constraints)
-            # print("Number of constraints:", len(constraints))
-            # Iterate over each constraint and add it to the MPC setup
-            # Add the combined CBF constraint to the MPC setup
             mpc.set_nl_cons('cbf_constraint_combined', h_combined, ub=0)
-            # for idx, cons in enumerate(constraints):
-            #     mpc.set_nl_cons(f'cbf_constraint_{idx}', cons, ub=0)
-
-            # A = config.A_MAT
-            # B = config.B_MAT
-            # dxdt = cs.mtimes(cs.DM(A), model.x['x']) + cs.mtimes(cs.DM(B), model.u['u'])
-            # s_np_dxdt = s_np.reshape(8, 1)
-            # x_next = s_np_dxdt + dxdt * config.TIME_STEP
-
-            # # Compute individual h_i(x) for all agents
-            # h_values = []
-            # for i in range(args.num_agents-1):  
-            #     h_s_np_i = barrier_function(x_next, s_np_i[i], config.DIST_MIN_THRES)
-            #     h_values.append(h_s_np_i)
-
-            # # Compute the combined CBF constraint
-            # kappa = 10
-            # h_combined = combined_cbf_constraint(h_values, kappa)
-
-            # gamma = 0.8
-            # h_dot = (h_combined - h_x) / config.TIME_STEP
-            # h_cons = -h_dot - gamma * h_x
-            # constraints = cs.horzsplit(h_cons)
-
-            # # Add the combined CBF constraint to the MPC setup
-            # mpc.set_nl_cons('cbf_constraint_combined', constraints, ub=0)
-
-
             mpc.setup()
             return mpc
-        
-        # def setup_tvp_function(model, current_agent_index, s_ref_np, u_ref_np):
-        #     """
-        #     Returns a function that do_mpc can use to update TVPs for the current agent at each timestep.
-        #     """
-        #     def tvp_function(t_now):
-        #         tvp = model.get_tvp_template()  # Obtain the correct structure for the TVP
-
-        #         # Fill the template with current data:
-        #         tvp['s_ref'] = s_ref_np[current_agent_index, :]
-        #         tvp['u_ref'] = u_ref_np[current_agent_index, :]
-
-        #         return tvp
-
-        #     return tvp_function
-
-
-        # def update_tvp(mpc, current_agent_index, s_np):
-        #         """
-        #         Update the time-varying parameters (positions of other agents) and references for the MPC of a specific agent.
+    
                 
-        #         :param mpc: The MPC controller object.
-        #         :param current_agent_index: The index of the current agent.
-        #         :param s_np: Array of all agents' states.
-        #         :param s_ref_np: Array of all agents' reference states.
-        #         :param u_ref_np: Array of all agents' reference control inputs.
-        #         """
-        #         # Update positions of other agents
-        #         for j in range(s_np.shape[0]):
-        #             if current_agent_index != j:
-        #                 mpc.set_tvp(f's_np_i_{j}', s_np[j, :3])
-
-                # Update reference state and control for the current agent
-                # mpc.set_tvp('s_ref', s_ref_np[current_agent_index, :])
-                # mpc.set_tvp('u_ref', u_ref_np[current_agent_index, :])
-                
-
         def run_mpc_control(mpc, model, initial_state, s_np_i):
             """
             Run MPC control step and retrieve optimized control actions.
@@ -612,52 +512,7 @@ def main():
 
 
         
-
-    
-        
-        
-        # Setup the model and MPC controller
-        
-        #model.setup()  # Ensure the model is properly set up before initializing the MPC controller
-        
-
-        # Main loop to handle collisions and control updates
-        # print("predicting collision")
-        # dsdt = core.quadrotor_dynamics_np(s_np, u_np)  # Initial dynamics calculation
-        # iscollision = predict_collision(s_np, dsdt)
-        # print(iscollision)
-
-        # collision_resolved_count = 0
-        # previous_iscollision = iscollision.copy()
-        # while np.any(iscollision):
-        #     for i in range(iscollision.shape[0]):
-        #         for j in range(i + 1, iscollision.shape[1]):  # Only check upper triangle to avoid redundancy
-        #             if iscollision[i, j] == 1:
-        #                 print(f"Collision detected between agent {i} and agent {j}, updating controls.")
-                        
-        #                 # Prepare TVP for agent i by excluding agent i's state and control
-        #                 s_np_i = np.vstack([s_np[:i], s_np[i+1:]])  # Stack all other agents' states
-        #                 model = model_setup(s_np[i,:], s_ref_np[i,:], u_ref_np[i,:])
-        #                 mpc_controller = setup_mpc(model, s_np_i,  s_np[i, :])
-        #                 u_np[i, :] = run_mpc_control(mpc_controller, model, s_np[i, :], s_np_i).flatten()
-        #                 dsdt = core.quadrotor_dynamics_np(s_np[i,:], u_np[i,:])
-        #                 s_np[i,:] = s_np[i,:] + dsdt * config.TIME_STEP
-        #                 # iscollision = predict_collision(s_np, dsdt)
-
-        #                 # Prepare TVP for agent j in a similar fashion
-        #                 s_np_j = np.vstack([s_np[:j], s_np[j+1:]])  # Stack all other agents' states
-        #                 model = model_setup(s_np[j,:], s_ref_np[j,:], u_ref_np[j,:])
-        #                 mpc_controller = setup_mpc(model, s_np_j, s_np[j, :])
-        #                 u_np[j, :] = run_mpc_control(mpc_controller, model, s_np[j, :], s_np_j).flatten()
-        #                 #dsdt = core.quadrotor_dynamics_np(s_np, u_np)
-
-        #                 print(f"Controls updated for agents {i} and {j} using mpc-cbf.")
-        #                 iscollision = predict_collision(s_np, dsdt)
-        #                 if not np.array_equal(previous_iscollision, iscollision):
-        #                     collision_resolved_count += 1
-        #                 print(f"Collision resolved count: {collision_resolved_count}")
-        #                 previous_iscollision = iscollision.copy()
-        #                 print(iscollision)
+        print(iscollision)
 
 
         print("Predicting collision")
@@ -727,7 +582,7 @@ def main():
         time_taken_df.to_csv('csv_data/ttg/time_taken_by_agents.csv', index_label="Evaluation Step")
         print("Time taken by agents saved to 'time_taken_by_agents.csv'")
 
-       # LQR 
+       # LQR Controller
 
         s_np = np.concatenate(
             [scene.start_points, np.zeros((args.num_agents, 5))], axis=1)
@@ -748,23 +603,26 @@ def main():
                 safety_ratios_epoch_baseline.append(safety_ratio)
                 s_traj.append(np.expand_dims(s_np[:, [0, 1, 2, 6, 7]], axis=0))
 
-                
-
-                
                 # Deadlock detection logic for baseline
                 window_size = 6  # Define the window size for deadlock detection
                 d = np.sqrt(u_np[:, 0]**2 + u_np[:, 1]**2)
-                deadlock_mask = d < 0.01
+                deadlock_mask = d < 0.001
                 deadlock_baseline.append(deadlock_mask)
                 if len(deadlock_baseline) > window_size:
                     # Only keep the recent 'window_size' elements for sliding window
                     deadlock_baseline = deadlock_baseline[-window_size:]
                 # Calculate deadlock detection over the sliding window
                 deadlock_window = np.array(deadlock_baseline)
-                deadlock_info_window = np.all(deadlock_window, axis=0).astype(np.float32)
-                deadlock_info_baseline += deadlock_info_window
-                deadlock_ratio_baseline = np.mean(deadlock_info_baseline / min(t+1, window_size))  # Adjust calculation for sliding window
-                deadlock_ratios_epoch_baseline.append(min(deadlock_ratio_baseline, 1))  # Ensure values are <= 1
+                deadlock_info_window_baseline = np.all(deadlock_window, axis=0).astype(np.float32)
+                deadlock_info_baseline = np.sum(deadlock_info_window_baseline)
+                deadlock_ratio_baseline = deadlock_info_baseline / args.num_agents
+                deadlock_ratios_epoch_baseline.append(deadlock_ratio_baseline)  # Ensure values are <= 1
+                if np.mean(
+                    np.linalg.norm(s_np[:, :3] - s_ref_np[:, :3], axis=1)
+                    ) < config.DIST_TOLERATE:
+                    break
+
+
         dist_errors_baseline.append(np.mean(np.linalg.norm(s_np[:, :3] - s_ref_np[:, :3], axis=1)))
         traj_dict['baseline'].append(np.concatenate(s_traj, axis=0))
         
@@ -793,8 +651,8 @@ def main():
                              color='red', label='Collision')
                 ax_1.scatter(s_np[deadlock, 0], s_np[deadlock, 1], s_np[deadlock, 2], 
                              color='green', label='Deadlock')  # Visualize deadlocks
-                ax_1.set_title('Ours: Safety Rate = {:.4f}, Deadlock Rate = {:.4f}'.format(
-                    np.mean(safety_ratios_epoch), np.mean(deadlock_ratios_epoch)), fontsize=10)
+                ax_1.set_title('Ours: Safety Rate = {:.4f}, Deadlocked Agents = {:.4f}'.format(
+                    np.mean(safety_ratios_epoch), np.mean(deadlock_info)), fontsize=10)
                 #plt.legend(loc='lower right')
 
                 ax_2.clear()
@@ -816,8 +674,8 @@ def main():
                              color='red', label='Collision')
                 ax_2.scatter(s_np[deadlock, 0], s_np[deadlock, 1], s_np[deadlock, 2], 
                              color='green', label='Deadlock')  # Visualize deadlocks for baseline
-                ax_2.set_title('LQR: Safety Rate = {:.4f}, Deadlock Rate = {:.4f}'.format(
-                    np.mean(safety_ratios_epoch_baseline), np.mean(deadlock_ratios_epoch_baseline)), fontsize=10)
+                ax_2.set_title('LQR: Safety Rate = {:.4f}, Deadlocked Agents = {:.4f}'.format(
+                    np.mean(safety_ratios_epoch_baseline), np.mean(deadlock_info_baseline)), fontsize=10)
                 plt.legend(loc='lower right')
 
                 fig.canvas.draw()
@@ -825,8 +683,8 @@ def main():
                 
        
         
-        print('Evaluation Step: {} | {}, Time: {:.4f}, Deadlock Rate: {:.4f}'.format(
-            istep + 1, config.EVALUATE_STEPS, end_time - start_time, np.mean(deadlock_ratios_epoch)))
+        print('Evaluation Step: {} | {}, Time: {:.4f}, Deadlocked Agents: {:.4f}'.format(
+            istep + 1, config.EVALUATE_STEPS, end_time - start_time, np.mean(deadlock_info)))
     
 
     collision_tracking = np.clip(collision_tracking, 0, 1)
@@ -854,7 +712,8 @@ def main():
           np.mean(dist_errors), np.mean(dist_errors_baseline)))
     print('Mean Safety Ratio (Learning | Baseline): {:.4f} | {:.4f}'.format(
           np.mean(safety_ratios_epoch), np.mean(safety_ratios_epoch_baseline)))
-    print('Mean Deadlock Ratio (Learning): {:.4f}'.format(np.mean(deadlock_ratios_epoch)))  # Print deadlock ratio
+    print('Deadlocked agents (Learning | Baseline): {:.4f} | {:.4f}'.format(
+          np.mean(deadlock_info), np.mean(deadlock_info_baseline)))  # Print deadlock ratio
 
     safety_reward = np.mean(safety_reward)
     dist_reward = np.mean(dist_reward)
@@ -875,8 +734,6 @@ def main():
     u_max = 0.6
     u_max_squared = u_max**2
 
-    # Assuming u_values is structured with each element as [angular_velocity_x, angular_velocity_y, linear_acceleration]
-    # Calculate squared values for each control input
     control_input_1_squared = [u_max_squared- (u_step[0, 0]**2) for u_step in u_values]  
     control_input_2_squared = [u_max_squared-(u_step[0, 1]**2) for u_step in u_values]  
     control_input_3_squared = [u_max_squared-(u_step[0, 2]**2) for u_step in u_values] 
@@ -909,11 +766,6 @@ def main():
     modified_control_inputs_array = np.array(modified_control_inputs)
     log_modified_control_inputs = np.log(1 + modified_control_inputs_array )
 
-    # To avoid invalid values for log, ensure all values are positive
-    #safe_modified_control_inputs_array = np.maximum(0, modified_control_inputs_array) + 1e-6
-    #log_modified_control_inputs = np.log(1 + safe_modified_control_inputs_array)
-
-
     time_steps = list(range(len(u_values)))
     u_values_array = np.array(u_values)
     #print(u_values.shape)
@@ -926,7 +778,6 @@ def main():
 
     #csv logging
 
-    
 
     # Specify your desired path to save the CSV file
     #csv_file_path = 'csv_data/hu_data/hu_time_umax_0.2_agile_weight_0.5_64_agents.csv'
@@ -983,114 +834,6 @@ def main():
     print(max_v_values_all_agents)
     print(exceed_threshold_count_a)
     print( exceed_threshold_count_v)
-
-    # using plot.py
-
-    #time_steps = list(range(len(u_values)))
-
-    # # Plot for Squared Control Input 1
-    # plt.figure(figsize=(10, 6))
-    # plt.plot(time_steps, control_input_1_squared, label='h_u (w_x) for agent 0')
-    # plt.axhline(y=u_max_squared, color='r', linestyle='-', label='$u_{max}^2$')
-    # plt.xlabel('Time Steps')
-    # plt.ylabel('Squared Control Input Value')
-    # plt.title('Squared Control Input 1 Over Time for Agent 0')
-    # plt.legend()
-    # plt.savefig('squared_control_input_1_agent_0_old.png', dpi=300)
-    # plt.show()
-
-    # # Plot for Squared Control Input 2
-    # plt.figure(figsize=(10, 6))
-    # plt.plot(time_steps, control_input_2_squared, label='h_u (w_y) for agent 0')
-    # plt.axhline(y=u_max_squared, color='r', linestyle='-', label='$u_{max}^2$')
-    # plt.xlabel('Time Steps')
-    # plt.ylabel('Squared Control Input Value')
-    # plt.title('Squared Control Input 2 Over Time for Agent 0 ')
-    # plt.legend()
-    # plt.savefig('squared_control_input_2_agent_0_old.png', dpi=300)
-    # plt.show()
-
-    # # Plot for Squared Control Input 3
-    # plt.figure(figsize=(10, 6))
-    # plt.plot(time_steps, control_input_3_squared, label='h_u (a) for Agent 0')
-    # plt.axhline(y=u_max_squared, color='r', linestyle='-', label='$u_{max}^2$')
-    # plt.xlabel('Time Steps')
-    # plt.ylabel('Squared Control Input Value')
-    # plt.title('Squared Control Input 3 Over Time for Agent 0')
-    # plt.legend()
-    # plt.savefig('squared_control_input_3_agent_0_old.png', dpi=300)
-    # plt.show()
-
-    # # Plotting
-    # plt.figure(figsize=(10, 6))
-    # plt.plot(time_steps, control_input_1, label='Control Input 1 for Agent 0')
-    # plt.xlabel('Time Steps')
-    # plt.ylabel('Control Input Value')
-    # plt.title('Control Input 1 Over Time for Agent 0')
-    # plt.legend()
-    # plt.savefig('control_input_1_agent_0.png', dpi=300)
-    # plt.show()
-
-    # # Plot for Control Input 2
-    # plt.figure(figsize=(10, 6))
-    # plt.plot(time_steps, control_input_2, label='Control Input 2 for Agent 0')
-    # plt.xlabel('Time Steps')
-    # plt.ylabel('Control Input Value')
-    # plt.title('Control Input 2 Over Time for Agent 0')
-    # plt.legend()
-    # plt.savefig('control_input_2_agent_0.png', dpi=300)
-    # plt.show()
-
-    # # Plot for Control Input 3
-    # plt.figure(figsize=(10, 6))
-    # plt.plot(time_steps, control_input_3, label='Control Input 3 for Agent 0')
-    # plt.xlabel('Time Steps')
-    # plt.ylabel('Control Input Value')
-    # plt.title('Control Input 3 Over Time for Agent 0')
-    # plt.legend()
-    # plt.savefig('control_input_3_agent_0.png', dpi=300)
-    # plt.show()
-
-
-# u_opt_history=[]
-# u_opt_history = np.array(u_opt_history)
-# print(u_opt_history.shape)
-# # Plot each component of u_opt
-# plt.figure(figsize=(12, 4))
-# plt.subplot(1, 3, 1)
-# plt.plot(u_opt_history[:, 0])
-# plt.title('Control Action 1')
-# plt.xlabel('Time Step')
-# plt.ylabel('Value')
-
-# plt.subplot(1, 3, 2)
-# plt.plot(u_opt_history[:, 1])
-# plt.title('Control Action 2')
-# plt.xlabel('Time Step')
-# plt.ylabel('Value')
-
-# plt.subplot(1, 3, 3)
-# plt.plot(u_opt_history[:, 2])
-# plt.title('Control Action 3')
-# plt.xlabel('Time Step')
-# plt.ylabel('Value')
-
-# plt.tight_layout()
-# plt.show()
-
-# plt.figure(figsize=(12, 8))
-
-# for i in range(4):
-#     plt.subplot(2, 2, i + 1)
-#     plt.plot(u_opt_history[:, i])
-#     plt.title(f'Control Action {i+1}')
-#     plt.xlabel('Time Step')
-#     plt.ylabel('Value')
-
-# plt.tight_layout()
-# plt.show()
-
-
 
 
 if __name__ == '__main__':
