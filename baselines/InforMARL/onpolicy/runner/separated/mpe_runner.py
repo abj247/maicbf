@@ -33,6 +33,9 @@ class MPERunner(Runner):
                 for agent_id in range(self.num_agents):
                     self.trainer[agent_id].policy.lr_decay(episode, episodes)
 
+            action_norms = []
+            deadlock_counts = []
+
             for step in range(self.episode_length):
                 # Sample actions
                 (
@@ -43,6 +46,10 @@ class MPERunner(Runner):
                     rnn_states_critic,
                     actions_env,
                 ) = self.collect(step)
+
+                # Calculate the norm of actions
+                action_norm = np.linalg.norm(actions, axis=-1)
+                action_norms.append(action_norm)
 
                 # Obser reward and next obs
                 obs, rewards, dones, infos = self.envs.step(actions_env)
@@ -61,6 +68,20 @@ class MPERunner(Runner):
 
                 # insert data into buffer
                 self.insert(data)
+
+            # Check for deadlock in sliding window of size 6
+            if episode >= 5:
+                deadlock_count = 0
+                for agent_id in range(self.num_agents):
+                    deadlock = True
+                    for ep in range(episode - 5, episode + 1):
+                        if np.any(action_norms[ep][:, agent_id] >= 0.01):
+                            deadlock = False
+                            break
+                    if deadlock:
+                        deadlock_count += 1
+                        print(f"Deadlock detected for agent {agent_id} at episode {episode}")
+                deadlock_counts.append(deadlock_count)
 
             # compute return and update network
             self.compute()
@@ -141,10 +162,15 @@ class MPERunner(Runner):
                             {"average_episode_rewards": avg_agent_ep_rew}
                         )
                         avg_ep_rews.append(avg_agent_ep_rew)
+                avg_deadlocks = np.mean(deadlock_counts) if deadlock_counts else 0
                 print(
                     f"Average episode rewards is {np.sum(avg_ep_rews):.3f} \t"
                     f"Total timesteps: {total_num_steps} \t "
-                    f"Percentage complete {total_num_steps / self.num_env_steps * 100:.3f}"
+                    f"Percentage complete {total_num_steps / self.num_env_steps * 100:.3f} \t"
+                    f"Average time to goal: {np.mean(time_to_goals):.3f} \t"
+                    f"Average agent collisions: {np.mean(idv_collisions):.3f} \t"
+                    f"Average obstacle collisions: {np.mean(obst_collisions):.3f} \t"
+                    f"Average deadlocks: {avg_deadlocks:.3f}"
                 )
                 # env_infos.update({'average_episode_rewards': np.sum(avg_ep_rews)})
                 self.log_train(train_infos, total_num_steps)
