@@ -244,7 +244,7 @@ def get_config():
     parser.add_argument(
         "--use_wandb",
         action="store_false",
-        default=True,
+        default=False,
         help="[for wandb usage], by default True, will log date "
         "to wandb server. or else will use tensorboard to log data.",
     )
@@ -314,7 +314,7 @@ def get_config():
     parser.add_argument(
         "--share_policy",
         action="store_false",
-        default=True,
+        default=False,
         help="Whether agent share the same policy",
     )
     parser.add_argument(
@@ -395,7 +395,7 @@ def get_config():
     parser.add_argument(
         "--use_naive_recurrent_policy",
         action="store_true",
-        default=False,
+        default=True,
         help="Whether to use a naive recurrent policy",
     )
     parser.add_argument(
@@ -572,7 +572,7 @@ def get_config():
     parser.add_argument(
         "--save_gifs",
         action="store_true",
-        default=False,
+        default=True,
         help="by default, do not save render video. If set, save video.",
     )
     parser.add_argument(
