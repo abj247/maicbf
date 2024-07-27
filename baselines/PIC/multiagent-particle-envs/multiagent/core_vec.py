@@ -77,6 +77,12 @@ class EntityState(object):
         # physical velocity
         self.p_vel = None
 
+class WallState(object):
+    def __init__(self):
+        # physical position
+        self.p_pos = 0.0
+        # physical velocity
+        self.p_vel = 0.0
 
 # state of agents (including communication and internal/mental state)
 class AgentState(EntityState):
@@ -94,6 +100,28 @@ class Action(object):
         # communication action
         self.c = None
 
+
+# properties of wall entities
+class Wall(object):
+    def __init__(
+        self, orient="H", axis_pos=0.0, endpoints=(-1, 1), width=0.1, hard=True
+    ):
+        # orientation: 'H'orizontal or 'V'ertical
+        self.orient = orient
+        # position along axis which wall lays on (y-axis for H, x-axis for V)
+        self.axis_pos = axis_pos
+        # endpoints of wall (x-coords for H, y-coords for V)
+        self.endpoints = np.array(endpoints)
+        # width of wall
+        self.width = width
+        # whether wall is impassable to all agents
+        self.hard = hard
+        # color of wall
+        self.color = np.array([0.0, 0.0, 0.0])
+        # state
+        self.state = WallState()
+        #size
+        self.size = 0.050
 
 # properties and state of physical world entity
 class Entity(object):
@@ -128,7 +156,14 @@ class Landmark(Entity):
     def __init__(self):
         super(Landmark, self).__init__()
 
-
+# properties of obstacle entities
+class Obstacle(Entity):
+    def __init__(self):
+        super(Obstacle, self).__init__()
+        self.collide = True
+        self.movable = False
+        self.color = np.array([0.85, 0.15, 0.15])
+        
 # properties of agent entities
 class Agent(Entity):
     def __init__(self, action_callback=None):
@@ -205,6 +240,25 @@ class World(object):
     @property
     def scripted_agents(self):
         return [agent for agent in self.agents if agent.action_callback is not None]
+
+    #get the entity given the id and type
+    def get_entity(self, entity_type: str, id: int) -> Entity:
+        # TODO make this more elegant instead of iterating through everything
+        if entity_type == "agent":
+            for agent in self.agents:
+                if agent.name == f"agent {id}":
+                    return agent
+            raise ValueError(f"Agent with id: {id} doesn't exist in the world")
+        if entity_type == "landmark":
+            for landmark in self.landmarks:
+                if landmark.name == f"landmark {id}":
+                    return landmark
+            raise ValueError(f"Landmark with id: {id} doesn't exist in the world")
+        if entity_type == "obstacle":
+            for obstacle in self.obstacles:
+                if obstacle.name == f"obstacle {id}":
+                    return obstacle
+            raise ValueError(f"Obstacle with id: {id} doesn't exist in the world")
 
     # update state of the world
     def step(self):
