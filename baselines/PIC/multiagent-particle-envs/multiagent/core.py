@@ -29,6 +29,7 @@ class Entity_nb(object):
 
 
 
+
 @jit(nopython=True)
 def get_collision_force_nb(entity_a, entity_b, contact_margin, contact_force):
     #if (not entity_a.collide) or (not entity_b.collide):
@@ -178,6 +179,9 @@ class World(object):
         self.s_agents = scripted_agents
         self.obs_callback = obs_callback
     # return all entities in the world
+
+
+
     @property
     def entities(self):
         return self.agents + self.landmarks
@@ -191,6 +195,25 @@ class World(object):
     @property
     def scripted_agents(self):
         return [agent for agent in self.agents if agent.action_callback is not None]
+
+    # get the entity given the id and type
+    def get_entity(self, entity_type: str, id: int) -> Entity:
+        # TODO make this more elegant instead of iterating through everything
+        if entity_type == "agent":
+            for agent in self.agents:
+                if agent.name == f"agent {id}":
+                    return agent
+            raise ValueError(f"Agent with id: {id} doesn't exist in the world")
+        if entity_type == "landmark":
+            for landmark in self.landmarks:
+                if landmark.name == f"landmark {id}":
+                    return landmark
+            raise ValueError(f"Landmark with id: {id} doesn't exist in the world")
+        if entity_type == "obstacle":
+            for obstacle in self.obstacles:
+                if obstacle.name == f"obstacle {id}":
+                    return obstacle
+            raise ValueError(f"Obstacle with id: {id} doesn't exist in the world")
 
     # update state of the world
     def step(self):
