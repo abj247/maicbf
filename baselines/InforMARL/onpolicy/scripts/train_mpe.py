@@ -85,13 +85,13 @@ def parse_args(args, parser):
     parser.add_argument(
         "--scenario_name",
         type=str,
-        default="simple_spread",
+        default="navigation",
         help="Which scenario to run on",
     )
-    parser.add_argument("--num_landmarks", type=int, default=3)
-    parser.add_argument("--num_agents", type=int, default=2, help="number of players")
+    parser.add_argument("--num_landmarks", type=int, default=32)
+    parser.add_argument("--num_agents", type=int, default=32, help="number of players")
     parser.add_argument(
-        "--num_obstacles", type=int, default=3, help="Number of obstacles"
+        "--num_obstacles", type=int, default=32, help="Number of obstacles"
     )
     parser.add_argument(
         "--collaborative",
@@ -269,7 +269,7 @@ def main(args):
     config = {
         "all_args": all_args,
         "envs": envs,
-        "eval_envs": eval_envs,
+        "eval_envs": envs,
         "num_agents": num_agents,
         "device": device,
         "run_dir": run_dir,
