@@ -395,13 +395,13 @@ def get_config():
     parser.add_argument(
         "--use_naive_recurrent_policy",
         action="store_true",
-        default=True,
+        default=False,
         help="Whether to use a naive recurrent policy",
     )
     parser.add_argument(
         "--use_recurrent_policy",
         action="store_false",
-        default=True,
+        default=False,
         help="use a recurrent policy",
     )
     parser.add_argument(
@@ -551,7 +551,7 @@ def get_config():
     parser.add_argument(
         "--use_eval",
         action="store_true",
-        default=False,
+        default=True,
         help="by default, do not start evaluation. If set`, "
         "start evaluation alongside with training.",
     )
@@ -572,7 +572,7 @@ def get_config():
     parser.add_argument(
         "--save_gifs",
         action="store_true",
-        default=True,
+        default=False,
         help="by default, do not save render video. If set, save video.",
     )
     parser.add_argument(
@@ -627,7 +627,7 @@ def graph_config(args, parser):
     # num_agents = tmp_args.num_agents
     # https://mmuratarat.github.io/2019-06-12/embeddings-with-numeric-variables-Keras#:~:text=Jeremy%20Howard%20provides%20a%20general,number%20of%20categories%2F2).&text=However%2C%20literature%20shows%20that%20embedding,produces%20the%20most%20accurate%20results.
     # https://datascience.stackexchange.com/questions/31109/ratio-between-embedded-vector-dimensions-and-vocabulary-size
-    entity_mapping = {"agent": 0, "landmark": 1, "obstacle": 2}
+    entity_mapping = {"agent": 0, "landmark": 16, "obstacle": 2}
     num_entities = len(entity_mapping.keys())
     embedding_size = (num_entities) // 2 + 1
     parser.add_argument(
