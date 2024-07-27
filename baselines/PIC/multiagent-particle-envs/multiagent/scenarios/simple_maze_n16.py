@@ -1,6 +1,6 @@
 import numpy as np
 import random
-from multiagent.core_vec import World, Agent, Landmark
+from multiagent.core_vec import World, Agent, Landmark, Wall
 from multiagent.scenario import BaseScenario
 from bridson import poisson_disc_samples
 
@@ -12,10 +12,10 @@ class Scenario(BaseScenario):
         self.sort_obs = sort_obs
         # set any world properties first
         world.dim_c = 2
-        num_agents = 128
-        self.num_agents = 128
-        self.num_landmarks = 128
-        num_landmarks = 128
+        num_agents = 16 
+        self.num_agents = 16
+        self.num_landmarks = 16
+        num_landmarks = 16
         world.collaborative = True
         self.agent_size = 0.15
         self.world_radius = 2.2
@@ -35,32 +35,49 @@ class Scenario(BaseScenario):
             landmark.name = 'landmark %d' % i
             landmark.collide = False
             landmark.movable = False
-            
+
+        # add walls to create a maze
+        world.walls = self.create_maze_walls()
 
         # make initial conditions
         self.reset_world(world)
 
         return world
 
+    def create_maze_walls(self):
+        walls = []
+        # Example maze layout (1 represents a wall, 0 represents a free space)
+        maze_layout = [
+            [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+            [1, 0, 0, 0, 1, 0, 0, 0, 0, 1],
+            [1, 0, 1, 0, 1, 0, 1, 1, 0, 1],
+            [1, 0, 1, 0, 0, 0, 0, 1, 0, 1],
+            [1, 0, 1, 1, 1, 1, 0, 1, 0, 1],
+            [1, 0, 0, 0, 0, 1, 0, 0, 0, 1],
+            [1, 1, 1, 1, 0, 1, 1, 1, 0, 1],
+            [1, 0, 0, 1, 0, 0, 0, 1, 0, 1],
+            [1, 0, 1, 1, 1, 1, 0, 1, 0, 1],
+            [1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+        ]
+        wall_width = 0.1
+        for i, row in enumerate(maze_layout):
+            for j, cell in enumerate(row):
+                if cell == 1:
+                    if i == 0 or maze_layout[i-1][j] == 0:
+                        walls.append(Wall(orient="H", axis_pos=i, endpoints=(j, j+1), width=wall_width))
+                    if j == 0 or maze_layout[i][j-1] == 0:
+                        walls.append(Wall(orient="V", axis_pos=j, endpoints=(i, i+1), width=wall_width))
+        return walls
+
     def reset_world(self, world):
-
-         # metrics to keep track of
-        #world.current_time_step = 0
-        # to track time required to reach goal
-        #world.times_required = -1 * np.ones(self.num_agents)
-        # track distance left to the goal
-        #world.dist_left_to_goal = -1 * np.ones(self.num_agents)
-        # number of times agents collide with stuff
-        #world.num_obstacle_collisions = np.zeros(self.num_agents)
         world.num_agent_collisions = np.zeros(self.num_agents)
-
+        world.num_wall_collisions = np.zeros(self.num_agents)
 
         self.l_locations = poisson_disc_samples(width=self.world_radius * 2, height=self.world_radius * 2,
                                                 r=self.agent_size * 4.5)
         while len(self.l_locations) < len(world.landmarks):
             self.l_locations = poisson_disc_samples(width=self.world_radius * 2, height=self.world_radius * 2,
                                                     r=self.agent_size * 4.5)
-            # print('regenerate l location')
 
         # random properties for agents
         for i, agent in enumerate(world.agents):
@@ -80,36 +97,27 @@ class Scenario(BaseScenario):
         self.collide_th = 2 * world.agents[0].size
 
     def info_callback(self, agent: Agent, world: World):
-        # TODO modify this
         rew = 0
         collisions = 0
         occupied_landmarks = 0
         goal = world.get_entity("landmark", agent.id)
-        #dist = np.sqrt(np.sum(np.square(agent.state.p_pos - goal.state.p_pos)))
-        #world.dist_left_to_goal[agent.id] = dist
-        # only update times_required for the first time it reaches the goal
-        #if dist < self.min_dist_thresh and (world.times_required[agent.id] == -1):
-        #    world.times_required[agent.id] = world.current_time_step * world.dt
 
         if agent.collide:
-            #if self.is_obstacle_collision(agent.state.p_pos, agent.size, world):
-            #    world.num_obstacle_collisions[agent.id] += 1
             for a in world.agents:
                 if a is agent:
                     continue
                 if self.is_collision(agent, a):
                     world.num_agent_collisions[agent.id] += 1
+            for wall in world.walls:
+                if self.is_collision_with_wall(agent, wall):
+                    world.num_wall_collisions[agent.id] += 1
 
         agent_info = {
-            #"Dist_to_goal": world.dist_left_to_goal[agent.id],
-            #"Time_req_to_goal": world.times_required[agent.id],
-            # NOTE: total agent collisions is half since we are double counting
             "Num_agent_collisions": world.num_agent_collisions[agent.id],
-            #"Num_obst_collisions": world.num_obstacle_collisions[agent.id],
+            "Num_wall_collisions": world.num_wall_collisions[agent.id],
             "Agent_speed": np.linalg.norm(agent.state.p_vel),
         }
         return agent_info
-
 
     def benchmark_data(self, agent, world):
         rew = 0
@@ -129,12 +137,22 @@ class Scenario(BaseScenario):
                     collisions += 1
         return (rew, collisions, min_dists, occupied_landmarks)
 
-
     def is_collision(self, agent1, agent2):
         delta_pos = agent1.state.p_pos - agent2.state.p_pos
         dist = np.sqrt(np.sum(np.square(delta_pos)))
         dist_min = agent1.size + agent2.size
         return True if dist < dist_min else False
+
+    def is_collision_with_wall(self, agent, wall):
+        if wall.orient == "H":
+            if abs(agent.state.p_pos[1] - wall.axis_pos) < (agent.size + wall.width / 2):
+                if wall.endpoints[0] <= agent.state.p_pos[0] <= wall.endpoints[1]:
+                    return True
+        elif wall.orient == "V":
+            if abs(agent.state.p_pos[0] - wall.axis_pos) < (agent.size + wall.width / 2):
+                if wall.endpoints[0] <= agent.state.p_pos[1] <= wall.endpoints[1]:
+                    return True
+        return False
 
     def reward(self, agent, world):
         """
@@ -145,11 +163,6 @@ class Scenario(BaseScenario):
         rew, rew1 = 0, 0
 
         if agent == world.agents[0]:
-            """
-            for l in world.landmarks:
-                dists = [np.sqrt(np.sum(np.square(a.state.p_pos - l.state.p_pos))) for a in world.agents]
-                rew1 -= min(dists)
-            """
             l_pos = np.array([[l.state.p_pos for l in world.landmarks]]).repeat(len(world.agents), axis=0)
             a_pos = np.array([[a.state.p_pos for a in world.agents]])
             a_pos1 = a_pos.repeat(len(world.agents), axis=0)
@@ -198,7 +211,6 @@ class Scenario(BaseScenario):
         other_dist = np.sqrt(np.sum(np.square(np.array(other_pos) - agent.state.p_pos), axis=1))
         dist_idx = np.argsort(other_dist)
         other_pos = [other_pos[i] for i in dist_idx[:self.n_others]]
-        #other_pos = sorted(other_pos, key=lambda k: [k[0], k[1]])
         obs = np.concatenate([agent.state.p_vel] + [agent.state.p_pos] + entity_pos + other_pos)
         return obs
 
