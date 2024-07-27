@@ -215,6 +215,7 @@ class Scenario(BaseScenario):
             # NOTE: total agent collisions is half since we are double counting
             "Num_agent_collisions": world.num_agent_collisions[agent.id],
             "Num_obst_collisions": world.num_obstacle_collisions[agent.id],
+            "Agent_speed": np.linalg.norm(agent.state.p_vel),
         }
         if self.max_speed is not None:
             agent_info["Min_time_to_goal"] = agent.goal_min_time
