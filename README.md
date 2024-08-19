@@ -1,4 +1,15 @@
-# maicbf
+<div align="center">
+
+# MA-ICBF
+
+**Decentralized Safe and Scalable Multi-Agent Control Under Limited Actuation** 
+
+</div>
+
+## Abstract:
+
+In this paper, we consider the problem of safe and deadlock-free control for multiple agents operating in an environment with obstacles and other agents under limited actuation. We propose a joint-learning framework where the decentralized control policy and Integral Control Barrier Functions (ICBF), which act as safety certificates for input-constrained nonlinear systems, are learned simultaneously. As the neural control policy provides only probabilistic guarantees for collision avoidance, we embed a novel computationally light decentralized MPC Integral Control Barrier Functions (MPC-ICBF) into the neural network policy to guarantee safety as well as scalability. By drawing an analogy between minimizing non-convex loss functions by well-established gradient methods in machine learning and the problem of local minima, we propose a novel approach that is augmented with the proposed learning framework to minimize deadlocks. Numerical simulations demonstrate that our approach outperforms other state of the art multi-agent control algorithms in terms of safety, input constraint satisfaction, and number of deadlocks. Furthermore, we show good generalization capabilities across different scenarios with varying numbers of agents up to 1000 agents.
+
 ### Installation
 Create a virtual environment with Anaconda:
 ```bash
