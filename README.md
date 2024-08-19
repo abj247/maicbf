@@ -2,7 +2,7 @@
 
 # MA-ICBF
 
-*Decentralized Safe and Scalable Multi-Agent Control Under Limited Actuation*
+**Decentralized Safe and Scalable Multi-Agent Control Under Limited Actuation**
 
 </div>
 
