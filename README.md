@@ -14,7 +14,7 @@
 </p>
 
 <p align="center">
-    <sup>1</sup>University of Texas at Austin · <sup>2</sup>University of Texas at Austin · <sup>3</sup>University of Virginia
+    <sup>1</sup>University of Texas at Austin · <sup>2</sup> Delhi Technological University · <sup>3</sup>University of Virginia
 </p>
    <h3 align="center">
 
