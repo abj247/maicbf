@@ -77,3 +77,12 @@ python plot_traj.py
 ```
 This script will plot the trajectory for each agent and it will be required to input the ``.pkl`` file for trajectory data which will be saved after evaluation completes see [trajectory](https://github.com/abj247/MA-ICBF/tree/master/trajectory). wandb logs could be found at [wandb](https://github.com/abj247/MA-ICBF/tree/master/wandb).
 
+
+## Acknowledgement
+
+This work is inspired and build upon the work from [macbf](https://github.com/MIT-REALM/macbf) whichb is the implementation of  [Learning Safe Multi-Agent Control with Decentralized Neural Barrier Certificates](https://arxiv.org/abs/2101.05436). The compute resource for this work is taken from the University of Virginia cluster.
+
+
+## Links
+
+1. Qin, Z., Zhang, K., Chen, Y., Chen, J. and Fan, C., 2021. Learning safe multi-agent control with decentralized neural barrier certificates. arXiv preprint arXiv:2101.05436.[pdf](https://arxiv.org/abs/2101.05436)[project webpage](https://aeroastro.mit.edu/realm/research-blogs/learning-safe-multi-agent-control-with-decentralized-neural-barrier-certificates/)
