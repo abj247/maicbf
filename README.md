@@ -85,4 +85,4 @@ This work is inspired and build upon the work from [macbf](https://github.com/MI
 
 ## Links
 
-1. Qin, Z., Zhang, K., Chen, Y., Chen, J. and Fan, C., 2021. Learning safe multi-agent control with decentralized neural barrier certificates. arXiv preprint arXiv:2101.05436.[pdf](https://arxiv.org/abs/2101.05436)[project webpage](https://aeroastro.mit.edu/realm/research-blogs/learning-safe-multi-agent-control-with-decentralized-neural-barrier-certificates/)
+1. Qin, Z., Zhang, K., Chen, Y., Chen, J. and Fan, C., 2021. Learning safe multi-agent control with decentralized neural barrier certificates. arXiv preprint arXiv:2101.05436.[pdf](https://arxiv.org/abs/2101.05436) [project webpage](https://aeroastro.mit.edu/realm/research-blogs/learning-safe-multi-agent-control-with-decentralized-neural-barrier-certificates/)
