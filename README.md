@@ -9,7 +9,7 @@
     ·
     <a href="https://engineering.virginia.edu/faculty/rohan-chandra"><strong>Rohan Chandra</strong></a><sup>3</sup>
     ·
-    <a href="https://sites.utexas.edu/ebakolas/"><strong>Efstathios Bakolasg</strong></a><sup>1</sup>
+    <a href="https://sites.utexas.edu/ebakolas/"><strong>Efstathios Bakolas</strong></a><sup>1</sup>
     
 </p>
 
