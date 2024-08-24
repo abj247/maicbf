@@ -83,6 +83,6 @@ This script will plot the trajectory for each agent and it will be required to i
 This work is inspired and build upon the work from [macbf](https://github.com/MIT-REALM/macbf) which is the implementation of  [Learning Safe Multi-Agent Control with Decentralized Neural Barrier Certificates](https://arxiv.org/abs/2101.05436). The compute resource for this work is taken from the University of Virginia ((UVA) cluster.
 
 
-## Links
+## Reference Links
 
 1. Qin, Z., Zhang, K., Chen, Y., Chen, J. and Fan, C., 2021. Learning safe multi-agent control with decentralized neural barrier certificates.[pdf](https://arxiv.org/abs/2101.05436) [project webpage](https://aeroastro.mit.edu/realm/research-blogs/learning-safe-multi-agent-control-with-decentralized-neural-barrier-certificates/)
