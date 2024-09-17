@@ -33,7 +33,7 @@ conda create -n maicbf python=3.6
 ```
 Activate the virtual environment:
 ```bash
-sourve activate maicbf
+source activate maicbf
 ```
 Clone this repository:
 ```bash
