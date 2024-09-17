@@ -1,21 +1,24 @@
 import sys
 sys.dont_write_bytecode = True
-
+import matplotlib
+matplotlib.use('Agg')
 import os
 import time
 import argparse
 import numpy as np
 import tensorflow as tf
 import matplotlib.pyplot as plt
-from mpl_toolkits.mplot3d import Axes3D
 import pickle
 import pandas as pd
 import core
 import config
-from plot import PlotHelper
+
 import cvxpy as cp
 import do_mpc
 import casadi as cs
+import imageio
+
+
 
 
 def parse_args():
@@ -26,6 +29,7 @@ def parse_args():
     parser.add_argument('--vis', type=int, default=0)
     parser.add_argument('--gpu', type=str, default='0')
     parser.add_argument('--ref', type=str, default=None)
+    parser.add_argument('--env', type=str, choices=['Empty', 'Maze'], default='Maze')
     args = parser.parse_args()
     return args
 
@@ -123,8 +127,7 @@ def render_init(num_agents):
     fig = plt.figure(figsize=(10, 7))
     return fig
 
-
-def show_obstacles(obs, ax, z=[0, 6], alpha=0.6, color='deepskyblue'):
+def show_obstacles(obs, ax, z=[0, 6], alpha=1.0, color= '#c69874'):  # Wooden brown color
     for x1, y1, x2, y2 in obs:
         xs, ys = np.meshgrid([x1, x2], [y1, y2])
         zs = np.ones_like(xs)
@@ -183,38 +186,34 @@ def main():
     dist_errors_baseline = []
     accuracy_lists = []
 
-    # Initialize a list to track time taken by each agent to reach the goal for each evaluation step
-    time_taken_by_agents = np.zeros((config.EVALUATE_STEPS, args.num_agents))
+    # Initialize a list to track steps taken by each agent to reach the goal for each evaluation step
+    steps_taken_by_agents = np.zeros((args.num_agents, config.EVALUATE_STEPS))
 
     if args.vis > 0:
         plt.ion()
         plt.close()
         fig = render_init(args.num_agents)
     # initialize the environment
-    scene = core.Maze(args.num_agents, max_steps=args.max_steps)
+    scene = core.Empty(args.num_agents, max_steps=args.max_steps) if args.env == 'Empty' else core.Maze(args.num_agents, max_steps=args.max_steps)
     if args.ref is not None:
         scene.read(args.ref)
 
     if not os.path.exists('trajectory'):
         os.mkdir('trajectory')
-    traj_dict = {'ours': [], 'baseline': [], 'obstacles': [np.array(scene.OBSTACLES)]}
-    total_steps = config.EVALUATE_STEPS * args.max_steps  # This should correctly reflect the product
+    traj_dict = {'ours': [], 'baseline': []}
+    total_steps = config.EVALUATE_STEPS * args.max_steps  
     collision_tracking = np.zeros((total_steps, args.num_agents), dtype=int)
-    deadlock_tracking = np.zeros((total_steps, args.num_agents), dtype=int)  # For tracking deadlocks
+    deadlock_tracking = np.zeros((total_steps, args.num_agents), dtype=int)  
 
     safety_reward = []
     dist_reward = []
     u_values= []
    
     for istep in range(config.EVALUATE_STEPS):
-        if args.vis > 0:
-            plt.clf()
-            ax_1 = fig.add_subplot(121, projection='3d')
-            ax_2 = fig.add_subplot(122, projection='3d')
         safety_ours = []
         safety_baseline = []
-        deadlock_ours = []  # For tracking deadlocks
-        deadlock_baseline = []  # For tracking deadlocks in baseline
+        deadlock_ours = []  
+        deadlock_baseline = [] 
 
         scene.reset()
         start_time = time.time()
@@ -222,10 +221,8 @@ def main():
             [scene.start_points, np.zeros((args.num_agents, 5))], axis=1)
         s_traj = []
         safety_info = np.zeros(args.num_agents, dtype=np.float32)
-        deadlock_info = np.zeros(args.num_agents, dtype=np.float32)  # For tracking deadlocks
-        deadlock_info_baseline = np.zeros(args.num_agents, dtype=np.float32)  # For tracking deadlocks in baseline
-        # a scene has a sequence of goal states for each agent. in each scene.step,
-        # we move to a new goal state
+        deadlock_info = np.zeros(args.num_agents, dtype=np.float32) 
+
         print(scene.steps)
         for t in range(scene.steps):
             s_ref_np = np.concatenate(
@@ -240,10 +237,6 @@ def main():
                 dsdt = core.quadrotor_dynamics_np(s_np, u_np)
                 u_ref_np = core.quadrotor_controller_np(s_np, s_ref_np)
 
-
-                #Printing shapes
-
-           
                 s_np = s_np + dsdt * config.TIME_STEP_EVAL
                 safety_ratio = 1 - np.mean(
                     core.dangerous_mask_np(s_np, config.DIST_MIN_CHECK), axis=1)
@@ -255,48 +248,41 @@ def main():
                 accuracy_lists.append(acc_list_np)
                 
                 # Deadlock prevention logic
-                gamma = 0.9
-                lambda_ = 0.1
-                window_size = 6  # Define the window size for deadlock detection
+                gamma = 0.99
+                lambda_ = 0.001
+                window_size = 6  
                 d = np.sqrt(u_np[:, 0]**2 + u_np[:, 1]**2)
-                deadlock_mask = d < 0.001
-                
-                # Initialize v_t if not already done
+                deadlock_mask = d < 0.01
                 if 'v_t' not in locals():
                     v_t = np.zeros_like(u_np)
                 
                 for i in range(args.num_agents):
                     if deadlock_mask[i]:
-                        # Calculate the weighted sum of previous 5 time steps
                         v_t[i] = np.zeros_like(u_np[i])
-                        for j in range(1, 19):
+                        for j in range(1, 101):
                             if t - j >= 0:
                                 v_t[i] += (gamma ** j) * u_values[t - j][i]
-                        # Add the gradient term
                         grad = np.gradient(u_np[i] - u_ref_np[i])**2
                         v_t[i] += lambda_ * grad
-                        # Update the control for the agent
                         u_np[i, :] -= v_t[i]
+                        dsdt_d = core.quadrotor_dynamics_np(s_np, u_np)
+                        s_np[i, :] = s_np[i, :] + dsdt_d[i, :] * config.TIME_STEP_EVAL
                 
                 deadlock_ours.append(deadlock_mask)
                 if len(deadlock_ours) > window_size:
-                    # Only keep the recent 'window_size' elements for sliding window
                     deadlock_ours = deadlock_ours[-window_size:]
                 # Calculate deadlock detection over the sliding window
                 deadlock_window = np.array(deadlock_ours)
                 deadlock_info_window = np.all(deadlock_window, axis=0).astype(np.float32)
-                #print("deadlock_info_window", deadlock_info_window.shape)
         
                 deadlock_info = np.sum(deadlock_info_window)
                 #print("deadlock_info", deadlock_info)
              
-                deadlock_ratio = deadlock_info / args.num_agents  # Adjust calculation for percentage of deadlock
-                #print("deadlock_ratio", deadlock_ratio)
+                deadlock_ratio = deadlock_info / args.num_agents  
               
                 deadlock_ratios_epoch.append(deadlock_ratio)  # Ensure values are <= 1
                 deadlock_rate = np.sum(deadlock_ratios_epoch)
                 leng = len(deadlock_ratios_epoch)
-
                
                 
                 if np.mean(
@@ -322,19 +308,11 @@ def main():
 
         def predict_collision(s_np, dsdt):
                 s_np_next = s_np + dsdt * config.TIME_STEP_EVAL
-                #print("s_np_next", s_np_next)
-                # Compute the pairwise differences between agents' positions
                 pairwise_diff = s_np_next[:, :3].reshape(-1, 1, 3) - s_np_next[:, :3].reshape(1, -1, 3)
-                # Calculate the norm distances between agents, resulting in a 3D tensor (i, j, norm_distances_two_agents)
                 safety_distances = np.linalg.norm(pairwise_diff, axis=2)
-                
-                # Generate a collision mask where distances are less than the minimum check distance
                 collision_mask = safety_distances < config.DIST_MIN_CHECK
-               
-                # Collision prediction tensor of size (bool_value, i, j)
                 collision_prediction = collision_mask.astype(int)
                 np.fill_diagonal(collision_prediction, 0)
-                
                 return collision_prediction
             
         def model_setup(s_np,s_ref, u_ref):
@@ -347,12 +325,11 @@ def main():
             _x = model.set_variable(var_type='_x', var_name='x', shape=(8, 1))
             _u = model.set_variable(var_type='_u', var_name='u', shape=(3, 1))
 
-            # Dynamics function as described
+            # Dynamics function 
             A = config.A_MAT
             B = config.B_MAT
             dxdt = cs.mtimes(cs.DM(A), _x) + cs.mtimes(cs.DM(B), _u)
             s_np = s_np.reshape(8,1)
-            #s_np = s_np.T
             x_next = s_np + dxdt * config.TIME_STEP
             model.set_rhs('x', x_next)
 
@@ -360,10 +337,8 @@ def main():
             # Cost function weights
             P = np.diag([100] * 8)
             Q = np.diag([1] * 3)
-
             s_ref_T = s_ref.reshape(8,1)
             u_ref_T = u_ref.reshape(3,1)
-
             cost_state = (_x - s_ref_T).T @ P @ (_x - s_ref_T)
             cost_control = (_u - u_ref_T).T @ Q @ (_u - u_ref_T)
             #cost_control = (_u).T @ Q @ (_u)
@@ -382,7 +357,7 @@ def main():
             Setup MPC controller using do_mpc library.
 
             """
-            s_np_i = s_np_i.T
+            s_np_i = s_np_i.T 
             mpc = do_mpc.controller.MPC(model)
             setup_mpc = {
                 'n_horizon': 1,
@@ -392,12 +367,11 @@ def main():
             }
             mpc.set_param(**setup_mpc)
 
-            #mterm = model.aux['cost']  # Terminal cost
             mterm = model.aux['terminal_cost']  # Terminal cost
             lterm = model.aux['stage_cost']  # Stage cost
 
             mpc.set_objective(mterm=mterm, lterm=lterm)
-            mpc.set_rterm(u=1e-2)  # Control regularization term
+            mpc.set_rterm(u=1e-2)  
 
             # Add constraints for each control input
             omega_x_limit = 0.2
@@ -407,7 +381,8 @@ def main():
             mpc.bounds['lower','_u', 'u'] = 0.1*max_u
             mpc.bounds['upper','_u', 'u'] = max_u
 
-
+            s_np_new = s_np.reshape(8,1)[:3]
+            
             # Safety barrier function
             def barrier_function(x, s_np_i, r=config.DIST_MIN_THRES):
                 """
@@ -415,79 +390,37 @@ def main():
                 s_np_i: States of other agents (shape [3, 8])
                 r: Safety distance threshold
                 """
-                # Repeat the first three states of x to match s_np_i dimensions for subtraction
-                #print("x_shape", x.shape)
                 x = x[:3,:]
-                #print("x_shape", x.shape)
                 x_rep = cs.repmat(x, 1, s_np_i.shape[1])
-                #print("x_rep_x", x_rep.shape)
-                # Calculate the difference between the state vectors
                 diff = x_rep - s_np_i[:3, :]
-                #print("diff_x", diff.shape)
-                # Calculate the Euclidean distance for each row
                 distances = cs.sqrt(cs.sum1(cs.power(diff, 2)))
-                #print("distances_x", distances.shape)
-                # Calculate the barrier based on the safety threshold
                 h = distances - r
                 print("h", h.shape)
                 return h
             
-            def barrier_function_s(x, s_np_i, r=config.DIST_MIN_THRES):
-                """
-                x: The state of the current agent (shape [1, 8])
-                s_np_i: States of other agents (shape [3, 8])
-                r: Safety distance threshold
-                """
-                # Repeat the first three states of x to match s_np_i dimensions for subtraction
-                x = x[:3,:]
-                #print("x_shape", x.shape)
-                x_rep = cs.repmat(x, s_np_i.shape[1], 1)
-                #print("x_rep", x_rep.shape)
-                # Calculate the difference between the state vectors
-                diff = x_rep - s_np_i[:3, :]
-                print("diff.shape_s_np", diff.shape)
-                # Calculate the Euclidean distance for each row
-                distances = cs.sqrt(cs.sum1(cs.power(diff, 1)))
-                print("distances.shape_s_np", distances.shape)
-                # Calculate the barrier based on the safety threshold
-                h = distances - r
-                print("h", h)
-                return h
-            
             def combined_cbf_constraint(h_values, kappa=10):
-                # h_values should be a list or array of individual h_i(x)
                 exp_sum = cs.sum1(cs.exp(-kappa * cs.vertcat(*h_values)))
                 combined_h = -cs.log(exp_sum)
                 return combined_h
+            
 
-
-            # Set the expression for the barrier function in the model
             h_x = barrier_function(model.x['x'], s_np_i, config.DIST_MIN_THRES)
-            #print(model.x['x'].shape)
-            
-            
-            #print(s_np.shape)
             A = config.A_MAT
             B = config.B_MAT
-            dxdt = cs.mtimes(cs.DM(A), model.x['x']) + cs.mtimes(cs.DM(B), model.u['u'])
+            dxdt = cs.mtimes(cs.DM(A), model.x['x']) + cs.mtimes(cs.DM(B), model.u['u'])                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
             s_np_dxdt = s_np.reshape(8,1)
             x_next = s_np_dxdt + dxdt * config.TIME_STEP
             h_s_np = barrier_function(x_next, s_np_i, config.DIST_MIN_THRES)
             gamma = 0.8
             h_dot = (h_s_np - h_x)/config.TIME_STEP
             h_cons = -h_dot - gamma*h_x
-            # Split h into individual constraints if h is a vector
-            # x_cons = model.x['x'] - s_np
-            # mpc.set_nl_cons('x_cons', x_cons, ub=0)
             constraints = cs.horzsplit(h_cons)
-            # Compute the combined CBF constraint
-            kappa = 10
+            kappa = 50
             h_combined = combined_cbf_constraint(constraints, kappa)
             mpc.set_nl_cons('cbf_constraint_combined', h_combined, ub=0)
             mpc.setup()
             return mpc
-    
-                
+        
         def run_mpc_control(mpc, model, initial_state, s_np_i):
             """
             Run MPC control step and retrieve optimized control actions.
@@ -497,23 +430,14 @@ def main():
             :param initial_state: The initial state vector for the agent.
             :param s_np: The state array of all agents, used to update TVP settings.
             """
-            # Set the initial state of the model and controller:
             model.x0 = initial_state
             mpc.x0 = initial_state
-            #update_tvp(mpc, s_np_i)  # Update the positions of other agents as TVP
 
             mpc.set_initial_guess()
-            
-            # Execute the optimization step to compute control:
             u_opt = mpc.make_step(initial_state)
             print("u_opt", u_opt)
 
             return u_opt
-
-
-        
-        print(iscollision)
-
 
         print("Predicting collision")
         dsdt = core.quadrotor_dynamics_np(s_np, u_np)  # Initial dynamics calculation
@@ -521,6 +445,7 @@ def main():
         print(iscollision)
 
         collision_resolved_count = 0
+        mpc_cbf_trigger_count = 0  # Counter for MPC-CBF triggers
         previous_iscollision = iscollision.copy()
         collision_pairs = set((i, j) for i in range(iscollision.shape[0]) for j in range(i + 1, iscollision.shape[1]) if iscollision[i, j] == 1)
 
@@ -531,7 +456,7 @@ def main():
                 print(f"Collision detected between agent {i} and agent {j}, updating controls.")
                 
                 # Update controls for agent i
-                s_np_i = np.vstack([s_np[:i], s_np[i+1:]])  # Stack all other agents' states
+                s_np_i = np.vstack([s_np[:i], s_np[i+1:]]) 
                 model_i = model_setup(s_np[i,:], s_ref_np[i,:], u_ref_np[i,:])
                 mpc_controller_i = setup_mpc(model_i, s_np_i, s_np[i, :])
                 u_np[i, :] = run_mpc_control(mpc_controller_i, model_i, s_np[i, :], s_np_i).flatten()
@@ -539,7 +464,7 @@ def main():
                 s_np[i,:] += dsdt_i * config.TIME_STEP
 
                 # Update controls for agent j
-                s_np_j = np.vstack([s_np[:j], s_np[j+1:]])  # Stack all other agents' states
+                s_np_j = np.vstack([s_np[:j], s_np[j+1:]])
                 model_j = model_setup(s_np[j,:], s_ref_np[j,:], u_ref_np[j,:])
                 mpc_controller_j = setup_mpc(model_j, s_np_j, s_np[j, :])
                 u_np[j, :] = run_mpc_control(mpc_controller_j, model_j, s_np[j, :], s_np_j).flatten()
@@ -547,13 +472,11 @@ def main():
                 s_np[j,:] += dsdt_j * config.TIME_STEP
 
                 print(f"Controls updated for agents {i} and {j} using mpc-cbf.")
+                mpc_cbf_trigger_count += 1  # Increment the MPC-CBF trigger counter
                 
-                # Predict collision again after updating controls
+
                 dsdt = core.quadrotor_dynamics_np(s_np, u_np)
                 iscollision = predict_collision(s_np, dsdt)
-                print(iscollision)
-        
-                # Update collision pairs
                 new_collision_pairs = set((i, j) for i in range(iscollision.shape[0]) for j in range(i + 1, iscollision.shape[1]) if iscollision[i, j] == 1)
                 
                 if not np.array_equal(previous_iscollision, iscollision):
@@ -564,124 +487,105 @@ def main():
                 collision_pairs = new_collision_pairs
 
         print("All collisions resolved.")
+        print(f"MPC-CBF was triggered {mpc_cbf_trigger_count} times to resolve collisions.")
 
 
-        # Update the dynamics based on the new controls and check for collisions again
         dsdt = core.quadrotor_dynamics_np(s_np, u_np)
-        #iscollision = predict_collision(s_np, dsdt)
         print("Dynamics updated, now predicting collision again")
         
-        # Record the time taken by each agent to reach the goal for this evaluation step
-        time_taken_by_agents[istep, :] = time.time() - start_time
+        for agent_idx in range(args.num_agents):
+            steps_taken_by_agents[agent_idx, istep] = t + 1 
 
         traj_dict['ours'].append(np.concatenate(s_traj, axis=0))
         end_time = time.time()
 
-        # Save the time taken by each agent to reach the goal into a CSV file
-        time_taken_df = pd.DataFrame(time_taken_by_agents, columns=['Agent {}'.format(i+1) for i in range(args.num_agents)])
-        time_taken_df.to_csv('csv_data/ttg/time_taken_by_agents.csv', index_label="Evaluation Step")
-        print("Time taken by agents saved to 'time_taken_by_agents.csv'")
+        steps_taken_df = pd.DataFrame(steps_taken_by_agents, columns=['Evaluation Step {}'.format(i+1) for i in range(config.EVALUATE_STEPS)])
+        steps_taken_df.to_csv('csv_data/steps_taken_by_agents.csv', index_label="Agent")
+        print("Steps taken by agents saved to 'steps_taken_by_agents.csv'")
 
-       # LQR Controller
+        # Visualization
+        def initialize_trails(num_agents, num_trails, s_traj_shape, initial_positions):
+            trails = np.tile(initial_positions[np.newaxis, :, :], (num_trails, 1, 1))
+            return trails
 
-        s_np = np.concatenate(
-            [scene.start_points, np.zeros((args.num_agents, 5))], axis=1)
-        s_traj = []
-        deadlock_info_baseline = np.zeros(args.num_agents, dtype=np.float32)  # Reset deadlock info at the start
-        for t in range(scene.steps):
-            s_ref_np = np.concatenate(
-                [scene.waypoints[t], np.zeros((args.num_agents, 5))], axis=1)
-            for i in range(config.INNER_LOOPS_EVAL):
-                u_np = core.quadrotor_controller_np(s_np, s_ref_np)
-                dsdt = core.quadrotor_dynamics_np(s_np, u_np)
-                s_np = s_np + dsdt * config.TIME_STEP_EVAL
-                safety_ratio = 1 - np.mean(
-                    core.dangerous_mask_np(s_np, config.DIST_MIN_CHECK), axis=1)
-                individual_safety = safety_ratio == 1
-                safety_baseline.append(individual_safety)
-                safety_ratio = np.mean(individual_safety)
-                safety_ratios_epoch_baseline.append(safety_ratio)
-                s_traj.append(np.expand_dims(s_np[:, [0, 1, 2, 6, 7]], axis=0))
+        def update_trails(trails, current_positions):
+            trails[:-1] = trails[1:]
+            trails[-1] = current_positions 
+            return trails
 
-                # Deadlock detection logic for baseline
-                window_size = 6  # Define the window size for deadlock detection
-                d = np.sqrt(u_np[:, 0]**2 + u_np[:, 1]**2)
-                deadlock_mask = d < 0.001
-                deadlock_baseline.append(deadlock_mask)
-                if len(deadlock_baseline) > window_size:
-                    # Only keep the recent 'window_size' elements for sliding window
-                    deadlock_baseline = deadlock_baseline[-window_size:]
-                # Calculate deadlock detection over the sliding window
-                deadlock_window = np.array(deadlock_baseline)
-                deadlock_info_window_baseline = np.all(deadlock_window, axis=0).astype(np.float32)
-                deadlock_info_baseline = np.sum(deadlock_info_window_baseline)
-                deadlock_ratio_baseline = deadlock_info_baseline / args.num_agents
-                deadlock_ratios_epoch_baseline.append(deadlock_ratio_baseline)  # Ensure values are <= 1
-                if np.mean(
-                    np.linalg.norm(s_np[:, :3] - s_ref_np[:, :3], axis=1)
-                    ) < config.DIST_TOLERATE:
-                    break
+   
+        num_trails = 16  
+        alpha_values = np.linspace(0.1, 1.0, num_trails) 
 
-
-        dist_errors_baseline.append(np.mean(np.linalg.norm(s_np[:, :3] - s_ref_np[:, :3], axis=1)))
-        traj_dict['baseline'].append(np.concatenate(s_traj, axis=0))
         
-        
+
         if args.vis > 0:
-            # visualize the trajectories
+
             s_traj_ours = traj_dict['ours'][-1]
-            s_traj_baseline = traj_dict['baseline'][-1]
-    
-            for j in range(0, max(s_traj_ours.shape[0], s_traj_baseline.shape[0]), 10):
+            num_agents = s_traj_ours.shape[1]  
+            initial_positions = s_traj_ours[0]
+            trails = initialize_trails(num_agents, num_trails, s_traj_ours.shape, initial_positions)
+            cmap = plt.cm.viridis
+            norm = plt.Normalize(vmin=0, vmax=num_trails)
+
+            fig = plt.figure(figsize=(10, 10))
+            ax_1 = fig.add_subplot(111, projection='3d')
+
+            # Set the view limits to encompass the entire maze
+            ax_1.set_xlim(0, 20)
+            ax_1.set_ylim(0, 20)
+            ax_1.set_zlim(0, 10)
+
+            ax_1.axis('off')
+            ax_1.grid(False)
+            if args.env == 'Maze':
+                show_obstacles(scene.OBSTACLES, ax_1) 
+            ax_1.set_box_aspect([8, 8, 4])
+            ax_1.view_init(elev=80, azim=-45)
+
+            gif_frames = []
+
+            for j in range(0, s_traj_ours.shape[0], 10):
                 ax_1.clear()
-                ax_1.view_init(elev=80, azim=-45)
-                ax_1.axis('off')
-                show_obstacles(scene.OBSTACLES, ax_1)
-                j_ours = min(j // 10, len(deadlock_ours) - 1)  # Adjust index for deadlock_ours list
-                s_np = s_traj_ours[min(j, s_traj_ours.shape[0]-1)]
-                safety = safety_ours[min(j, s_traj_ours.shape[0]-1)]
-                deadlock = deadlock_ours[j_ours]  # Get deadlock status with adjusted index
 
                 ax_1.set_xlim(0, 20)
                 ax_1.set_ylim(0, 20)
                 ax_1.set_zlim(0, 10)
-                ax_1.scatter(s_np[:, 0], s_np[:, 1], s_np[0, 2], 
-                             color='darkorange', label='Agent')
-                ax_1.scatter(s_np[safety<1, 0], s_np[safety<1, 1], s_np[safety<1, 2], 
-                             color='red', label='Collision')
-                ax_1.scatter(s_np[deadlock, 0], s_np[deadlock, 1], s_np[deadlock, 2], 
-                             color='green', label='Deadlock')  # Visualize deadlocks
-                ax_1.set_title('Ours: Safety Rate = {:.4f}, Deadlocked Agents = {:.4f}'.format(
-                    np.mean(safety_ratios_epoch), np.mean(deadlock_info)), fontsize=10)
-                #plt.legend(loc='lower right')
+                ax_1.axis('off')
+                ax_1.grid(False)
+                if args.env == 'Maze':
+                    show_obstacles(scene.OBSTACLES, ax_1)
+                j_ours = min(j // 10, len(deadlock_ours) - 1)
+                s_np = s_traj_ours[min(j, s_traj_ours.shape[0]-1)]
+                safety = safety_ours[min(j, s_traj_ours.shape[0]-1)]
+                deadlock = deadlock_ours[j_ours]
+                trails = update_trails(trails, s_np)
+                current_trail_length = min((j // 10) + 1, num_trails)
 
-                ax_2.clear()
-                ax_2.view_init(elev=80, azim=-45)
-                ax_2.axis('off')
-                show_obstacles(scene.OBSTACLES, ax_2)
-                j_baseline = min(j, s_traj_baseline.shape[0]-1)
-                j_base = min(j // 10, len(deadlock_baseline)-1)
-                s_np = s_traj_baseline[j_baseline]
-                safety = safety_baseline[j_baseline]
-                deadlock = deadlock_baseline[j_base]  # Get deadlock status for baseline
+                # Plot trailing points for each agent with varying color and opacity
+                for t in range(current_trail_length):
+                    color_value = cmap(norm(t))
+                    ax_1.scatter(trails[t][:, 0], trails[t][:, 1], trails[t][:, 2],
+                                color=color_value, alpha=alpha_values[t], s=100) 
+                ax_1.scatter(s_np[deadlock, 0], s_np[deadlock, 1], s_np[deadlock, 2],
+                            color='green', s=100, label='Deadlock')
+                ax_1.scatter(scene.end_points[:, 0], scene.end_points[:, 1], scene.end_points[:, 2],
+                            color='blue', s=100, label='Goal')
+                ax_1.set_title('MA-ICBF: Safety Rate = {:.4f}, Deadlocked Agents = {:.4f}'.format(
+                    np.mean(safety_ratios_epoch), np.mean(deadlock_info)), fontsize=22)
 
-                ax_2.set_xlim(0, 20)
-                ax_2.set_ylim(0, 20)
-                ax_2.set_zlim(0, 10)
-                ax_2.scatter(s_np[:, 0], s_np[:, 1], s_np[1, 2], 
-                             color='darkorange', label='Agent')
-                ax_2.scatter(s_np[safety<1, 0], s_np[safety<1, 1], s_np[safety<1, 2], 
-                             color='red', label='Collision')
-                ax_2.scatter(s_np[deadlock, 0], s_np[deadlock, 1], s_np[deadlock, 2], 
-                             color='green', label='Deadlock')  # Visualize deadlocks for baseline
-                ax_2.set_title('LQR: Safety Rate = {:.4f}, Deadlocked Agents = {:.4f}'.format(
-                    np.mean(safety_ratios_epoch_baseline), np.mean(deadlock_info_baseline)), fontsize=10)
-                plt.legend(loc='lower right')
-
+                plt.legend(loc='upper right', fontsize=22)
                 fig.canvas.draw()
                 plt.pause(0.001)
-                
-       
+                image = np.frombuffer(fig.canvas.tostring_rgb(), dtype='uint8')
+                image = image.reshape(fig.canvas.get_width_height()[::-1] + (3,))
+                gif_frames.append(image)
+
+            # Save the gif
+            gif_path = os.path.join('trajectory', 'ours_trajectory_32_agents_empty_itr_099_fps_10_trailing_random.gif')
+            imageio.mimsave(gif_path, gif_frames, fps=10)
+            print(f"GIF saved at: {gif_path}")
+
         
         print('Evaluation Step: {} | {}, Time: {:.4f}, Deadlocked Agents: {:.4f}'.format(
             istep + 1, config.EVALUATE_STEPS, end_time - start_time, np.mean(deadlock_info)))
@@ -693,27 +597,21 @@ def main():
     base_directory = 'csv_data'
     sub_directory = 'collision_tracking'
     directory_path = os.path.join(base_directory, sub_directory)
-
-    # Check if the directory exists, and create it if it doesn't
     if not os.path.exists(directory_path):
         os.makedirs(directory_path)
-
-    # Define the full path to the CSV file within the subdirectory
     csv_file_path = os.path.join(directory_path, 'hu_time_baseline_4_agents_itr_03.csv')
-
-    ## Export to CSV, taking into account the new shape of collision_tracking
     column_names = ['Agent {}'.format(i+1) for i in range(args.num_agents)]
     df_collision_tracking = pd.DataFrame(collision_tracking, columns=column_names)
     df_collision_tracking.to_csv(csv_file_path, index_label="Step")
     print("collision tracking data saved!!!")
 
     print_accuracy(accuracy_lists)
-    print('Distance Error (Learning | Baseline): {:.4f} | {:.4f}'.format(
-          np.mean(dist_errors), np.mean(dist_errors_baseline)))
-    print('Mean Safety Ratio (Learning | Baseline): {:.4f} | {:.4f}'.format(
-          np.mean(safety_ratios_epoch), np.mean(safety_ratios_epoch_baseline)))
-    print('Deadlocked agents (Learning | Baseline): {:.4f} | {:.4f}'.format(
-          np.mean(deadlock_info), np.mean(deadlock_info_baseline)))  # Print deadlock ratio
+    print('Distance Error (MA-ICBF ): {:.4f}'.format(
+          np.mean(dist_errors)))
+    print('Mean Safety Ratio (MA-ICBF ): {:.4f}'.format(
+          np.mean(safety_ratios_epoch)))
+    print('Deadlocked agents (MA-ICBF ): {:.4f}'.format(
+          np.mean(deadlock_info)))  
 
     safety_reward = np.mean(safety_reward)
     dist_reward = np.mean(dist_reward)
@@ -723,121 +621,12 @@ def main():
     pickle.dump(traj_dict, open('trajectory/traj_eval.pkl', 'wb'))
     scene.write_trajectory('trajectory/env_traj_eval.pkl', traj_dict['ours'])
 
-    # control_input_1 = [u_step[0, 0] for u_step in u_values]  
-    # control_input_2 = [u_step[0, 1] for u_step in u_values]  
-    # control_input_3 = [u_step[0, 2] for u_step in u_values]  
-   
-    
-    
-    # time_steps = list(range(len(u_values)))
-
-    u_max = 0.6
-    u_max_squared = u_max**2
-
-    control_input_1_squared = [u_max_squared- (u_step[0, 0]**2) for u_step in u_values]  
-    control_input_2_squared = [u_max_squared-(u_step[0, 1]**2) for u_step in u_values]  
-    control_input_3_squared = [u_max_squared-(u_step[0, 2]**2) for u_step in u_values] 
-    
-    #modified_control_inputs = [u_max_squared - (u_step[0, 0]**2 + u_step[0, 1]**2 + u_step[0, 2]**2) for u_step in u_values]
-    modified_control_inputs = [u_max_squared - (u_step[:, 0]**2 + u_step[:, 1]**2 + u_step[:, 2]**2) for u_step in u_values]
-    exceed_threshold_count_v = 0
-    exceed_threshold_count_a = 0
-
-    a_values_np = []
-    v_values_np = []
-
-    for u_step in u_values:
-        a_value = u_step[:, 2]
-        v_value = np.sqrt(u_step[:, 0]**2 + u_step[:, 1]**2)
-        if np.any(np.abs(a_value) > 2):
-            exceed_threshold_count_a += 1
-            a_value[np.abs(a_value) > 2] = 0
-        if np.any(v_value > 2):
-            exceed_threshold_count_v += 1
-            v_value[v_value > 2] = 0
-
-        a_values_np.append(a_value)
-        v_values_np.append(v_value)
-
-    v_values = np.array(v_values_np)
-    max_v_values_all_agents = np.max(v_values, axis=0)
-    a_values = np.array(a_values_np)
-    #modified_control_inputs = [u_max_squared - (u_step[0]**2) for u_step in u_values]
-    modified_control_inputs_array = np.array(modified_control_inputs)
-    log_modified_control_inputs = np.log(1 + modified_control_inputs_array )
-
-    time_steps = list(range(len(u_values)))
-    u_values_array = np.array(u_values)
-    #print(u_values.shape)
-
-    # Creating a DataFrame
-    df = pd.DataFrame({
-        'Time Steps': time_steps,
-        'h': modified_control_inputs
-    })
-
-    #csv logging
-
-
-    # Specify your desired path to save the CSV file
-    #csv_file_path = 'csv_data/hu_data/hu_time_umax_0.2_agile_weight_0.5_64_agents.csv'
-    csv_file_path = 'csv_data/hu_time_baseline_itr_03_4_agents.csv'
-
-    # Save the DataFrame to a CSV file
-    #PlotHelper.save_to_csv(time_steps, modified_control_inputs, csv_file_path)
-    df.to_csv(csv_file_path, index=False)
-
-    print(f"CSV file has been saved to {csv_file_path}")
-
-    # Plotting
-
-    #PlotHelper.plot_data(time_steps, modified_control_inputs_array, 'Time Steps', 'h(u)', 'h(u) for all agents (baseline)_4 agents)', 'agents', 'h(u)_baseline_all_agents_4.png')
-
-
-    plt.figure(figsize=(10, 6))
-    plt.plot(time_steps, modified_control_inputs_array, label='agents')
-    # plt.plot(time_steps, u_values_array[:,0,1], label='h_u for agent 0')
-    # plt.plot(time_steps, u_values_array[:,0,2], label='h_u for agent 0')
-    plt.xlabel('Time Steps')
-    plt.ylabel('h(u)')
-    plt.title('h(u) for all agents (baseline)_4 agents)')
-    plt.legend()
-    plt.savefig('h(u)_baseline_all_agents_4_itr_03.png', dpi=300)
-    plt.show()
-
-
-   #Plot Acceleration
-    #PlotHelper.plot_data(time_steps, a_values, 'Time Steps', 'acceleration', 'acceleration for all agents (baseline)_4 agents)', 'acceleration', 'acc_baseline_all_agents_4.png')
-
-    plt.figure(figsize=(10, 6))
-    plt.plot(time_steps, a_values, label='acceleration')
-    # plt.plot(time_steps, u_values_array[:,0,1], label='h_u for agent 0')
-    # plt.plot(time_steps, u_values_array[:,0,2], label='h_u for agent 0')
-    plt.xlabel('Time Steps')
-    plt.ylabel('acceleration')
-    plt.title('acceleration for all agents (baseline)_4 agents)')
-    plt.legend()
-    plt.savefig('acc_baseline_all_agents_4_itr_03.png', dpi=300)
-    plt.show()
-
-
-    
-    plt.figure(figsize=(10, 6))
-    plt.plot(time_steps, v_values, label='velocity')
-    plt.xlabel('Time Steps')
-    plt.ylabel('velocity')
-    plt.title('velocity for all agents_baseline')
-    plt.legend()
-    plt.savefig('velocity_baseline_all_agents_itr_03.png', dpi=300)
-    plt.show()
-
-    print(max_v_values_all_agents)
-    print(exceed_threshold_count_a)
-    print( exceed_threshold_count_v)
 
 
 if __name__ == '__main__':
     main()
+
+
 
 
 
