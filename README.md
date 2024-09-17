@@ -18,7 +18,7 @@
 </p>
    <h3 align="center">
 
-   [![arXiv](https://img.shields.io/badge/arXiv-2408.10154-blue?logo=arxiv&color=%23B31B1B)](https://maicbf.github.io/) [![ProjectPage](https://img.shields.io/badge/Project_Page-MAICBF-blue)]([https://loopsplat.github.io/](https://maicbf.github.io/))
+   [![arXiv](https://img.shields.io/badge/arXiv-2408.10154-blue?logo=arxiv&color=%23B31B1B)](https://arxiv.org/abs/2409.09573/) [![ProjectPage](https://img.shields.io/badge/Project_Page-MAICBF-blue)](https://maicbf.github.io/)
   <div align="center"></div>
 </p>
 
