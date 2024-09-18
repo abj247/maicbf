@@ -56,7 +56,7 @@ For evaluation of ma-icbf model use this command,
 ```bash
 python eval.py --num_agents 1024 --model_path models/agile_u_max_0.2/model_ours_weight_1.0_agents_4_v_max_0.2_u_max_0.2_sigma_0.05_default_iter_69999  --env Maze --vis 1
 ```
-This will evaluate the model for 1024 agents and will detect deadlock, resolve deadlock track collision, resolve collision for all agents using mpc-cbf controller save cbf data and time to goal for each agents in a csv file with pretrained wieights trained with 4 agents. For pretrained weights see [models](https://github.com/abj247/MA-ICBF/tree/master/models).
+This will evaluate the model for 1024 agents and will detect deadlock, resolve deadlock track collision, resolve collision for all agents using mpc-cbf controller save cbf data and time to goal for each agents in a csv file with pretrained wieights trained with 4 agents. For pretrained weights see [models](https://github.com/abj247/MA-ICBF/tree/master/models). The evaluation will output the safety rate, number of deadlocks, time taken to complete the simulation. After the simulation ends the output gif will be saved.
 
 
 ### Running Baselines
