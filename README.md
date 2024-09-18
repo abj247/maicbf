@@ -59,6 +59,11 @@ python eval.py --num_agents 1024 --model_path models/agile_u_max_0.2/model_ours_
 This will evaluate the model for 1024 agents and will detect deadlock, resolve deadlock track collision, resolve collision for all agents using mpc-cbf controller save cbf data and time to goal for each agents in a csv file with pretrained wieights trained with 4 agents. For pretrained weights see [models](https://github.com/abj247/MA-ICBF/tree/master/models).
 
 
+### Running Baselines
+
+The [baselines](https://github.com/abj247/MA-ICBF/tree/master/baselines) contains the baselines used in the research for comparison. This includes the control barrier function approaches and MARL algortihms. The methods are PIC, InforMARL, GCBF, MACBF.
+
+
 
 
 
@@ -70,3 +75,9 @@ This work is inspired and build upon the work from [macbf](https://github.com/MI
 ## Reference Links
 
 1. Qin, Z., Zhang, K., Chen, Y., Chen, J. and Fan, C., 2021. Learning safe multi-agent control with decentralized neural barrier certificates.[pdf](https://arxiv.org/abs/2101.05436) [project webpage](https://aeroastro.mit.edu/realm/research-blogs/learning-safe-multi-agent-control-with-decentralized-neural-barrier-certificates/)
+2. I.-J. Liu, R. A. Yeh, and A. G. Schwing, “Pic: permutation invariant critic for multi-agent deep reinforcement learning,” in Conference on
+Robot Learning. PMLR, 2020, pp. 590–602.[pdf](https://arxiv.org/pdf/1911.00025)
+3. S. Nayak, K. Choi, W. Ding, S. Dolan, K. Gopalakrishnan, and H. Balakrishnan, “Scalable multi-agent reinforcement learning through intelligent information aggregation,” in International Conference on Machine Learning. PMLR, 2023, pp. 25 817–25 833.[pdf](https://arxiv.org/pdf/2211.02127)
+4. S. Zhang, K. Garg, and C. Fan, “Neural graph control barrier functions guided distributed collision-avoidance multi-agent control,” in Conference on robot learning. PMLR, 2023, pp. 2373–2392.[pdf](https://arxiv.org/pdf/2311.13014)
+
+
