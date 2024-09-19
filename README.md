@@ -77,7 +77,7 @@ Deadlocked agents (MA-ICBF): 2.0000
 
 ### Running Baselines
 
-The [baselines](https://github.com/abj247/MA-ICBF/tree/master/baselines) contains the baselines used in the research for comparison. This includes the control barrier function approaches and MARL algortihms. The methods are PIC, InforMARL, GCBF, MACBF.
+The [baselines](https://github.com/abj247/MA-ICBF/tree/master/baselines) contains the baselines used in the research for comparison. This includes the control barrier function approaches and MARL algortihms used in the work for comaprative studies.
 
 
 
