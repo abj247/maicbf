@@ -25,13 +25,13 @@
  <div class="columns is-centered has-text-centered">
   <div class="column">
     <figure class="image">
-      <img src="./static/images/ours_trajectory_16_agents_empty_itr_06_fps_10_trailing_random.gif" alt="16 empty agents">
+      <img src="./trajectory/ours_trajectory_16_agents_empty_itr_06_fps_10_trailing_random.gif" alt="16 empty agents">
       <figcaption>Empty Environment</figcaption>
     </figure>
   </div>
   <div class="column">
     <figure class="image">
-      <img src="./static/images/maze_2.gif" alt="maze 16 agents">
+      <img src="./trajectory/maze_2.gif" alt="maze 16 agents">
       <figcaption>Maze Environment</figcaption>
     </figure>
   </div>
