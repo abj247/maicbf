@@ -27,7 +27,7 @@
         <img src="./trajectory/maze_2.gif" alt="First GIF" width="300" height="300">
     </div>
     <div style="margin: 10px;">
-        <img src="./trajectory/ours_trajectory_16_agents_empty_itr_06_fps_10_trailing_random.gifif" alt="Second GIF" width="300" height="300">
+        <img src="./trajectory/ours_trajectory_16_agents_empty_itr_06_fps_10_trailing_random.gif" alt="Second GIF" width="300" height="300">
     </div>
 </div>
 
