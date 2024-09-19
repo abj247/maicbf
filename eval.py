@@ -472,7 +472,7 @@ def main():
                 s_np[j,:] += dsdt_j * config.TIME_STEP
 
                 print(f"Controls updated for agents {i} and {j} using mpc-cbf.")
-                mpc_cbf_trigger_count += 1  # Increment the MPC-CBF trigger counter
+                mpc_icbf_trigger_count += 1  # Increment the MPC-ICBF trigger counter
                 
 
                 dsdt = core.quadrotor_dynamics_np(s_np, u_np)
@@ -487,7 +487,7 @@ def main():
                 collision_pairs = new_collision_pairs
 
         print("All collisions resolved.")
-        print(f"MPC-CBF was triggered {mpc_cbf_trigger_count} times to resolve collisions.")
+        print(f"MPC-ICBF was triggered {mpc_icbf_trigger_count} times to resolve collisions.")
 
 
         dsdt = core.quadrotor_dynamics_np(s_np, u_np)
