@@ -69,7 +69,7 @@ Total Number of Collisions : 0.0
 collision tracking data saved!!!
 Accuracy: [0.97641134, 0.9999202, 0.9374962, 0.9967269, 0.9942482, 2.5885205, 14.096791]
 Distance Error (MA-ICBF): 0.6942
-Mean Safety Ratio (MA-ICBF): 1.0000
+Mean Safety Rate (MA-ICBF): 1.0000
 Deadlocked agents (MA-ICBF): 2.0000 
 
 ```
