@@ -16,20 +16,16 @@
 <p align="center">
     <sup>1</sup>University of Texas at Austin · <sup>2</sup> Delhi Technological University · <sup>3</sup>University of Virginia
 </p>
+   <h3 align="center">
 
-<h3 align="center">
-    [![arXiv](https://img.shields.io/badge/arXiv-2409.09573-blue?logo=arxiv&color=%23B31B1B)](https://arxiv.org/abs/2409.09573/)
-    [![ProjectPage](https://img.shields.io/badge/Project_Page-MAICBF-blue)](https://maicbf.github.io/)
-</h3>
+   [![arXiv](https://img.shields.io/badge/arXiv-2409.09573-blue?logo=arxiv&color=%23B31B1B)](https://arxiv.org/abs/2409.09573/) [![ProjectPage](https://img.shields.io/badge/Project_Page-MAICBF-blue)](https://maicbf.github.io/)
+  <div align="center"></div>
+</p>
 
-<div style="display: flex; justify-content: center;">
-    <div style="margin: 10px;">
-        <img src="./trajectory/maze_2.gif" alt="First GIF" width="300" height="300">
-    </div>
-    <div style="margin: 10px;">
-        <img src="./trajectory/ours_trajectory_16_agents_empty_itr_06_fps_10_trailing_random.gif" alt="Second GIF" width="300" height="300">
-    </div>
-</div>
+<p align="center">
+    <img src="./trajectory/maze_2.gif" alt="First GIF" width="400" />
+    <img src="./trajectory/ours_trajectory_16_agents_empty_itr_06_fps_10_trailing_random.gif" alt="Second GIF" width="400" />
+</p>
 
 ## Abstract:
 
