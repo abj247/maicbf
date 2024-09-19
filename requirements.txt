@@ -1,4 +1,8 @@
 tensorflow==1.14.0
-scipy
-pyyaml
-matplotlib
+scipy==1.5.4
+pyyaml==6.0.1
+matplotlib==3.3.4
+wandb==0.15.11
+do-mpc==4.2.0
+casadi==3.5.3
+imageio==2.15.0
