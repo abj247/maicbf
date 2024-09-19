@@ -61,7 +61,8 @@ This will evaluate the model for 1024 agents and will detect deadlock, resolve d
 
 ``` python
 All collisions resolved.
-MPC-CBF was triggered 2 times to resolve collisions.
+MPC-CBF was triggered 2 times to resolve collisions
+Steps taken by agents saved to 'steps_taken_by_agents.csv'
 GIF saved at: trajectory\ma-icbf_trajectory_16_agents.gif
 Evaluation Step: 1 | 1, Time: 5.7216, Deadlocked Agents: 4.0000
 Total Number of Collisions : 0.0
