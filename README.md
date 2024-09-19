@@ -61,7 +61,7 @@ For evaluation of ma-icbf model use this command,
 ```bash
 python eval.py --num_agents 1024 --model_path models/agile_u_max_0.2/model_ours_weight_1.0_agents_4_v_max_0.2_u_max_0.2_sigma_0.05_default_iter_69999  --env Maze --vis 1
 ```
-This will evaluate the model for 1024 agents and will detect deadlock, resolve deadlock track collision, resolve collision for all agents using mpc-cbf controller save cbf data and time to goal for each agents in a csv file with pretrained wieights trained with 4 agents. For pretrained weights see [models](https://github.com/abj247/MA-ICBF/tree/master/models). The evaluation will output the safety rate, number of deadlocks, time taken to complete the simulation. After the simulation ends the output gif will be saved. The evaluation results after completing the simulation will be in the format shown below:
+This will evaluate the model for 1024 agents and will detect deadlock, resolve deadlock track collision, resolve collision for all agents using decentralized mpc-icbf controller, save cbf data and time to goal for each agents in a csv file with pretrained weights trained with 4 agents. For pretrained weights see [models](https://github.com/abj247/MA-ICBF/tree/master/models). The evaluation will output the safety rate, number of deadlocks, time taken to complete the simulation. After the simulation ends the output gif will be saved. The evaluation results after completing the simulation will be in the format shown below:
 
 
 ``` python
@@ -82,7 +82,7 @@ Deadlocked agents (MA-ICBF): 2.0000
 
 ### Running Baselines
 
-The [baselines](https://github.com/abj247/MA-ICBF/tree/master/baselines) contains the baselines used in the research for comparison. This includes the control barrier function approaches and MARL algortihms used in the work for comaprative studies.
+The [baselines](https://github.com/abj247/MA-ICBF/tree/master/baselines) contains the baselines used in the research for comparison. This includes the CBF based learning approaches and MARL algortihms used in the work for comparative studies.
 
 
 ### If you find our work useful, please cite us
@@ -98,7 +98,7 @@ The [baselines](https://github.com/abj247/MA-ICBF/tree/master/baselines) contain
 
 ### Acknowledgement
 
-This work is inspired and build upon the work from [macbf](https://github.com/MIT-REALM/macbf) which is the implementation of  [Learning Safe Multi-Agent Control with Decentralized Neural Barrier Certificates](https://arxiv.org/abs/2101.05436). The compute resource for this work is taken from the University of Virginia, Department of Computer Science cluster.
+This work is inspired and build upon the work from [macbf](https://github.com/MIT-REALM/macbf) which is the implementation of [Learning Safe Multi-Agent Control with Decentralized Neural Barrier Certificates](https://arxiv.org/abs/2101.05436). The computational resources for this work are taken from the University of Virginia, Department of Computer Science.
 
 
 ### Reference Links
