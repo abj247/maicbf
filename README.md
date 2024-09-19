@@ -56,7 +56,20 @@ For evaluation of ma-icbf model use this command,
 ```bash
 python eval.py --num_agents 1024 --model_path models/agile_u_max_0.2/model_ours_weight_1.0_agents_4_v_max_0.2_u_max_0.2_sigma_0.05_default_iter_69999  --env Maze --vis 1
 ```
-This will evaluate the model for 1024 agents and will detect deadlock, resolve deadlock track collision, resolve collision for all agents using mpc-cbf controller save cbf data and time to goal for each agents in a csv file with pretrained wieights trained with 4 agents. For pretrained weights see [models](https://github.com/abj247/MA-ICBF/tree/master/models). The evaluation will output the safety rate, number of deadlocks, time taken to complete the simulation. After the simulation ends the output gif will be saved.
+This will evaluate the model for 1024 agents and will detect deadlock, resolve deadlock track collision, resolve collision for all agents using mpc-cbf controller save cbf data and time to goal for each agents in a csv file with pretrained wieights trained with 4 agents. For pretrained weights see [models](https://github.com/abj247/MA-ICBF/tree/master/models). The evaluation will output the safety rate, number of deadlocks, time taken to complete the simulation. After the simulation ends the output gif will be saved. The evaluation results after completing the simulation is depicted below:
+
+
+``` python
+GIF saved at: trajectory\ma-icbf_trajectory_16_agents.gif
+Evaluation Step: 1 | 1, Time: 5.7216, Deadlocked Agents: 4.0000
+Total Number of Collisions : 0.0
+collision tracking data saved!!!
+Accuracy: [0.97641134, 0.9999202, 0.9374962, 0.9967269, 0.9942482, 2.5885205, 14.096791]
+Distance Error (MA-ICBF): 0.6942
+Mean Safety Ratio (MA-ICBF): 1.0000
+Deadlocked agents (MA-ICBF): 4.0000 
+
+```
 
 
 ### Running Baselines
