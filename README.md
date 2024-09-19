@@ -98,7 +98,7 @@ Robot Learning. PMLR, 2020, pp. 590–602.[pdf](https://arxiv.org/pdf/1911.00025
 
 
 
-### Cite
+### Cite Us
 ```
 @article{zinage2024decentralized,
   title={Decentralized Safe and Scalable Multi-Agent Control under Limited Actuation},
