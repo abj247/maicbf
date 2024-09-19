@@ -608,7 +608,7 @@ def main():
     print_accuracy(accuracy_lists)
     print('Distance Error (MA-ICBF ): {:.4f}'.format(
           np.mean(dist_errors)))
-    print('Mean Safety Ratio (MA-ICBF ): {:.4f}'.format(
+    print('Mean Safety Rate (MA-ICBF ): {:.4f}'.format(
           np.mean(safety_ratios_epoch)))
     print('Deadlocked agents (MA-ICBF ): {:.4f}'.format(
           np.mean(deadlock_info)))  
