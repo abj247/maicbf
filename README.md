@@ -80,7 +80,7 @@ Deadlocked agents (MA-ICBF): 2.0000
 The [baselines](https://github.com/abj247/MA-ICBF/tree/master/baselines) contains the baselines used in the research for comparison. This includes the control barrier function approaches and MARL algortihms used in the work for comaprative studies.
 
 
-# If you find our work useful, please cite us
+### If you find our work useful, please cite us
 ```
 @article{zinage2024decentralized,
   title={Decentralized Safe and Scalable Multi-Agent Control under Limited Actuation},
