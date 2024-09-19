@@ -97,3 +97,15 @@ Robot Learning. PMLR, 2020, pp. 590–602.[pdf](https://arxiv.org/pdf/1911.00025
 4. S. Zhang, K. Garg, and C. Fan, “Neural graph control barrier functions guided distributed collision-avoidance multi-agent control,” in Conference on robot learning. PMLR, 2023, pp. 2373–2392.[pdf](https://arxiv.org/pdf/2311.13014)
 
 
+
+### Cite
+```
+@article{zinage2024decentralized,
+  title={Decentralized Safe and Scalable Multi-Agent Control under Limited Actuation},
+  author={Zinage, Vrushabh and Jha, Abhishek and Chandra, Rohan and Bakolas, Efstathios},
+  journal={arXiv preprint arXiv:2409.09573},
+  year={2024}
+}
+```
+
+
