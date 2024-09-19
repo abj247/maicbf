@@ -22,14 +22,20 @@
   <div align="center"></div>
 </p>
 
-<div style="display: flex; justify-content: center; align-items: center; gap: 20px;">
-    <div>
-        <img src="./trajectory/maze_2.gif" alt="First GIF" width="300" height="300">
-    </div>
-    <div>
-        <img src="./trajectory/ours_trajectory_16_agents_empty_itr_06_fps_10_trailing_random.gif" alt="Second GIF" width="300" height="300">
-    </div>
-</div>
+ <div class="columns is-centered has-text-centered">
+  <div class="column">
+    <figure class="image">
+      <img src="./static/images/ours_trajectory_16_agents_empty_itr_06_fps_10_trailing_random.gif" alt="16 empty agents">
+      <figcaption>Empty Environment</figcaption>
+    </figure>
+  </div>
+  <div class="column">
+    <figure class="image">
+      <img src="./static/images/maze_2.gif" alt="maze 16 agents">
+      <figcaption>Maze Environment</figcaption>
+    </figure>
+  </div>
+</div> 
 
 ## Abstract:
 
