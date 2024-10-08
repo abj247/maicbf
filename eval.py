@@ -445,7 +445,7 @@ def main():
         print(iscollision)
 
         collision_resolved_count = 0
-        mpc_cbf_trigger_count = 0  # Counter for MPC-CBF triggers
+        mpc_icbf_trigger_count = 0  # Counter for MPC-ICBF triggers
         previous_iscollision = iscollision.copy()
         collision_pairs = set((i, j) for i in range(iscollision.shape[0]) for j in range(i + 1, iscollision.shape[1]) if iscollision[i, j] == 1)
 
